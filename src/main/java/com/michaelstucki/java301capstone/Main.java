@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class Main extends Application {
@@ -14,7 +13,7 @@ public class Main extends Application {
         final double GOLDEN_RATIO = 1.618;
         final double height = 650;
         final double width = height * GOLDEN_RATIO;
-        Font herculanum = Font.loadFont(getClass().getResourceAsStream("/fonts/HerculanumLTProRoman.TTF"), 10);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/HerculanumLTProRoman.TTF"), 10);
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/landing.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
         stage.setTitle("Hello!");
