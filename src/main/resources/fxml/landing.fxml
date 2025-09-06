@@ -5,12 +5,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Hyperlink?>
+<VBox stylesheets="@../css/landing.css" alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.michaelstucki.java301capstone.Controller">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets top="40.0" right="20.0" bottom="80.0" left="20.0" />
     </padding>
+    <ImageView fitHeight="350" fitWidth="350" preserveRatio="true">
+        <Image url="@../images/trireme.png"/>
+    </ImageView>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml">
+        <Hyperlink text="login" onAction="#loginClick" fx:id="login"/>
+        <Hyperlink text="create account" onAction="#createAccountClick" fx:id="createAccount"/>
+        <Hyperlink text="forgot password" onAction="#forgotPasswordloginClick" fx:id="forgotPassword"/>
+    </VBox>
 </VBox>

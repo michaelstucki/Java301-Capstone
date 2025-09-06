@@ -1,14 +1,25 @@
 package com.michaelstucki.java301capstone;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 
 public class Controller {
+    public Hyperlink login;
+    public Hyperlink createAccount;
+    public Hyperlink forgotPassword;
     @FXML
     private Label welcomeText;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    public void loginClick() {
+        System.out.println("login clicked");
+    }
+
+    public void createAccountClick() {
+        System.out.println("create account clicked");
+    }
+
+    public void forgotPasswordloginClick() {
+        System.out.println("forgot password clicked");
     }
 }

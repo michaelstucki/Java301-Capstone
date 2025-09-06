@@ -1,0 +1,15 @@
+.root {
+    -fx-font-size: 18px;
+}
+
+
+.hyperlink {
+    -fx-font-family: "Herculanum LT Pro Roman";
+    -fx-text-fill: grey;
+    -fx-underline: false;
+    -fx-border-color: transparent;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: black;
+}
