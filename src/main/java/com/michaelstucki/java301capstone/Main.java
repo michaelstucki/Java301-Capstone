@@ -1,5 +1,6 @@
 package com.michaelstucki.java301capstone;
 
+import com.michaelstucki.java301capstone.constants.Constants;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,13 +11,13 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        final double GOLDEN_RATIO = 1.618;
-        final double height = 650;
-        final double width = height * GOLDEN_RATIO;
         Font.loadFont(getClass().getResourceAsStream("/fonts/HerculanumLTProRoman.TTF"), 10);
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/landing.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), width, height);
-        stage.setTitle("Hello!");
+        Font.loadFont(getClass().getResourceAsStream("/fonts/EBGaramond-Regular.ttf"), 10);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/EBGaramond-Italic.ttf"), 10);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/EBGaramond-Bold.ttf"), 10);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/home.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Constants.width, Constants.height);
+        stage.setTitle("Home");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

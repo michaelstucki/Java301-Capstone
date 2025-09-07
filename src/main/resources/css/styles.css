@@ -1,0 +1,46 @@
+.root {
+    -fx-font-size: 18px;
+    -fx-font-family: 'Herculanum LT Pro Roman';
+}
+
+.hyperlink {
+    -fx-text-fill: grey;
+    -fx-underline: false;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #222E50;
+}
+
+#pageTitle {
+    -fx-font-size: 18px;
+}
+
+.button {
+    -fx-font-family: 'EB Garamond';
+    -fx-font-size: 14px;
+    -fx-background-color: grey;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #222E50;
+    -fx-text-fill: #EDF7F6;
+}
+
+.text-field, .password-field .prompt-field {
+    -fx-font-family: 'EB Garamond';
+    -fx-text-fill: grey;
+    -fx-font-size: 16px;
+    -fx-font-style: italic;
+}
+
+.prompt-label {
+    -fx-font-family: 'EB Garamond';
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
