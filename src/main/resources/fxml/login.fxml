@@ -45,11 +45,10 @@
                 </ImageView>
             </StackPane>
         </VBox>
+
+        <Label fx:id="loginMessage"/>
+        <Button text="Sign In" onAction="#signInClick"/>
     </VBox>
-
-    <Label fx:id="loginMessage"/>
-
-    <Button text="Sign In" onAction="#signInClick"/>
 
     <VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml">
         <Hyperlink text="home" onAction="#homeClick" fx:id="home"/>
