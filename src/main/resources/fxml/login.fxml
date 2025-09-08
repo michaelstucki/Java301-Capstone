@@ -12,16 +12,17 @@
 <?import javafx.scene.control.PasswordField?>
 
 <VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.michaelstucki.java301capstone.Controller">
+      fx:controller="com.michaelstucki.java301capstone.controller.ControllerLogin">
     <padding>
         <Insets top="40.0" right="20.0" bottom="120.0" left="20.0" />
     </padding>
 
-    <ImageView fitHeight="250" fitWidth="250" preserveRatio="true">
-        <Image url="@../images/trireme.png"/>
-    </ImageView>
-
-    <Label fx:id="pageTitle" text="login"/>
+    <StackPane>
+        <ImageView fitHeight="250" fitWidth="250" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+            <Image url="@../images/trireme.png"/>
+        </ImageView>
+        <Label fx:id="pageTitle" text="login" StackPane.alignment="BOTTOM_CENTER"/>
+    </StackPane>
 
     <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml">
         <padding>
@@ -36,7 +37,7 @@
         <VBox spacing="5.0" xmlns:fx="http://javafx.com/fxml">
             <Label text="Password" styleClass="prompt-label"/>
             <StackPane alignment="CENTER_LEFT">
-                <PasswordField fx:id="passwordField" promptText="Enter password..." />
+                <PasswordField fx:id="passwordField" promptText="Enter password..."/>
                 <TextField fx:id="password" visible="false" />
                 <ImageView fx:id="eyeIcon" fitHeight="25" fitWidth="25" StackPane.alignment="CENTER_RIGHT"
                            onMouseClicked="#togglePasswordVisibility">
@@ -45,6 +46,8 @@
             </StackPane>
         </VBox>
     </VBox>
+
+    <Label fx:id="loginMessage"/>
 
     <Button text="Sign In" onAction="#signInClick"/>
 

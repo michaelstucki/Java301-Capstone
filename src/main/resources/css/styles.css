@@ -44,3 +44,10 @@
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
+
+#loginMessage {
+    -fx-font-family: 'EB Garamond';
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}

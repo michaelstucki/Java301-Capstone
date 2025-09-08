@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.Hyperlink?>
-<VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.michaelstucki.java301capstone.Controller">
+
+<VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.michaelstucki.java301capstone.controller.ControllerHome">
     <padding>
         <Insets top="40.0" right="20.0" bottom="80.0" left="20.0" />
     </padding>
     <ImageView fitHeight="350" fitWidth="350" preserveRatio="true">
         <Image url="@../images/trireme.png"/>
     </ImageView>
-
-    <VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml">
-        <Hyperlink text="login" onAction="#loginClick" fx:id="login"/>
-        <Hyperlink text="create account" onAction="#createAccountClick" fx:id="createAccount"/>
-        <Hyperlink text="forgot password" onAction="#forgotPasswordClick" fx:id="forgotPassword"/>
-    </VBox>
+    <Hyperlink text="login" onAction="#loginClick" fx:id="login"/>
+    <Hyperlink text="create account" onAction="#createAccountClick" fx:id="createAccount"/>
+    <Hyperlink text="forgot password" onAction="#forgotPasswordClick" fx:id="forgotPassword"/>
 </VBox>
