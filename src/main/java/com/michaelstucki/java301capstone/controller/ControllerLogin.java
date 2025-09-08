@@ -41,15 +41,13 @@ public class ControllerLogin {
         String badpw = "???";
 
         if (!username.getText().equals(baduser)) {
-            loginMessage.setText("Unrecognized user!");
-        }
-        if (!username.getText().equals(baduser)) {
-            loginMessage.setText("Unrecognized user!");
+            loginMessage.setText("unrecognized username!");
+        } else if (!username.getText().equals(baduser)) {
+            loginMessage.setText("invalid password!");
         }
     }
 
     public void homeClick(ActionEvent event) throws IOException {
-        System.out.println("homeClick clicked");
         sceneManager.showView("/fxml/home.fxml", "Home");
     }
 
@@ -79,7 +77,6 @@ public class ControllerLogin {
     }
 
     public void initialize() {
-        System.out.println("initialize");
         sceneManager = SceneManager.getScreenManager();
         password.textProperty().bindBidirectional(passwordField.textProperty());
     }

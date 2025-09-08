@@ -8,7 +8,6 @@ public class ControllerHome {
     private SceneManager sceneManager;
 
     public void loginClick(ActionEvent event) throws IOException {
-        System.out.println("loginClick clicked");
         sceneManager.showView("/fxml/login.fxml", "Login");
     }
 
@@ -21,7 +20,6 @@ public class ControllerHome {
     }
 
     public void initialize() {
-        System.out.println("initialize");
         sceneManager = SceneManager.getScreenManager();
     }
 }
