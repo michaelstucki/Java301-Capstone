@@ -48,6 +48,6 @@
 #loginMessage {
     -fx-font-family: 'EB Garamond';
     -fx-text-fill: red;
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
     -fx-font-style: italic;
 }
