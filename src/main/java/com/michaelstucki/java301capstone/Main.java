@@ -1,5 +1,6 @@
 package com.michaelstucki.java301capstone;
 
+import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.application.Application;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;

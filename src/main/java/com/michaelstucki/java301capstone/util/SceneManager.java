@@ -1,5 +1,6 @@
-package com.michaelstucki.java301capstone;
+package com.michaelstucki.java301capstone.util;
 
+import com.michaelstucki.java301capstone.Main;
 import com.michaelstucki.java301capstone.constants.Constants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,8 +26,8 @@ public final class SceneManager {
             if (scene == null) {
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlPath));
                 scene = new Scene(fxmlLoader.load(), Constants.width, Constants.height);
-                stage.setScene(scene);
                 sceneCache.put(fxmlPath, scene);
+                stage.setScene(scene);
             }
             stage.setScene(scene);
             stage.setTitle(title);

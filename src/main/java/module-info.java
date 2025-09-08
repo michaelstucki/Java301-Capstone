@@ -8,4 +8,6 @@ module com.michaelstucki.java301capstone {
     exports com.michaelstucki.java301capstone;
     exports com.michaelstucki.java301capstone.controller;
     opens com.michaelstucki.java301capstone.controller to javafx.fxml;
+    exports com.michaelstucki.java301capstone.util;
+    opens com.michaelstucki.java301capstone.util to javafx.fxml;
 }

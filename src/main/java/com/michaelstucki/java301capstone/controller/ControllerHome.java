@@ -1,6 +1,6 @@
 package com.michaelstucki.java301capstone.controller;
 
-import com.michaelstucki.java301capstone.SceneManager;
+import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 

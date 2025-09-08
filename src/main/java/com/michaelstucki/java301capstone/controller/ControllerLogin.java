@@ -1,6 +1,6 @@
 package com.michaelstucki.java301capstone.controller;
 
-import com.michaelstucki.java301capstone.SceneManager;
+import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -47,18 +47,6 @@ public class ControllerLogin {
         }
     }
 
-    public void homeClick(ActionEvent event) throws IOException {
-        sceneManager.showView("/fxml/home.fxml", "Home");
-    }
-
-    public void createAccountClick() {
-        System.out.println("createAccount clicked");
-    }
-
-    public void forgotPasswordClick() {
-        System.out.println("forgotPassword clicked");
-    }
-
     public void togglePasswordVisibility() {
         if (passwordVisible) {
             passwordField.setText(password.getText()); // Sync text
@@ -74,6 +62,18 @@ public class ControllerLogin {
                     getResourceAsStream("/images/eye_open.jpg"))));
         }
         passwordVisible = !passwordVisible;
+    }
+
+    public void homeClick(ActionEvent event) throws IOException {
+        sceneManager.showView("/fxml/home.fxml", "Home");
+    }
+
+    public void createAccountClick() {
+        System.out.println("createAccount clicked");
+    }
+
+    public void forgotPasswordClick() {
+        System.out.println("forgotPassword clicked");
     }
 
     public void initialize() {
