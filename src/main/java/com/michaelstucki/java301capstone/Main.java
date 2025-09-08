@@ -14,6 +14,7 @@ public class Main extends Application {
         Font.loadFont(getClass().getResourceAsStream("/fonts/EBGaramond-Bold.ttf"), 10);
         SceneManager screenManager = SceneManager.getScreenManager();
         screenManager.setStage(stage);
+        screenManager.showView("/fxml/login.fxml", "Home");
         screenManager.showView("/fxml/home.fxml", "Home");
         stage.setResizable(false);
         stage.show();
