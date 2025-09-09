@@ -25,24 +25,13 @@ public class ControllerLogin {
 
     public void signInClick() {
         System.out.println("signInClick account clicked");
-        username.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
-        });
-
-        password.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
-        });
-
-        passwordField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
-        });
 
         String baduser = "xxx";
         String badpw = "???";
 
         if (!username.getText().equals(baduser)) {
             loginMessage.setText("unrecognized username!");
-        } else if (!username.getText().equals(baduser)) {
+        } else if (!username.getText().equals(badpw)) {
             loginMessage.setText("invalid password!");
         }
     }
@@ -65,6 +54,7 @@ public class ControllerLogin {
     }
 
     public void homeClick(ActionEvent event) throws IOException {
+        loginMessage.setText("");
         sceneManager.showView("/fxml/home.fxml", "Home");
     }
 
@@ -79,5 +69,16 @@ public class ControllerLogin {
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
         password.textProperty().bindBidirectional(passwordField.textProperty());
+        username.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            loginMessage.setText("");
+        });
+
+        password.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            loginMessage.setText("");
+        });
+
+        passwordField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            loginMessage.setText("");
+        });
     }
 }

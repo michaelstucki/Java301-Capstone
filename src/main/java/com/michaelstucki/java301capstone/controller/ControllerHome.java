@@ -12,7 +12,7 @@ public class ControllerHome {
     }
 
     public void createAccountClick() {
-        System.out.println("createAccount clicked");
+        System.out.println("createAccountClick clicked");
     }
 
     public void forgotPasswordClick() {
