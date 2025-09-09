@@ -55,7 +55,7 @@ public class ControllerLogin {
 
     public void homeClick(ActionEvent event) throws IOException {
         loginMessage.setText("");
-        sceneManager.showView("/fxml/home.fxml", "Home");
+        sceneManager.showView("/fxml/home.fxml", "home");
     }
 
     public void createAccountClick() {

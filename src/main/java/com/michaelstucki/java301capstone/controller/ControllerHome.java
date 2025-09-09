@@ -8,7 +8,7 @@ public class ControllerHome {
     private SceneManager sceneManager;
 
     public void loginClick(ActionEvent event) throws IOException {
-        sceneManager.showView("/fxml/login.fxml", "Login");
+        sceneManager.showView("/fxml/login.fxml", "login");
     }
 
     public void createAccountClick() {

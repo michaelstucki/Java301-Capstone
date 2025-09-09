@@ -1,5 +1,6 @@
 package com.michaelstucki.java301capstone;
 
+import com.michaelstucki.java301capstone.constants.Constants;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.application.Application;
 import javafx.scene.text.Font;
@@ -9,14 +10,10 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Font.loadFont(getClass().getResourceAsStream("/fonts/HerculanumLTProRoman.TTF"), 10);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/EBGaramond-Regular.ttf"), 10);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/EBGaramond-Italic.ttf"), 10);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/EBGaramond-Bold.ttf"), 10);
+        for (String f : Constants.fonts) Font.loadFont(getClass().getResourceAsStream("/fonts/" + f), 10);
         SceneManager screenManager = SceneManager.getScreenManager();
         screenManager.setStage(stage);
-        screenManager.showView("/fxml/login.fxml", "Login");
-        screenManager.showView("/fxml/home.fxml", "Home");
+        for (String f: Constants.fxmls) screenManager.showView("/fxml/" + f + ".fxml", f);
         stage.setResizable(false);
         stage.show();
     }
