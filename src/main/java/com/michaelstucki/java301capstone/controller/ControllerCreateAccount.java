@@ -8,30 +8,31 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.io.IOException;
 import java.util.Objects;
 
-public class ControllerLogin {
-    public Hyperlink createAccount;
-    public Hyperlink forgotPassword;
+public class ControllerCreateAccount {
     public TextField username;
     public TextField password;
     public PasswordField passwordField;
     public ImageView eyeIcon;
     public Label loginMessage;
+    public PasswordField passwordRetype;
+    public TextField securityAnswer;
+    public Hyperlink login;
     private boolean passwordVisible = false;
     private SceneManager sceneManager;
 
-    public void signInClick() {
-        System.out.println("signInClick account clicked");
+    public void createAccountClick() {
+        System.out.println("createAccountClick clicked");
 
-        String baduser = "xxx";
-        String badpw = "???";
+        String user = "xxx";
 
-        if (!username.getText().equals(baduser)) {
-            loginMessage.setText("unrecognized username!");
-        } else if (!password.getText().equals(badpw)) {
-            loginMessage.setText("invalid password!");
+        if (username.getText().equals(user)) {
+            loginMessage.setText("username is taken!");
+        } else if (!passwordRetype.getText().equals(password.getText())) {
+            loginMessage.setText("passwords do not match!");
+        } else if (securityAnswer.getText().isEmpty()) {
+            loginMessage.setText("security question not answered!");
         }
     }
 
@@ -52,14 +53,8 @@ public class ControllerLogin {
         passwordVisible = !passwordVisible;
     }
 
-    public void createAccountClick() {
-        System.out.println("createAccount clicked");
-        sceneManager.showView("/fxml/create_account.fxml");
-    }
-
-    public void forgotPasswordClick() {
-        System.out.println("forgotPassword clicked");
-        sceneManager.showView("/fxml/forgot_password.fxml");
+    public void loginClick(ActionEvent event) {
+        sceneManager.showView("/fxml/login.fxml");
     }
 
     public void initialize() {
@@ -74,6 +69,14 @@ public class ControllerLogin {
         });
 
         passwordField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            loginMessage.setText("");
+        });
+
+        passwordRetype.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            loginMessage.setText("");
+        });
+
+        securityAnswer.focusedProperty().addListener((observable, oldValue, newValue) -> {
             loginMessage.setText("");
         });
     }

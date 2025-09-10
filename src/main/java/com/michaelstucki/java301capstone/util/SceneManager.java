@@ -20,7 +20,7 @@ public final class SceneManager {
 
     public void setStage(Stage stage) { this.stage = stage; }
 
-    public void showView(String fxmlPath, String title) {
+    public void showView(String fxmlPath) {
         try {
             Scene scene = sceneCache.get(fxmlPath);
             if (scene == null) {
