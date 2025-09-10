@@ -1,7 +1,6 @@
 package com.michaelstucki.java301capstone.controller;
 
 import com.michaelstucki.java301capstone.util.SceneManager;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -27,7 +26,7 @@ public class ControllerForgotPassword {
         }
     }
 
-    public void loginClick(ActionEvent event) {
+    public void loginClick() {
         sceneManager.showView("/fxml/login.fxml");
     }
 
