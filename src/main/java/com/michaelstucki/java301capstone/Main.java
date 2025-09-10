@@ -10,10 +10,10 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        for (String f : Constants.fonts) Font.loadFont(getClass().getResourceAsStream("/fonts/" + f), 10);
+        for (String font : Constants.fonts) Font.loadFont(getClass().getResourceAsStream("/fonts/" + font), 10);
         SceneManager screenManager = SceneManager.getScreenManager();
         screenManager.setStage(stage);
-        for (String f: Constants.fxmls) screenManager.showView("/fxml/" + f + ".fxml", f);
+        for (String fxml: Constants.fxmls) screenManager.showView("/fxml/" + fxml + ".fxml", fxml);
         stage.setResizable(false);
         stage.show();
     }
