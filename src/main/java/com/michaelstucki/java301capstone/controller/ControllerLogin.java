@@ -14,7 +14,6 @@ import java.util.Objects;
 public class ControllerLogin {
     public Hyperlink createAccount;
     public Hyperlink forgotPassword;
-    public Hyperlink home;
     public TextField username;
     public TextField password;
     public PasswordField passwordField;
@@ -51,11 +50,6 @@ public class ControllerLogin {
                     getResourceAsStream("/images/eye_open.jpg"))));
         }
         passwordVisible = !passwordVisible;
-    }
-
-    public void homeClick(ActionEvent event) throws IOException {
-        loginMessage.setText("");
-        sceneManager.showView("/fxml/home.fxml", "home");
     }
 
     public void createAccountClick() {
