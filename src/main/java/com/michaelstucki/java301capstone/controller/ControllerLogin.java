@@ -31,7 +31,7 @@ public class ControllerLogin {
 
         if (!username.getText().equals(baduser)) {
             loginMessage.setText("unrecognized username!");
-        } else if (!username.getText().equals(badpw)) {
+        } else if (!password.getText().equals(badpw)) {
             loginMessage.setText("invalid password!");
         }
     }

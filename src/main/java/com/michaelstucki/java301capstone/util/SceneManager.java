@@ -30,7 +30,7 @@ public final class SceneManager {
                 stage.setScene(scene);
             }
             stage.setScene(scene);
-            stage.setTitle(title);
+//            stage.setTitle(title);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

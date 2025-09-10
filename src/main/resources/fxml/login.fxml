@@ -11,23 +11,24 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.PasswordField?>
 
-<VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+<VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="5.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.michaelstucki.java301capstone.controller.ControllerLogin">
     <padding>
-        <Insets top="40.0" right="20.0" bottom="120.0" left="20.0" />
+        <Insets top="30.0" right="20.0" bottom="190.0" left="20.0" />
     </padding>
 
-    <StackPane>
-        <ImageView fitHeight="250" fitWidth="250" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+    <VBox alignment="CENTER" spacing="5.0" xmlns:fx="http://javafx.com/fxml">
+        <ImageView fitWidth="350" preserveRatio="true">
             <Image url="@../images/trireme.png"/>
         </ImageView>
-        <Label fx:id="pageTitle" text="login" StackPane.alignment="BOTTOM_CENTER"/>
-    </StackPane>
+    </VBox>
 
-    <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml">
+    <VBox alignment="CENTER" spacing="15.0" xmlns:fx="http://javafx.com/fxml">
         <padding>
-            <Insets top="10.0" right="370.0" bottom="10.0" left="370.0" />
+            <Insets top="10.0" right="270.0" bottom="10.0" left="270.0" />
         </padding>
+
+        <Label fx:id="pageTitle" text="login"/>
 
         <VBox spacing="5.0" xmlns:fx="http://javafx.com/fxml">
             <Label text="Username" styleClass="prompt-label"/>
@@ -48,10 +49,6 @@
 
         <Label fx:id="loginMessage"/>
         <Button text="Sign In" onAction="#signInClick"/>
-    </VBox>
-
-    <VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml">
-        <Hyperlink text="home" onAction="#homeClick" fx:id="home"/>
         <Hyperlink text="create account" onAction="#createAccountClick" fx:id="createAccount"/>
         <Hyperlink text="forgot password" onAction="#forgotPasswordClick" fx:id="forgotPassword"/>
     </VBox>
