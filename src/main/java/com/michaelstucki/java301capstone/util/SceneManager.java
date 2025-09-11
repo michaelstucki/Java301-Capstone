@@ -27,7 +27,6 @@ public final class SceneManager {
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlPath));
                 scene = new Scene(fxmlLoader.load(), Constants.width, Constants.height);
                 sceneCache.put(fxmlPath, scene);
-                stage.setScene(scene);
             }
             stage.setScene(scene);
         } catch (IOException e) {
