@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.Objects;
+import javafx.scene.paint.Color;
 
 public class ControllerCreateAccount {
     public TextField username;
@@ -26,12 +27,19 @@ public class ControllerCreateAccount {
 
         String user = "xxx";
 
-        if (username.getText().equals(user)) {
+        if (username.getText().isEmpty()) {
+            loginMessage.setText("username not entered!");
+        } else if (username.getText().equals(user)) {
             loginMessage.setText("username is taken!");
+        } else if (password.getText().isEmpty()) {
+            loginMessage.setText("password not entered!");
         } else if (!passwordRetype.getText().equals(password.getText())) {
             loginMessage.setText("passwords do not match!");
         } else if (securityAnswer.getText().isEmpty()) {
             loginMessage.setText("security question not answered!");
+        } else {
+            loginMessage.setTextFill(Color.BLUE);
+            loginMessage.setText("account created!");
         }
     }
 
@@ -53,6 +61,12 @@ public class ControllerCreateAccount {
     }
 
     public void loginClick() {
+        username.setText("");
+        password.setText("");
+        passwordRetype.setText("");
+        securityAnswer.setText("");
+        loginMessage.setText("");
+        loginMessage.setTextFill(Color.RED);
         sceneManager.showView("/fxml/login.fxml");
     }
 
