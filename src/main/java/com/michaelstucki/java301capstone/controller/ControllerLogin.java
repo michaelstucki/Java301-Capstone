@@ -32,6 +32,8 @@ public class ControllerLogin {
             loginMessage.setText("unrecognized username!");
         } else if (!password.getText().equals(badpw)) {
             loginMessage.setText("invalid password!");
+        } else {
+            clearInputs();
         }
     }
 
@@ -54,12 +56,19 @@ public class ControllerLogin {
 
     public void createAccountClick() {
         System.out.println("createAccount clicked");
+        clearInputs();
         sceneManager.showView("/fxml/create_account.fxml");
     }
 
     public void forgotPasswordClick() {
         System.out.println("forgotPassword clicked");
+        clearInputs();
         sceneManager.showView("/fxml/forgot_password.fxml");
+    }
+
+    private void clearInputs() {
+        username.setText("");
+        password.setText("");
     }
 
     public void initialize() {

@@ -40,6 +40,7 @@ public class ControllerCreateAccount {
         } else {
             loginMessage.setTextFill(Color.BLUE);
             loginMessage.setText("account created!");
+            clearInputs();
         }
     }
 
@@ -61,13 +62,17 @@ public class ControllerCreateAccount {
     }
 
     public void loginClick() {
+        clearInputs();
+        sceneManager.showView("/fxml/login.fxml");
+    }
+
+    private void clearInputs() {
         username.setText("");
         password.setText("");
         passwordRetype.setText("");
         securityAnswer.setText("");
         loginMessage.setText("");
         loginMessage.setTextFill(Color.RED);
-        sceneManager.showView("/fxml/login.fxml");
     }
 
     public void initialize() {

@@ -29,15 +29,20 @@ public class ControllerForgotPassword {
         } else {
             loginMessage.setTextFill(Color.BLUE);
             loginMessage.setText("password: " + pw);
+            clearInputs();
         }
     }
 
     public void loginClick() {
+        clearInputs();
+        sceneManager.showView("/fxml/login.fxml");
+    }
+
+    private void clearInputs() {
         username.setText("");
         securityAnswer.setText("");
         loginMessage.setText("");
         loginMessage.setTextFill(Color.RED);
-        sceneManager.showView("/fxml/login.fxml");
     }
 
     public void initialize() {
