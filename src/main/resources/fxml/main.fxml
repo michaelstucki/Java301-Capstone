@@ -20,8 +20,8 @@
     <ListView fx:id="decksView" layoutX="10.0" layoutY="10.0">
         <ContextMenu fx:id="itemContextMenu">
             <items>
-                <MenuItem text="Open" onAction="#open"/>
-                <MenuItem text="Delete" onAction="#delete"/>
+                <MenuItem fx:id="open" text="open"/>
+                <MenuItem fx:id="delete" text="delete"/>
             </items>
         </ContextMenu>
     </ListView>

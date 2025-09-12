@@ -5,13 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
-import javafx.util.Callback;
+import javafx.scene.control.cell.TextFieldListCell;
 
 public class ControllerMain {
+    @FXML
+    private MenuItem open;
+    @FXML
+    private MenuItem delete;
     @FXML
     private ContextMenu itemContextMenu;
     @FXML
@@ -26,35 +28,30 @@ public class ControllerMain {
         items = FXCollections.observableArrayList("A", "B", "C", "D", "E", "F", "G", "H",
             "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z"
                 );
+
         decksView.setItems(items);
-        decksView.setCellFactory(new Callback<>() {
-            @Override
-            public ListCell<String> call(ListView<String> listView) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                            setGraphic(null);
-                            setContextMenu(null);
-                        } else {
-                            setText(item);
-                            setContextMenu(itemContextMenu);
-                        }
-                    }
-                };
+        decksView.setContextMenu(itemContextMenu);
+        delete.setOnAction(event -> {
+                    String selectedItem = decksView.getSelectionModel().getSelectedItem();
+                    decksView.getItems().remove(selectedItem);
+                });
+
+        decksView.setEditable(true);
+        decksView.setCellFactory(TextFieldListCell.forListView());
+        decksView.setOnEditCommit(event -> {
+            System.out.println("setOnEditCommit...");
+            int index = event.getIndex();
+            String newValue = event.getNewValue();
+            if (!decksView.getItems().contains(newValue)) {
+                decksView.getItems().set(index, newValue);
             }
         });
     }
 
     public void open(ActionEvent event) {
         System.out.println("open deck");
-    }
-
-    public void delete(ActionEvent event) {
         String selectedItem = decksView.getSelectionModel().getSelectedItem();
-        decksView.getItems().remove(selectedItem);
+        System.out.println("selected: " + selectedItem);
     }
 
     public void exitClick() {

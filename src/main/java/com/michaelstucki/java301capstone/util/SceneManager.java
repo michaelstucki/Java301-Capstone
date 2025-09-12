@@ -35,7 +35,6 @@ public final class SceneManager {
     }
 
     public void exit() {
-        System.out.println("exiting...");
         stage.close();
     }
 }

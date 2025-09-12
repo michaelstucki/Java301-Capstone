@@ -7,7 +7,7 @@
     -fx-text-fill: grey;
     -fx-underline: false;
     -fx-border-color: transparent;
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
 }
 
 .hyperlink:hover {
@@ -31,7 +31,7 @@
 }
 
 #pageTitle {
-    -fx-font-size: 18px;
+    -fx-font-size: 24px;
 }
 
 .text-field, .password-field .prompt-field, StackPane {
