@@ -71,6 +71,10 @@ public class ControllerLogin {
         password.setText("");
     }
 
+    public void exitClick() {
+        sceneManager.exit();
+    }
+
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
         password.textProperty().bindBidirectional(passwordField.textProperty());
@@ -86,4 +90,5 @@ public class ControllerLogin {
             loginMessage.setText("");
         });
     }
+
 }

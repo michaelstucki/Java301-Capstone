@@ -11,33 +11,20 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Hyperlink?>
 
-<VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="5.0" xmlns:fx="http://javafx.com/fxml"
+<VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.michaelstucki.java301capstone.controller.ControllerCreateAccount">
     <padding>
-        <Insets top="30.0" right="20.0" bottom="190.0" left="20.0" />
+        <Insets top="30.0" right="20.0" bottom="100.0" left="20.0" />
     </padding>
-
-    <VBox alignment="CENTER" spacing="5.0" xmlns:fx="http://javafx.com/fxml">
-        <ImageView fitWidth="350" preserveRatio="true">
-            <Image url="@../images/trireme.png"/>
-        </ImageView>
-    </VBox>
 
     <VBox alignment="CENTER" spacing="15.0" xmlns:fx="http://javafx.com/fxml">
         <padding>
             <Insets top="10.0" right="240.0" bottom="10.0" left="240.0" />
         </padding>
 
-        <Label fx:id="pageTitle" text="create account"/>
-
+        <TextField fx:id="username" promptText="Username"/>
         <VBox spacing="5.0" xmlns:fx="http://javafx.com/fxml">
-            <Label text="Username" styleClass="prompt-label"/>
-            <TextField fx:id="username" promptText="Enter your username..."/>
-        </VBox>
-
-        <VBox spacing="5.0" xmlns:fx="http://javafx.com/fxml">
-            <Label text="Password" styleClass="prompt-label"/>
-            <StackPane alignment="CENTER_LEFT">
+            <StackPane>
                 <PasswordField fx:id="passwordField" promptText="Enter password..."/>
                 <TextField fx:id="password" visible="false" />
                 <ImageView fx:id="eyeIcon" fitHeight="25" fitWidth="25" StackPane.alignment="CENTER_RIGHT"
@@ -47,20 +34,19 @@
             </StackPane>
         </VBox>
 
-        <VBox spacing="5.0" xmlns:fx="http://javafx.com/fxml">
-            <Label text="Retype Password" styleClass="prompt-label"/>
-            <StackPane alignment="CENTER_LEFT">
-                <PasswordField fx:id="passwordRetype" promptText="Enter password..."/>
-            </StackPane>
-        </VBox>
+<!--        <VBox spacing="5.0" xmlns:fx="http://javafx.com/fxml">-->
+<!--            <StackPane alignment="CENTER_LEFT">-->
+                <PasswordField fx:id="passwordRetype" promptText="Password"/>
+<!--            </StackPane>-->
+<!--        </VBox>-->
 
-        <VBox spacing="5.0" xmlns:fx="http://javafx.com/fxml">
-            <Label text="Security Question" styleClass="prompt-label"/>
-            <TextField fx:id="securityAnswer" promptText="What's your favorite color?"/>
+        <TextField fx:id="securityAnswer" promptText="What's your favorite color?"/>
+
+        <VBox alignment="CENTER" spacing="10">
+            <Button text="Create Account" onAction="#createAccountClick"/>
+            <Hyperlink text="login" onAction="#loginClick" fx:id="login"/>
         </VBox>
 
         <Label fx:id="loginMessage"/>
-        <Button text="Create Account" onAction="#createAccountClick"/>
-        <Hyperlink text="login" onAction="#loginClick" fx:id="login"/>
     </VBox>
 </VBox>

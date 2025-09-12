@@ -7,7 +7,7 @@
     -fx-text-fill: grey;
     -fx-underline: false;
     -fx-border-color: transparent;
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
 }
 
 .hyperlink:hover {
@@ -35,11 +35,14 @@
     -fx-font-size: 18px;
 }
 
-.text-field, .password-field .prompt-field {
+.text-field, .password-field .prompt-field, StackPane {
     -fx-font-family: 'EB Garamond';
     -fx-text-fill: grey;
     -fx-font-size: 16px;
     -fx-font-style: italic;
+    -fx-pref-width: 250px;
+    -fx-max-width: 250px;
+    -fx-min-width: 250px;
 }
 
 .prompt-label {
