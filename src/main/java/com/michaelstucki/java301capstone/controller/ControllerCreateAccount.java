@@ -1,7 +1,7 @@
 package com.michaelstucki.java301capstone.controller;
 
 import com.michaelstucki.java301capstone.util.SceneManager;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -12,14 +12,26 @@ import java.util.Objects;
 import javafx.scene.paint.Color;
 
 public class ControllerCreateAccount {
-    public TextField username;
-    public TextField password;
-    public PasswordField passwordField;
-    public ImageView eyeIcon;
-    public Label loginMessage;
-    public PasswordField passwordRetype;
-    public TextField securityAnswer;
-    public Hyperlink login;
+    @FXML
+    private TextField username;
+    @FXML
+    private TextField password;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private ImageView eyeIcon;
+    @FXML
+    private Label loginMessage;
+    @FXML
+    private PasswordField passwordRetype;
+    @FXML
+    private TextField securityAnswer;
+    @FXML
+    private Hyperlink login;
+    @FXML
+    private Hyperlink home;
+    @FXML
+    private Hyperlink exit;
     private boolean passwordVisible = false;
     private SceneManager sceneManager;
 
@@ -62,9 +74,9 @@ public class ControllerCreateAccount {
         passwordVisible = !passwordVisible;
     }
 
-    public void loginClick() {
+    public void homeClick() {
         clearInputs();
-        sceneManager.showView("/fxml/login.fxml");
+        sceneManager.showView("/fxml/home.fxml");
     }
 
     private void clearInputs() {

@@ -1,24 +1,29 @@
 package com.michaelstucki.java301capstone.controller;
 
 import com.michaelstucki.java301capstone.util.SceneManager;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.io.IOException;
+
 import java.util.Objects;
 
-public class ControllerLogin {
-    public Hyperlink createAccount;
-    public Hyperlink forgotPassword;
-    public TextField username;
-    public TextField password;
-    public PasswordField passwordField;
-    public ImageView eyeIcon;
-    public Label loginMessage;
+public class ControllerHome {
+    @FXML
+    public Hyperlink exit;
+    @FXML
+    private TextField username;
+    @FXML
+    private TextField password;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private ImageView eyeIcon;
+    @FXML
+    private Label loginMessage;
     private boolean passwordVisible = false;
     private SceneManager sceneManager;
 
@@ -90,5 +95,4 @@ public class ControllerLogin {
             loginMessage.setText("");
         });
     }
-
 }

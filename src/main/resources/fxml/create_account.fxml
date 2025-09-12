@@ -11,7 +11,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Hyperlink?>
 
-<VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="25.0" xmlns:fx="http://javafx.com/fxml"
+<VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.michaelstucki.java301capstone.controller.ControllerCreateAccount">
     <padding>
         <Insets top="30.0" right="20.0" bottom="100.0" left="20.0" />
@@ -19,6 +19,7 @@
 
     <Label fx:id="pageTitle" text="create account"/>
     <TextField fx:id="username" promptText="Username" focusTraversable="false"/>
+
     <StackPane>
         <PasswordField fx:id="passwordField" promptText="Password" focusTraversable="false"/>
         <TextField fx:id="password" visible="false" />
@@ -27,14 +28,15 @@
             <Image url="@../images/eye_closed.jpg" />
         </ImageView>
     </StackPane>
-    <PasswordField fx:id="passwordRetype" promptText="Password" focusTraversable="false"/>
 
+    <PasswordField fx:id="passwordRetype" promptText="Password" focusTraversable="false"/>
     <TextField fx:id="securityAnswer" promptText="What's your favorite color?" focusTraversable="false"/>
     <Button text="Create Account" onAction="#createAccountClick"/>
 
     <VBox alignment="CENTER" spacing="10">
-        <Hyperlink text="login" onAction="#loginClick" fx:id="login"/>
+        <Hyperlink text="home" onAction="#homeClick" fx:id="home"/>
         <Hyperlink text="exit" onAction="#exitClick" fx:id="exit"/>
     </VBox>
+
     <Label fx:id="loginMessage"/>
 </VBox>

@@ -1,14 +1,23 @@
 package com.michaelstucki.java301capstone.controller;
 
 import com.michaelstucki.java301capstone.util.SceneManager;
+import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 public class ControllerForgotPassword {
-    public TextField username;
-    public Label loginMessage;
-    public TextField securityAnswer;
+    @FXML
+    private TextField username;
+    @FXML
+    private Label loginMessage;
+    @FXML
+    private TextField securityAnswer;
+    @FXML
+    private Hyperlink home;
+    @FXML
+    private Hyperlink exit;
     private SceneManager sceneManager;
 
     public void recoverPasswordClick() {
@@ -35,7 +44,7 @@ public class ControllerForgotPassword {
 
     public void loginClick() {
         clearInputs();
-        sceneManager.showView("/fxml/login.fxml");
+        sceneManager.showView("/fxml/home.fxml");
     }
 
     private void clearInputs() {
@@ -43,6 +52,10 @@ public class ControllerForgotPassword {
         securityAnswer.setText("");
         loginMessage.setText("");
         loginMessage.setTextFill(Color.RED);
+    }
+
+    public void exitClick() {
+        sceneManager.exit();
     }
 
     public void initialize() {

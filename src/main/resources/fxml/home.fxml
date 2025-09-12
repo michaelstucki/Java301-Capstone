@@ -11,8 +11,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.PasswordField?>
 
-<VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="25.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.michaelstucki.java301capstone.controller.ControllerLogin">
+<VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.michaelstucki.java301capstone.controller.ControllerHome">
     <padding>
         <Insets top="30.0" right="20.0" bottom="100.0" left="20.0" />
     </padding>
@@ -21,8 +21,9 @@
         <Image url="@../images/trireme.png"/>
     </ImageView>
 
-    <Label fx:id="pageTitle" text="login"/>
+    <Label fx:id="pageTitle" text="home"/>
     <TextField fx:id="username" promptText="Username" focusTraversable="false"/>
+
     <StackPane>
         <PasswordField fx:id="passwordField" promptText="Password" focusTraversable="false"/>
         <TextField fx:id="password" visible="false" />
@@ -33,6 +34,7 @@
     </StackPane>
 
     <Button text="Sign In" onAction="#signInClick"/>
+
     <VBox alignment="CENTER" spacing="5">
         <Hyperlink text="forgot password?" onAction="#forgotPasswordClick" fx:id="forgotPassword"/>
         <Hyperlink text="create account?" onAction="#createAccountClick" fx:id="createAccount"/>
