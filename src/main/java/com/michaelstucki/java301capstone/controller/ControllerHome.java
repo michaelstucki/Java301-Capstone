@@ -28,18 +28,19 @@ public class ControllerHome {
     private SceneManager sceneManager;
 
     public void signInClick() {
-        System.out.println("signInClick account clicked");
+        sceneManager.showView("/fxml/main.fxml");
 
-        String baduser = "xxx";
-        String badpw = "???";
-
-        if (!username.getText().equals(baduser)) {
-            loginMessage.setText("unrecognized username!");
-        } else if (!password.getText().equals(badpw)) {
-            loginMessage.setText("invalid password!");
-        } else {
-            clearInputs();
-        }
+//        String baduser = "xxx";
+//        String badpw = "???";
+//
+//        if (!username.getText().equals(baduser)) {
+//            loginMessage.setText("unrecognized username!");
+//        } else if (!password.getText().equals(badpw)) {
+//            loginMessage.setText("invalid password!");
+//        } else {
+//            clearInputs();
+//        }
+//        sceneManager.showView("/fxml/main.fxml");
     }
 
     public void togglePasswordVisibility() {

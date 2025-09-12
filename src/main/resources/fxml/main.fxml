@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox stylesheets="@../css/styles.css" alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.michaelstucki.java301capstone.controller.ControllerMain" style="-fx-border-color: red; -fx-border-width: 5;">
+    <padding>
+        <Insets top="1.0" right="100.0" bottom="100.0" left="100.0" />
+    </padding>
+
+    <StackPane style="-fx-border-color: blue; -fx-border-width: 5;">
+        <ImageView fitWidth="150" fitHeight="150" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+            <Image url="@../images/trireme.png"/>
+        </ImageView>
+    </StackPane>
+
+    <Label fx:id="pageTitle" text="decks"/>
+
+    <ListView fx:id="decksView" layoutX="10.0" layoutY="10.0" style="-fx-border-color: green; -fx-border-width: 5;"/>
+</VBox>

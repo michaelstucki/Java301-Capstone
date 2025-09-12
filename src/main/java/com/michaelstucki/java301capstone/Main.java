@@ -18,7 +18,7 @@ public class Main extends Application {
         stage.show();
 
         stage.setOnCloseRequest(event -> {
-            System.out.println("exiting...");
+            screenManager.exit();
         });
     }
 
