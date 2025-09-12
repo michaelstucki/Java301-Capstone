@@ -1,6 +1,7 @@
 package com.michaelstucki.java301capstone.controller;
 
 import com.michaelstucki.java301capstone.util.SceneManager;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -73,6 +74,10 @@ public class ControllerCreateAccount {
         securityAnswer.setText("");
         loginMessage.setText("");
         loginMessage.setTextFill(Color.RED);
+    }
+
+    public void exitClick() {
+        sceneManager.exit();
     }
 
     public void initialize() {
