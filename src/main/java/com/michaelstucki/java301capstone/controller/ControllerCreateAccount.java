@@ -26,12 +26,6 @@ public class ControllerCreateAccount {
     private PasswordField passwordRetype;
     @FXML
     private TextField securityAnswer;
-    @FXML
-    private Hyperlink login;
-    @FXML
-    private Hyperlink home;
-    @FXML
-    private Hyperlink exit;
     private boolean passwordVisible = false;
     private SceneManager sceneManager;
 

@@ -14,10 +14,6 @@ public class ControllerForgotPassword {
     private Label loginMessage;
     @FXML
     private TextField securityAnswer;
-    @FXML
-    private Hyperlink home;
-    @FXML
-    private Hyperlink exit;
     private SceneManager sceneManager;
 
     public void recoverPasswordClick() {
