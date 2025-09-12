@@ -33,7 +33,7 @@
     <TextField fx:id="securityAnswer" promptText="What's your favorite color?" focusTraversable="false"/>
     <Button text="Create Account" onAction="#createAccountClick"/>
 
-    <VBox alignment="CENTER" spacing="10">
+    <VBox alignment="CENTER" spacing="5">
         <Hyperlink text="home" onAction="#homeClick" fx:id="home"/>
         <Hyperlink text="exit" onAction="#exitClick" fx:id="exit"/>
     </VBox>
