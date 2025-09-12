@@ -31,21 +31,28 @@ public class ControllerMain {
 
         decksView.setItems(items);
         decksView.setContextMenu(itemContextMenu);
+
+        // Delete action
         delete.setOnAction(event -> {
                     String selectedItem = decksView.getSelectionModel().getSelectedItem();
                     decksView.getItems().remove(selectedItem);
                 });
 
+        // Rename action (does not allow duplicate names)
         decksView.setEditable(true);
         decksView.setCellFactory(TextFieldListCell.forListView());
         decksView.setOnEditCommit(event -> {
-            System.out.println("setOnEditCommit...");
             int index = event.getIndex();
             String newValue = event.getNewValue();
-            if (!decksView.getItems().contains(newValue)) {
+            if (!containsIgnoreCase(newValue)) {
                 decksView.getItems().set(index, newValue);
             }
         });
+    }
+
+    private boolean containsIgnoreCase(String searchString) {
+        if (searchString == null) return false;
+        return decksView.getItems().stream().anyMatch(item -> item.equalsIgnoreCase(searchString));
     }
 
     public void open(ActionEvent event) {
