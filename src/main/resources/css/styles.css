@@ -7,15 +7,15 @@
     -fx-text-fill: grey;
     -fx-underline: false;
     -fx-border-color: transparent;
-    -fx-font-size: 14px;
+    -fx-font-size: 12px;
 }
 
 .hyperlink:hover {
-    -fx-text-fill: #222E50;
+    -fx-text-fill: #002642;
 }
 
-#pageTitle {
-    -fx-font-size: 18px;
+.button:hover {
+    -fx-background-color: #002642;
 }
 
 .button {
@@ -24,11 +24,15 @@
     -fx-background-color: grey;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+    -fx-background-color: grey;
 }
 
-.button:hover {
-    -fx-background-color: #222E50;
-    -fx-text-fill: #EDF7F6;
+.text-field:hover {
+    -fx-border-color: #002642;
+}
+
+#pageTitle {
+    -fx-font-size: 18px;
 }
 
 .text-field, .password-field .prompt-field {

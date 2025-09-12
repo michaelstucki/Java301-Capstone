@@ -16,6 +16,10 @@ public class Main extends Application {
         for (String fxml: Constants.fxmls) screenManager.showView("/fxml/" + fxml + ".fxml");
         stage.setResizable(false);
         stage.show();
+
+        stage.setOnCloseRequest(event -> {
+            System.out.println("exiting...");
+        });
     }
 
     public static void main(String[] args) {
