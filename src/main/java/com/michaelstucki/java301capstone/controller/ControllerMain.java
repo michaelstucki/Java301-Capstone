@@ -26,8 +26,7 @@ public class ControllerMain {
         sceneManager = SceneManager.getScreenManager();
 
         items = FXCollections.observableArrayList("A", "B", "C", "D", "E", "F", "G", "H",
-            "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z"
-                );
+            "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
 
         decksView.setItems(items);
         decksView.setContextMenu(itemContextMenu);
@@ -44,9 +43,7 @@ public class ControllerMain {
         decksView.setOnEditCommit(event -> {
             int index = event.getIndex();
             String newValue = event.getNewValue();
-            if (!containsIgnoreCase(newValue)) {
-                decksView.getItems().set(index, newValue);
-            }
+            if (!containsIgnoreCase(newValue)) decksView.getItems().set(index, newValue);
         });
     }
 
