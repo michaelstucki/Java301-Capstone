@@ -43,7 +43,9 @@ public class ControllerMain {
         decksView.setOnEditCommit(event -> {
             int index = event.getIndex();
             String newValue = event.getNewValue();
-            if (!containsIgnoreCase(newValue)) decksView.getItems().set(index, newValue);
+            if (!containsIgnoreCase(newValue) && !newValue.trim().isEmpty()) {
+                decksView.getItems().set(index, newValue);
+            }
         });
     }
 
