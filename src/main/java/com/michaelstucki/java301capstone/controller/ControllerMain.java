@@ -43,14 +43,13 @@ public class ControllerMain {
         decksView.setOnEditCommit(event -> {
             int index = event.getIndex();
             String newValue = event.getNewValue();
-            if (!containsIgnoreCase(newValue) && !newValue.trim().isEmpty()) {
+            if (!newValue.trim().isEmpty() && !containsIgnoreCase(newValue)) {
                 decksView.getItems().set(index, newValue);
             }
         });
     }
 
     private boolean containsIgnoreCase(String searchString) {
-        if (searchString == null) return false;
         return decksView.getItems().stream().anyMatch(item -> item.equalsIgnoreCase(searchString));
     }
 
