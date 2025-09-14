@@ -2,7 +2,6 @@ package com.michaelstucki.java301capstone.controller;
 
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -11,7 +10,7 @@ public class ControllerForgotPassword {
     @FXML
     private TextField username;
     @FXML
-    private Label loginMessage;
+    private Label userMessage;
     @FXML
     private TextField securityAnswer;
     private SceneManager sceneManager;
@@ -24,16 +23,16 @@ public class ControllerForgotPassword {
         String pw = "5xGollum";
 
         if (username.getText().isEmpty()) {
-            loginMessage.setText("username not entered!");
+            userMessage.setText("username not entered!");
         } else if (!username.getText().equals(user)) {
-            loginMessage.setText("username does not exist!");
+            userMessage.setText("username does not exist!");
         } else if (securityAnswer.getText().isEmpty()) {
-            loginMessage.setText("security answer not entered!");
+            userMessage.setText("security answer not entered!");
         } else if (!securityAnswer.getText().equals(answer)) {
-            loginMessage.setText("security answer is incorrect!");
+            userMessage.setText("security answer is incorrect!");
         } else {
-            loginMessage.setTextFill(Color.BLUE);
-            loginMessage.setText("password: " + pw);
+            userMessage.setTextFill(Color.GREEN);
+            userMessage.setText("password: " + pw);
             clearInputs();
         }
     }
@@ -46,8 +45,8 @@ public class ControllerForgotPassword {
     private void clearInputs() {
         username.setText("");
         securityAnswer.setText("");
-        loginMessage.setText("");
-        loginMessage.setTextFill(Color.RED);
+        userMessage.setText("");
+        userMessage.setTextFill(Color.RED);
     }
 
     public void exitClick() {
@@ -57,11 +56,11 @@ public class ControllerForgotPassword {
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
         username.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
+            userMessage.setText("");
         });
 
         securityAnswer.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
+            userMessage.setText("");
         });
     }
 }

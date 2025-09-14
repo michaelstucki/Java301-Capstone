@@ -21,7 +21,7 @@ public class ControllerCreateAccount {
     @FXML
     private ImageView eyeIcon;
     @FXML
-    private Label loginMessage;
+    private Label userMessage;
     @FXML
     private PasswordField passwordRetype;
     @FXML
@@ -35,18 +35,18 @@ public class ControllerCreateAccount {
         String user = "xxx";
 
         if (username.getText().isEmpty()) {
-            loginMessage.setText("username not entered!");
+            userMessage.setText("username not entered!");
         } else if (username.getText().equals(user)) {
-            loginMessage.setText("username is taken!");
+            userMessage.setText("username is taken!");
         } else if (password.getText().isEmpty()) {
-            loginMessage.setText("password not entered!");
+            userMessage.setText("password not entered!");
         } else if (!passwordRetype.getText().equals(password.getText())) {
-            loginMessage.setText("passwords do not match!");
+            userMessage.setText("passwords do not match!");
         } else if (securityAnswer.getText().isEmpty()) {
-            loginMessage.setText("security question not answered!");
+            userMessage.setText("security question not answered!");
         } else {
-            loginMessage.setTextFill(Color.BLUE);
-            loginMessage.setText("account created!");
+            userMessage.setTextFill(Color.GREEN);
+            userMessage.setText("account created!");
             clearInputs();
         }
     }
@@ -78,8 +78,8 @@ public class ControllerCreateAccount {
         password.setText("");
         passwordRetype.setText("");
         securityAnswer.setText("");
-        loginMessage.setText("");
-        loginMessage.setTextFill(Color.RED);
+        userMessage.setText("");
+        userMessage.setTextFill(Color.RED);
     }
 
     public void exitClick() {
@@ -90,23 +90,23 @@ public class ControllerCreateAccount {
         sceneManager = SceneManager.getScreenManager();
         password.textProperty().bindBidirectional(passwordField.textProperty());
         username.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
+            userMessage.setText("");
         });
 
         password.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
+            userMessage.setText("");
         });
 
         passwordField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
+            userMessage.setText("");
         });
 
         passwordRetype.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
+            userMessage.setText("");
         });
 
         securityAnswer.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
+            userMessage.setText("");
         });
     }
 }

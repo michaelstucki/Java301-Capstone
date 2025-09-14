@@ -23,24 +23,24 @@ public class ControllerHome {
     @FXML
     private ImageView eyeIcon;
     @FXML
-    private Label loginMessage;
+    private Label userMessage;
     private boolean passwordVisible = false;
     private SceneManager sceneManager;
 
     public void signInClick() {
-        sceneManager.showView("/fxml/main.fxml");
-
-//        String baduser = "xxx";
-//        String badpw = "???";
+        sceneManager.showView("/fxml/decks.fxml");
 //
-//        if (!username.getText().equals(baduser)) {
-//            loginMessage.setText("unrecognized username!");
-//        } else if (!password.getText().equals(badpw)) {
-//            loginMessage.setText("invalid password!");
+//        String user = "ccc";
+//        String pw = "111";
+//
+//        if (!username.getText().equals(user)) {
+//            userMessage.setText("unrecognized username!");
+//        } else if (!password.getText().equals(pw)) {
+//            userMessage.setText("invalid password!");
 //        } else {
 //            clearInputs();
+//            sceneManager.showView("/fxml/decks.fxml");
 //        }
-//        sceneManager.showView("/fxml/main.fxml");
     }
 
     public void togglePasswordVisibility() {
@@ -85,15 +85,15 @@ public class ControllerHome {
         sceneManager = SceneManager.getScreenManager();
         password.textProperty().bindBidirectional(passwordField.textProperty());
         username.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
+            userMessage.setText("");
         });
 
         password.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
+            userMessage.setText("");
         });
 
         passwordField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            loginMessage.setText("");
+            userMessage.setText("");
         });
     }
 }

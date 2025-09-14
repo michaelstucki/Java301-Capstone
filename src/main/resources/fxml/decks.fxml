@@ -15,7 +15,7 @@
         <Image url="@../images/trireme.png"/>
     </ImageView>
 
-    <Label fx:id="pageTitle" text="decks"/>
+    <Label text="decks"/>
 
     <ListView fx:id="decksView" layoutX="10.0" layoutY="10.0">
         <ContextMenu fx:id="itemContextMenu">
@@ -26,8 +26,11 @@
         </ContextMenu>
     </ListView>
 
-    <VBox alignment="CENTER" spacing="5">
-        <Hyperlink text="exit" onAction="#exitClick" fx:id="exit"/>
-    </VBox>
+    <HBox alignment="CENTER" spacing="10">
+        <TextField fx:id="deckTitle" promptText="deck title" focusTraversable="false"/>
+        <Button text="Add" onAction="#addDeck"/>
+    </HBox>
 
+    <Label fx:id="userMessage"/>
+    <Hyperlink text="exit" onAction="#exitClick"/>
 </VBox>
