@@ -4,6 +4,8 @@ import static com.michaelstucki.java301capstone.constants.Constants.*;
 import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -64,6 +66,18 @@ public class ControllerCards {
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
         cardsView.setContextMenu(itemContextMenu);
+
+        // Select card
+        cardsView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                String[] tokens = newValue.split(cardToken);
+                String frontStr = tokens[1];
+                String backStr = tokens[2];
+                front.setText(frontStr);
+                back.setText(backStr);
+            }
+        });
 
         // Delete card
         delete.setOnAction(event -> {
