@@ -43,10 +43,5 @@ public final class SceneManager {
             System.out.println(e.getMessage());
         }
     }
-
-//    public void setDecks(Map<String, Deck> decks) { this.decks = decks; }
-//    public Map<String, Deck> getDecks() { return decks; }
-//    public void setSelectedDeck(Deck selectedDeck) { this.selectedDeck = selectedDeck; }
-//    public Deck getSelectedDeck() { return selectedDeck; }
     public void exit() { stage.close(); }
 }
