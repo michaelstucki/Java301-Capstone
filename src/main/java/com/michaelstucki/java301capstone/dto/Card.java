@@ -1,5 +1,6 @@
 package com.michaelstucki.java301capstone.dto;
 
+import static com.michaelstucki.java301capstone.constants.Constants.*;
 import java.time.LocalDate;
 
 public class Card {
@@ -94,5 +95,5 @@ public class Card {
     }
 
     @Override
-    public String toString() { return front + " : " + back; }
+    public String toString() { return front + cardToken + back; }
 }

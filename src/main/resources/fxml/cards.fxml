@@ -35,7 +35,12 @@
         <VBox alignment="CENTER" spacing="10">
             <padding><Insets topRightBottomLeft="20"/></padding>
             <ListView fx:id="cardsView" layoutX="10.0" layoutY="10.0">
-                <tooltip><Tooltip text="Click card to see front and back"/></tooltip>
+                <tooltip><Tooltip text="Click card to see front and back. Right-click to Delete."/></tooltip>
+                <ContextMenu fx:id="itemContextMenu">
+                    <items>
+                        <MenuItem fx:id="delete" text="delete"/>
+                    </items>
+                </ContextMenu>
             </ListView>
         </VBox>
     </SplitPane>

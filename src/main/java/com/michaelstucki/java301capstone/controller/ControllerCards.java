@@ -1,15 +1,18 @@
 package com.michaelstucki.java301capstone.controller;
 
+import static com.michaelstucki.java301capstone.constants.Constants.*;
 import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 
 public class ControllerCards {
+    @FXML
+    private MenuItem delete;
+    @FXML
+    private ContextMenu itemContextMenu;
     @FXML
     private Label deckName;
     @FXML
@@ -34,7 +37,9 @@ public class ControllerCards {
         if (!front.getText().trim().isEmpty() && !back.getText().trim().isEmpty()) {
             Card card = new Card(front.getText(), back.getText());
             deck.addCard(card);
-            cardsView.getItems().add(card.toString());
+            cardsView.getItems().add(Integer.toString(card.getId()) + cardToken + card.toString());
+            front.clear();
+            back.clear();
         }
     }
 
@@ -58,6 +63,17 @@ public class ControllerCards {
     @FXML
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
+        cardsView.setContextMenu(itemContextMenu);
+
+        // Delete card
+        delete.setOnAction(event -> {
+            String selectedItem = cardsView.getSelectionModel().getSelectedItem();
+            String[] tokens = selectedItem.split(cardToken);
+            int id = Integer.parseInt((tokens[0]));
+            deck.deleteCard(id);
+            cardsView.getItems().remove(selectedItem);
+        });
+
 //        deckTitle.focusedProperty().addListener((observable, oldValue, newValue) -> {
 //            userMessage.setText("");
 //        });

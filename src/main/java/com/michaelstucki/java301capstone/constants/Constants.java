@@ -11,5 +11,6 @@ public final class Constants {
     public static final String[] fonts = {"HerculanumLTProRoman.TTF", "EBGaramond-Regular.ttf",
             "EBGaramond-Italic.ttf", "EBGaramond-Bold.ttf"};
     public static final String[] fxmls = {"cards", "decks", "forgot_password", "create_account", "home"};
+    public static final String cardToken = "::";
     private Constants() {}
 }

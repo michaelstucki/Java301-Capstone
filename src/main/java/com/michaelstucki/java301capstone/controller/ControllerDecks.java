@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.paint.Color;
+import static com.michaelstucki.java301capstone.constants.Constants.*;
 
 public class ControllerDecks {
     @FXML

@@ -1,7 +1,7 @@
 package com.michaelstucki.java301capstone.util;
 
 import com.michaelstucki.java301capstone.Main;
-import com.michaelstucki.java301capstone.constants.Constants;
+import static com.michaelstucki.java301capstone.constants.Constants.*;
 import com.michaelstucki.java301capstone.controller.ControllerCards;
 import com.michaelstucki.java301capstone.dto.Deck;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +27,7 @@ public final class SceneManager {
         try {
             if (!sceneCache.containsKey(fxmlPath)) {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlPath));
-                Scene scene = new Scene(loader.load(), Constants.width, Constants.height);
+                Scene scene = new Scene(loader.load(), width, height);
                 sceneCache.put(fxmlPath, scene);
                 loaderCache.put(fxmlPath, loader);
             }
