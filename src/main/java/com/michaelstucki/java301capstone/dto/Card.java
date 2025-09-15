@@ -13,8 +13,7 @@ public class Card {
     private int numberOfReviews;
     private int numberOfPasses;
 
-    public Card(int id, String front, String back) {
-        this.id = id;
+    public Card(String front, String back) {
         this.front = front;
         this.back = back;
         creationDate = LocalDate.now();
@@ -22,7 +21,9 @@ public class Card {
 
     public Card(int id, String front, String back, LocalDate creationDate, LocalDate reviewedDate,
                 LocalDate dueDate, int leitnerBox, int numberOfReviews, int numberOfPasses) {
-        this(id, front, back);
+        this.front = front;
+        this.back = back;
+        setId(id);
         setCreationDate(creationDate);
         setReviewedDate(reviewedDate);
         setDueDate(dueDate);
@@ -34,11 +35,11 @@ public class Card {
     public int getId() {
         return id;
     }
+    public void setId(int id) { this.id = id; }
 
     public String getFront() {
         return front;
     }
-
     public void setFront(String front) {
         this.front = front;
     }
@@ -46,7 +47,6 @@ public class Card {
     public String getBack() {
         return back;
     }
-
     public void setBack(String back) {
         this.back = back;
     }
@@ -54,7 +54,6 @@ public class Card {
     public LocalDate getCreationDate() {
         return creationDate;
     }
-
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
@@ -62,7 +61,6 @@ public class Card {
     public LocalDate getReviewedDate() {
         return reviewedDate;
     }
-
     public void setReviewedDate(LocalDate reviewedDate) {
         this.reviewedDate = reviewedDate;
     }
@@ -70,7 +68,6 @@ public class Card {
     public LocalDate getDueDate() {
         return dueDate;
     }
-
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
@@ -78,7 +75,6 @@ public class Card {
     public int getLeitnerBox() {
         return leitnerBox;
     }
-
     public void setLeitnerBox(int leitnerBox) {
         this.leitnerBox = leitnerBox;
     }
@@ -86,7 +82,6 @@ public class Card {
     public int getNumberOfReviews() {
         return numberOfReviews;
     }
-
     public void setNumberOfReviews(int numberOfReviews) {
         this.numberOfReviews = numberOfReviews;
     }
@@ -94,7 +89,6 @@ public class Card {
     public int getNumberOfPasses() {
         return numberOfPasses;
     }
-
     public void setNumberOfPasses(int numberOfPasses) {
         this.numberOfPasses = numberOfPasses;
     }

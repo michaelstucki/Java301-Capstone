@@ -27,6 +27,8 @@ public class ControllerHome {
     private boolean passwordVisible = false;
     private SceneManager sceneManager;
 
+    public void init() {}
+
     public void signInClick() {
         sceneManager.showView("/fxml/decks.fxml");
 //

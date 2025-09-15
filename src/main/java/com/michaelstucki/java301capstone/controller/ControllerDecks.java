@@ -1,12 +1,12 @@
 package com.michaelstucki.java301capstone.controller;
 
+import com.michaelstucki.java301capstone.dao.Dao;
+import com.michaelstucki.java301capstone.dao.DaoSQLite;
+import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.paint.Color;
 
@@ -14,7 +14,7 @@ public class ControllerDecks {
     @FXML
     private Label userMessage;
     @FXML
-    private TextField deckTitle;
+    private TextField deckName;
     @FXML
     private MenuItem open;
     @FXML
@@ -24,68 +24,82 @@ public class ControllerDecks {
     @FXML
     private ListView<String> decksView;
     private SceneManager sceneManager;
-    private ObservableList<String> items;
-
-    private boolean containsIgnoreCase(String searchString) {
-        return decksView.getItems().stream().anyMatch(item -> item.equalsIgnoreCase(searchString));
-    }
-
-    public void open(ActionEvent event) {
-        System.out.println("open deck");
-        String selectedItem = decksView.getSelectionModel().getSelectedItem();
-        System.out.println("selected: " + selectedItem);
-    }
+    private Dao dao;
 
     public void addDeck() {
-        String deckDummy = "A";
-        if (deckTitle.getText().equalsIgnoreCase(deckDummy)) {
+        if (deckName.getText().trim().isEmpty()) {
             userMessage.setTextFill(Color.RED);
-            userMessage.setText(deckTitle.getText() + " already exists!");
+            userMessage.setText(deckName.getText() + " deck name not entered!");
+        } else if (containsIgnoreCase(deckName.getText())) {
+            userMessage.setTextFill(Color.RED);
+            userMessage.setText(deckName.getText() + " already exists!");
         } else {
+            Deck deck = new Deck(deckName.getText());
+            dao.addDeck(deck);
             userMessage.setTextFill(Color.GREEN);
-            items.add(deckTitle.getText());
             userMessage.setText("Deck added!");
+            decksView.getItems().add(deckName.getText());
         }
-        deckTitle.setText("");
+        deckName.setText("");
+    }
+
+    private boolean containsIgnoreCase(String searchString) {
+        return decksView.getItems().stream().anyMatch(item ->
+                item.equalsIgnoreCase(searchString));
     }
 
     public void exitClick() {
         sceneManager.exit();
     }
+
     @FXML
     public void initialize() {
+        dao = new DaoSQLite();
         sceneManager = SceneManager.getScreenManager();
-
-        items = FXCollections.observableArrayList("A", "B", "C", "D", "E", "F", "G", "H",
-                "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
-
-        decksView.setItems(items);
+        decksView.setItems(FXCollections.observableArrayList());
         decksView.setContextMenu(itemContextMenu);
 
-        // Delete action
+        // Open deck
+        open.setOnAction(event -> {
+            String selectedItem = decksView.getSelectionModel().getSelectedItem();
+            Deck deck = dao.getDeck(selectedItem);
+            sceneManager.setSharedDeck(deck);
+            sceneManager.showView("/fxml/cards.fxml");
+        });
+
+        // Delete deck
         delete.setOnAction(event -> {
             String selectedItem = decksView.getSelectionModel().getSelectedItem();
+            dao.deleteDeck(selectedItem);
             decksView.getItems().remove(selectedItem);
         });
 
-        // Rename action (does not allow duplicate names)
+        // Rename deck (does not allow duplicate names)
+        // remove selected deck from decks map & put new deck in its place
+        // the deck's cards are unchanged, only the deck's name has changed
+        // since map keys are immutable
         decksView.setEditable(true);
         decksView.setCellFactory(TextFieldListCell.forListView());
         decksView.setOnEditCommit(event -> {
             int index = event.getIndex();
-            String newValue = event.getNewValue();
-            if (!newValue.trim().isEmpty() && !containsIgnoreCase(newValue)) {
-                decksView.getItems().set(index, newValue);
+            String oldName = event.getSource().getSelectionModel().getSelectedItem();
+            String newName = event.getNewValue();
+            if (!newName.trim().isEmpty() && !containsIgnoreCase(newName)) {
+                decksView.getItems().set(index, newName);
+                Deck oldDeck = dao.getDecks().get(oldName);
+                Deck newDeck = new Deck(newName);
+                newDeck.setCards(oldDeck.getCards());
+                dao.deleteDeck(oldName);
+                dao.addDeck(newDeck);
             }
         });
 
-        deckTitle.focusedProperty().addListener((observable, oldValue, newValue) -> {
+        deckName.focusedProperty().addListener((observable, oldValue, newValue) -> {
             userMessage.setText("");
         });
 
         decksView.focusedProperty().addListener((observable, oldValue, newValue) -> {
             userMessage.setText("");
         });
-
     }
 }

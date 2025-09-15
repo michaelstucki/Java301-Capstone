@@ -4,20 +4,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Deck {
-    private String title;
+    private String name;
     private Map<Integer, Card> cards;
+    private int numberOfCards;
 
     public Deck(String title) {
-        this.title = title;
+        this.name = title;
         cards = new HashMap<>();
     }
 
     public void addCard(Card card) {
-        cards.put(card.getId(), card);
+        numberOfCards++;
+        card.setId(numberOfCards);
+        cards.put(numberOfCards, card);
     }
 
-    public String getTitle() { return title; }
+    public void deleteCard(Integer id) {
+        cards.remove(id);
+    }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public Map<Integer, Card> getCards() { return cards; }
+    public void setCards(Map<Integer, Card> cards) { this.cards = cards; }
 
     @Override
-    public String toString() { return title; }
+    public String toString() { return name; }
 }
