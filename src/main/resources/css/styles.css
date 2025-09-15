@@ -7,7 +7,7 @@
     -fx-text-fill: grey;
     -fx-underline: false;
     -fx-border-color: transparent;
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
 }
 
 .hyperlink:hover {
@@ -51,9 +51,31 @@
     -fx-font-weight: bold;
 }
 
-#loginMessage {
+#userMessage {
     -fx-font-family: 'EB Garamond';
     -fx-text-fill: red;
     -fx-font-size: 14px;
     -fx-font-style: italic;
+}
+
+.tooltip {
+    -fx-font-family: 'EB Garamond';
+    -fx-font-size: 12px;
+    -fx-background-color: lightgoldenrodyellow;
+    -fx-text-fill: darkslategray;
+    -fx-border-color: goldenrod;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+}
+
+.text-area {
+    -fx-prev-height: 500px;
+}
+
+.split-pane {
+    -fx-box-border: transparent;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: transparent;
 }

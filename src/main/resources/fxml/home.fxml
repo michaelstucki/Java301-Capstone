@@ -35,5 +35,5 @@
         <Hyperlink text="exit" onAction="#exitClick" fx:id="exit"/>
     </VBox>
 
-    <Label fx:id="loginMessage"/>
+    <Label fx:id="userMessage"/>
 </VBox>
