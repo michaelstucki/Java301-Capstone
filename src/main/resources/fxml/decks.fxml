@@ -18,7 +18,7 @@
     <Label text="decks"/>
 
     <ListView fx:id="decksView" layoutX="10.0" layoutY="10.0">
-        <tooltip><Tooltip text="Right-click to Open, Delete, Drill. Double-click to Rename."/></tooltip>
+        <tooltip><Tooltip text="Right-click to Open, Delete, or Drill. Double-click to Rename."/></tooltip>
         <ContextMenu fx:id="itemContextMenu">
             <items>
                 <MenuItem fx:id="open" text="open"/>
