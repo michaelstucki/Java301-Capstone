@@ -1,12 +1,29 @@
 package com.michaelstucki.java301capstone.controller;
 
+import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.util.Duration;
+
+import java.awt.*;
+import java.time.LocalTime;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class ControllerDrills {
+    @FXML
+    private Label drillOver;
     @FXML
     private Button start;
     @FXML
@@ -21,15 +38,27 @@ public class ControllerDrills {
     private TextArea questionAnswer;
     @FXML
     private Label deckName;
+
     private SceneManager sceneManager;
     private Deck deck;
     private boolean isFront;
-
-    // Demo items
-    private final int totalIterations = 2;
-    private int currentIteration = 0;
+    private String front;
+    private String back;
+    private Queue<Card> queue;
+    private boolean isDrillOver;
 
     public void init(Deck sharedDeck) {
+        if (isDrillOver) {
+            drillOver.setVisible(true);
+            PauseTransition pause = new PauseTransition(Duration.seconds(5));
+            pause.setOnFinished(event -> {
+                drillOver.setVisible(false);
+            });
+            System.out.println(LocalTime.now());
+            pause.play();
+            System.out.println(LocalTime.now());
+            isDrillOver = false;
+        }
         deck = sharedDeck;
         deckName.setText(deck.getName());
         start.setDisable(false);
@@ -37,12 +66,20 @@ public class ControllerDrills {
         next.setDisable(true);
         pass.setDisable(true);
         fail.setDisable(true);
-
-        // Demo
-        currentIteration = 0;
+        isFront = true;
+        questionAnswer.clear();
+        drillOver.setVisible(false);
+        queue.clear();
     }
 
-    public void startClick(ActionEvent event) {
+    private void setupQueue() {
+        // Demo
+        queue.add(new Card("1 + 1", "2"));
+        queue.add(new Card("1 + 2", "3"));
+    }
+
+    public void startClick(ActionEvent event) {//        init(deck);
+        setupQueue();
         start.setDisable(true);
         stop.setDisable(false);
         next.setDisable(false);
@@ -53,15 +90,23 @@ public class ControllerDrills {
     }
 
     public void passClick(ActionEvent event) {
-        System.out.println("passClick");
-        pass.setDisable(true);
-        fail.setDisable(true);
+        Card card = queue.poll();
+        if (queue.isEmpty()) {
+            isDrillOver = true;
+            init(deck);
+        } else {
+            pass.setDisable(true);
+            fail.setDisable(true);
+            next.setDisable(false);
+        }
     }
 
     public void failClick(ActionEvent event) {
-        System.out.println("failClick");
+        Card card = queue.poll();
+        queue.add(card);
         pass.setDisable(true);
         fail.setDisable(true);
+        next.setDisable(false);
     }
 
     public void decksClick() {
@@ -76,11 +121,8 @@ public class ControllerDrills {
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
         questionAnswer.setEditable(false);
+        queue = new ArrayDeque<>();
 
-        // Demo items
-        isFront = true;
-        String front = "front";
-        String back = "back";
         questionAnswer.setText(front);
         questionAnswer.setOnMouseClicked(event -> {
             questionAnswer.setText(isFront ? back : front);
@@ -88,14 +130,16 @@ public class ControllerDrills {
         });
 
         next.setOnAction(event -> {
+            next.setDisable(true);
             pass.setDisable(false);
             fail.setDisable(false);
-            if (currentIteration < totalIterations) {
-                System.out.println("currentIteration: " + currentIteration);
-                currentIteration++;
-                if (currentIteration == totalIterations) {
-                    init(deck);
-                }
+            if (queue.peek() != null) {
+                Card card = queue.peek();
+                front = card.getFront();
+                back = card.getBack();
+                questionAnswer.setText(front);
+            } else {
+                init(deck);
             }
         });
     }

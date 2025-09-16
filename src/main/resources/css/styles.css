@@ -26,6 +26,14 @@
     -fx-text-fill: white;
 }
 
+#pass:hover {
+    -fx-background-color: green;
+}
+
+#fail:hover {
+    -fx-background-color: red;
+}
+
 .text-field:hover {
     -fx-border-color: #002642;
 }
@@ -72,10 +80,9 @@
     -fx-prev-height: 500px;
 }
 
-.split-pane {
-    -fx-box-border: transparent;
-}
-
-.split-pane:horizontal > .split-pane-divider {
-    -fx-background-color: transparent;
+#drillOver {
+    -fx-font-family: 'EB Garamond';
+    -fx-text-fill: #002642;
+    -fx-font-size: 16px;
+    -fx-font-style: italic;
 }
