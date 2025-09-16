@@ -86,7 +86,7 @@ public class ControllerDecks {
             if (selectedItem != null) {
                 Deck deck = dao.getDeck(selectedItem);
                 sceneManager.setSharedDeck(deck);
-                sceneManager.showView("/fxml/drill.fxml");
+                sceneManager.showView("/fxml/drills.fxml");
             }
         });
 

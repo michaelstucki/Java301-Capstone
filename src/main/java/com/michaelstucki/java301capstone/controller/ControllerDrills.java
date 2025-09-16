@@ -1,13 +1,12 @@
 package com.michaelstucki.java301capstone.controller;
 
-import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-public class ControllerDrill {
+public class ControllerDrills {
     @FXML
     private TextArea questionAnswer;
     @FXML

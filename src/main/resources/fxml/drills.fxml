@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 
 <VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.michaelstucki.java301capstone.controller.ControllerDrill">
+      fx:controller="com.michaelstucki.java301capstone.controller.ControllerDrills">
     <padding>
         <Insets right="200.0" bottom="50.0" left="200.0" />
     </padding>
