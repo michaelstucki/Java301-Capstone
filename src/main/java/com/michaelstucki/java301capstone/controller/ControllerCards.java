@@ -30,8 +30,6 @@ public class ControllerCards {
     @FXML
     private TextArea back;
     @FXML
-    private Label userMessage;
-    @FXML
     private ListView<String> cardsView;
     private SceneManager sceneManager;
     private Deck deck;

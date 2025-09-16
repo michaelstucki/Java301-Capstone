@@ -46,7 +46,6 @@
         </VBox>
     </SplitPane>
 
-    <Label fx:id="userMessage"/>
     <Hyperlink text="decks" onAction="#decksClick"/>
     <Hyperlink text="exit" onAction="#exitClick"/>
 </VBox>
