@@ -30,8 +30,8 @@
     <Button text="Sign In" onAction="#signInClick"/>
 
     <VBox alignment="CENTER" spacing="5">
-        <Hyperlink text="forgot password?" onAction="#forgotPasswordClick" fx:id="forgotPassword"/>
-        <Hyperlink text="create account?" onAction="#createAccountClick" fx:id="createAccount"/>
+        <Hyperlink text="forgot password" onAction="#forgotPasswordClick" fx:id="forgotPassword"/>
+        <Hyperlink text="create account" onAction="#createAccountClick" fx:id="createAccount"/>
         <Hyperlink text="exit" onAction="#exitClick" fx:id="exit"/>
     </VBox>
 
