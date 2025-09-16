@@ -3,21 +3,11 @@ package com.michaelstucki.java301capstone.controller;
 import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.util.Duration;
-
-import java.awt.*;
-import java.time.LocalTime;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -45,20 +35,8 @@ public class ControllerDrills {
     private String front;
     private String back;
     private Queue<Card> queue;
-    private boolean isDrillOver;
 
     public void init(Deck sharedDeck) {
-        if (isDrillOver) {
-            drillOver.setVisible(true);
-            PauseTransition pause = new PauseTransition(Duration.seconds(5));
-            pause.setOnFinished(event -> {
-                drillOver.setVisible(false);
-            });
-            System.out.println(LocalTime.now());
-            pause.play();
-            System.out.println(LocalTime.now());
-            isDrillOver = false;
-        }
         deck = sharedDeck;
         deckName.setText(deck.getName());
         start.setDisable(false);
@@ -66,47 +44,61 @@ public class ControllerDrills {
         next.setDisable(true);
         pass.setDisable(true);
         fail.setDisable(true);
-        isFront = true;
-        questionAnswer.clear();
-        drillOver.setVisible(false);
-        queue.clear();
     }
 
     private void setupQueue() {
         // Demo
+        queue.clear();
         queue.add(new Card("1 + 1", "2"));
         queue.add(new Card("1 + 2", "3"));
+        queue.add(new Card("1 + 3", "4"));
     }
 
     public void startClick(ActionEvent event) {//        init(deck);
-        setupQueue();
+        drillOver.setVisible(false);
+        isFront = true;
+        questionAnswer.clear();
         start.setDisable(true);
         stop.setDisable(false);
         next.setDisable(false);
+        pass.setDisable(true);
+        fail.setDisable(true);
+        setupQueue();
     }
 
     public void stopClick(ActionEvent event) {
-        init(deck);
+        questionAnswer.clear();
+        start.setDisable(false);
+        stop.setDisable(true);
+        next.setDisable(true);
+        pass.setDisable(true);
+        fail.setDisable(true);
     }
 
     public void passClick(ActionEvent event) {
+        pass.setDisable(true);
+        fail.setDisable(true);
+        next.setDisable(false);
         Card card = queue.poll();
         if (queue.isEmpty()) {
-            isDrillOver = true;
-            init(deck);
-        } else {
+            next.setDisable(true);
+            stop.setDisable(true);
             pass.setDisable(true);
             fail.setDisable(true);
-            next.setDisable(false);
+            start.setDisable(false);
+            questionAnswer.clear();
+            drillOver.setVisible(true);
         }
     }
 
     public void failClick(ActionEvent event) {
-        Card card = queue.poll();
-        queue.add(card);
         pass.setDisable(true);
         fail.setDisable(true);
         next.setDisable(false);
+        if (!queue.isEmpty()) {
+            Card card = queue.poll();
+            queue.add(card);
+        }
     }
 
     public void decksClick() {
@@ -121,6 +113,7 @@ public class ControllerDrills {
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
         questionAnswer.setEditable(false);
+        drillOver.setVisible(false);
         queue = new ArrayDeque<>();
 
         questionAnswer.setText(front);
@@ -138,8 +131,6 @@ public class ControllerDrills {
                 front = card.getFront();
                 back = card.getBack();
                 questionAnswer.setText(front);
-            } else {
-                init(deck);
             }
         });
     }

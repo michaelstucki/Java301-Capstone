@@ -1,7 +1,5 @@
 package com.michaelstucki.java301capstone.constants;
 
-import com.michaelstucki.java301capstone.util.SceneManager;
-
 public final class Constants {
     private static final double ASPECT_RATIO = 1.1;
     public static final double height = 750;
