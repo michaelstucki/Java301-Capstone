@@ -95,5 +95,5 @@ public class Card {
     }
 
     @Override
-    public String toString() { return front + cardToken + back; }
+    public String toString() { return id + cardToken + front + cardToken + back; }
 }

@@ -19,6 +19,8 @@ public class Deck {
         cards.put(numberOfCards, card);
     }
 
+    public Card getCard(int id) { return cards.get(id); }
+
     public void deleteCard(Integer id) {
         cards.remove(id);
     }

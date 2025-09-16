@@ -38,7 +38,7 @@ public class ControllerDecks {
             Deck deck = new Deck(deckName.getText());
             dao.addDeck(deck);
             userMessage.setTextFill(Color.GREEN);
-            userMessage.setText("Deck added!");
+            userMessage.setText("deck added!");
             decksView.getItems().add(deckName.getText());
         }
         deckName.setText("");
@@ -63,16 +63,20 @@ public class ControllerDecks {
         // Open deck
         open.setOnAction(event -> {
             String selectedItem = decksView.getSelectionModel().getSelectedItem();
-            Deck deck = dao.getDeck(selectedItem);
-            sceneManager.setSharedDeck(deck);
-            sceneManager.showView("/fxml/cards.fxml");
+            if (selectedItem != null) {
+                Deck deck = dao.getDeck(selectedItem);
+                sceneManager.setSharedDeck(deck);
+                sceneManager.showView("/fxml/cards.fxml");
+            }
         });
 
         // Delete deck
         delete.setOnAction(event -> {
             String selectedItem = decksView.getSelectionModel().getSelectedItem();
-            dao.deleteDeck(selectedItem);
-            decksView.getItems().remove(selectedItem);
+            if (selectedItem != null) {
+                dao.deleteDeck(selectedItem);
+                decksView.getItems().remove(selectedItem);
+            }
         });
 
         // Rename deck (does not allow duplicate names)
@@ -85,7 +89,7 @@ public class ControllerDecks {
             int index = event.getIndex();
             String oldName = event.getSource().getSelectionModel().getSelectedItem();
             String newName = event.getNewValue();
-            if (!newName.trim().isEmpty() && !containsIgnoreCase(newName)) {
+            if (newName != null && !newName.trim().isEmpty() && !containsIgnoreCase(newName)) {
                 decksView.getItems().set(index, newName);
                 Deck oldDeck = dao.getDecks().get(oldName);
                 Deck newDeck = new Deck(newName);

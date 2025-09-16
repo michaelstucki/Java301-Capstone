@@ -26,9 +26,8 @@
             <TextArea fx:id="front" prefHeight="500"/>
             <TextArea fx:id="back" prefHeight="500"/>
             <HBox alignment="CENTER" spacing="10">
-                <Button text="New" onAction="#newClick"/>
-                <Button text="Cancel" onAction="#cancelClick"/>
-                <Button text="Edit" onAction="#editClick"/>
+                <Button fx:id="save" text="Save" onAction="#saveClick"/>
+                <Button fx:id="cancel" text="Cancel" onAction="#cancelClick"/>
             </HBox>
         </VBox>
 
@@ -38,6 +37,8 @@
                 <tooltip><Tooltip text="Click card to see front and back. Right-click to Delete."/></tooltip>
                 <ContextMenu fx:id="itemContextMenu">
                     <items>
+                        <MenuItem fx:id="add" text="add"/>
+                        <MenuItem fx:id="edit" text="edit"/>
                         <MenuItem fx:id="delete" text="delete"/>
                     </items>
                 </ContextMenu>

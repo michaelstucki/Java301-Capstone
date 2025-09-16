@@ -12,6 +12,14 @@ import javafx.scene.control.*;
 
 public class ControllerCards {
     @FXML
+    private Button cancel;
+    @FXML
+    private Button save;
+    @FXML
+    private MenuItem add;
+    @FXML
+    private MenuItem edit;
+    @FXML
     private MenuItem delete;
     @FXML
     private ContextMenu itemContextMenu;
@@ -27,6 +35,8 @@ public class ControllerCards {
     private ListView<String> cardsView;
     private SceneManager sceneManager;
     private Deck deck;
+    private String saveMode;
+    private int selectedCardId;
 
     public void init(Deck sharedDeck) {
         deck = sharedDeck;
@@ -35,22 +45,37 @@ public class ControllerCards {
         deck.getCards().forEach((key, value) -> cardsView.getItems().add(value.toString()));
     }
 
-    public void newClick(ActionEvent event) {
+    public void saveClick() {
         if (!front.getText().trim().isEmpty() && !back.getText().trim().isEmpty()) {
-            Card card = new Card(front.getText(), back.getText());
-            deck.addCard(card);
-            cardsView.getItems().add(Integer.toString(card.getId()) + cardToken + card.toString());
-            front.clear();
-            back.clear();
+            Card card;
+            switch (saveMode) {
+                case "add":
+                    card = new Card(front.getText(), back.getText());
+                    deck.addCard(card);
+                    cardsView.getItems().add(card.toString());
+                    break;
+                case "edit":
+                    card = deck.getCard(selectedCardId);
+                    card.setFront(front.getText());
+                    card.setBack(back.getText());
+                    init(deck);
+                    break;
+            }
         }
+        front.setEditable(false);
+        back.setEditable(false);
+        save.setDisable(true);
+        cancel.setDisable(true);
     }
 
     public void cancelClick(ActionEvent event) {
-        System.out.println("cancelClick");
-    }
-
-    public void editClick(ActionEvent event) {
-        System.out.println("editClick");
+        front.clear();
+        back.clear();
+        front.setEditable(false);
+        back.setEditable(false);
+        save.setDisable(true);
+        cancel.setDisable(true);
+        cardsView.requestFocus();
     }
 
     public void decksClick() {
@@ -66,26 +91,64 @@ public class ControllerCards {
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
         cardsView.setContextMenu(itemContextMenu);
+        front.setEditable(false);
+        back.setEditable(false);
+        save.setDisable(true);
+        cancel.setDisable(true);
 
         // Select card
         cardsView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                String[] tokens = newValue.split(cardToken);
-                String frontStr = tokens[1];
-                String backStr = tokens[2];
-                front.setText(frontStr);
-                back.setText(backStr);
+                if (newValue != null) {
+                    String[] tokens = newValue.split(cardToken);
+                    String frontStr = tokens[1];
+                    String backStr = tokens[2];
+                    front.setText(frontStr);
+                    back.setText(backStr);
+                } else {
+                    front.clear();
+                    back.clear();
+                }
+            }
+        });
+
+        // Add card
+        add.setOnAction(event -> {
+            front.clear();
+            back.clear();
+            front.setEditable(true);
+            back.setEditable(true);
+            front.requestFocus();
+            save.setDisable(false);
+            cancel.setDisable(false);
+            saveMode = "add";
+        });
+
+        // Edit card
+        edit.setOnAction(event -> {
+            String selectedItem = cardsView.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                String[] tokens = selectedItem.split(cardToken);
+                selectedCardId = Integer.parseInt((tokens[0]));
+                front.setEditable(true);
+                back.setEditable(true);
+                front.requestFocus();
+                save.setDisable(false);
+                cancel.setDisable(false);
+                saveMode = "edit";
             }
         });
 
         // Delete card
         delete.setOnAction(event -> {
             String selectedItem = cardsView.getSelectionModel().getSelectedItem();
-            String[] tokens = selectedItem.split(cardToken);
-            int id = Integer.parseInt((tokens[0]));
-            deck.deleteCard(id);
-            cardsView.getItems().remove(selectedItem);
+            if (selectedItem != null) {
+                String[] tokens = selectedItem.split(cardToken);
+                int id = Integer.parseInt((tokens[0]));
+                deck.deleteCard(id);
+                cardsView.getItems().remove(selectedItem);
+            }
         });
 
 //        deckTitle.focusedProperty().addListener((observable, oldValue, newValue) -> {
