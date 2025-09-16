@@ -3,6 +3,7 @@ package com.michaelstucki.java301capstone.util;
 import com.michaelstucki.java301capstone.Main;
 import static com.michaelstucki.java301capstone.constants.Constants.*;
 import com.michaelstucki.java301capstone.controller.ControllerCards;
+import com.michaelstucki.java301capstone.controller.ControllerDrill;
 import com.michaelstucki.java301capstone.dto.Deck;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,6 +35,9 @@ public final class SceneManager {
             FXMLLoader loader = loaderCache.get(fxmlPath);
             if (fxmlPath.contains("cards")) {
                 ControllerCards controller = loader.getController();
+                controller.init(sharedDeck);
+            } else if (fxmlPath.contains("drill")) {
+                ControllerDrill controller = loader.getController();
                 controller.init(sharedDeck);
             }
             Scene scene = sceneCache.get(fxmlPath);

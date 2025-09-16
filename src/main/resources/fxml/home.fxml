@@ -11,7 +11,7 @@
         <Insets right="20.0" bottom="100.0" left="20.0" />
     </padding>
 
-    <ImageView fitWidth="180" fitHeight="180" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+    <ImageView fitWidth="180" fitHeight="180" preserveRatio="true">
         <Image url="@../images/trireme.png"/>
     </ImageView>
 
@@ -30,8 +30,8 @@
     <Button text="Sign In" onAction="#signInClick"/>
 
     <VBox alignment="CENTER" spacing="5">
-        <Hyperlink text="forgot password" onAction="#forgotPasswordClick" fx:id="forgotPassword"/>
-        <Hyperlink text="create account" onAction="#createAccountClick" fx:id="createAccount"/>
+        <Hyperlink text="forgot password" onAction="#forgotPasswordClick"/>
+        <Hyperlink text="create account" onAction="#createAccountClick"/>
         <Hyperlink text="exit" onAction="#exitClick" fx:id="exit"/>
     </VBox>
 

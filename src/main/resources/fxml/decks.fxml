@@ -18,12 +18,12 @@
     <Label text="decks"/>
 
     <ListView fx:id="decksView" layoutX="10.0" layoutY="10.0">
-        <tooltip><Tooltip text="Right-click to Open or Delete. Double-click to Rename."/></tooltip>
+        <tooltip><Tooltip text="Right-click to Open, Delete, Drill. Double-click to Rename."/></tooltip>
         <ContextMenu fx:id="itemContextMenu">
             <items>
                 <MenuItem fx:id="open" text="open"/>
                 <MenuItem fx:id="delete" text="delete"/>
-                <MenuItem fx:id="drills" text="drills"/>
+                <MenuItem fx:id="drill" text="drill"/>
             </items>
         </ContextMenu>
     </ListView>

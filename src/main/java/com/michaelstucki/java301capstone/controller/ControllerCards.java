@@ -77,7 +77,6 @@ public class ControllerCards {
     }
 
     public void decksClick() {
-        sceneManager.setSharedDeck(deck);
         sceneManager.showView("/fxml/decks.fxml");
     }
 

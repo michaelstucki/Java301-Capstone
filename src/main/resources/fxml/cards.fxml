@@ -11,7 +11,7 @@
         <Insets right="50.0" bottom="50.0" left="50.0" />
     </padding>
 
-    <ImageView fitWidth="180" fitHeight="180" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+    <ImageView fitWidth="180" fitHeight="180" preserveRatio="true">
         <Image url="@../images/trireme.png"/>
     </ImageView>
 
@@ -34,7 +34,7 @@
         <VBox alignment="CENTER" spacing="10">
             <padding><Insets topRightBottomLeft="20"/></padding>
             <ListView fx:id="cardsView" layoutX="10.0" layoutY="10.0">
-                <tooltip><Tooltip text="Click card to see front and back. Right-click to Delete."/></tooltip>
+                <tooltip><Tooltip text="Right-click to Add, Edit, or Delete."/></tooltip>
                 <ContextMenu fx:id="itemContextMenu">
                     <items>
                         <MenuItem fx:id="add" text="add"/>

@@ -9,9 +9,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.paint.Color;
-import static com.michaelstucki.java301capstone.constants.Constants.*;
 
 public class ControllerDecks {
+    @FXML
+    private MenuItem drill;
     @FXML
     private Label userMessage;
     @FXML
@@ -76,6 +77,16 @@ public class ControllerDecks {
             if (selectedItem != null) {
                 dao.deleteDeck(selectedItem);
                 decksView.getItems().remove(selectedItem);
+            }
+        });
+
+        // Drill deck
+        drill.setOnAction(event -> {
+            String selectedItem = decksView.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                Deck deck = dao.getDeck(selectedItem);
+                sceneManager.setSharedDeck(deck);
+                sceneManager.showView("/fxml/drill.fxml");
             }
         });
 
