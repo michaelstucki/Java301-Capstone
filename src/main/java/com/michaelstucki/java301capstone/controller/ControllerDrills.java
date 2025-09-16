@@ -39,6 +39,7 @@ public class ControllerDrills {
     public void init(Deck sharedDeck) {
         deck = sharedDeck;
         deckName.setText(deck.getName());
+        drillOver.setVisible(false);
         start.setDisable(false);
         stop.setDisable(true);
         next.setDisable(true);
@@ -76,15 +77,13 @@ public class ControllerDrills {
     }
 
     public void passClick(ActionEvent event) {
+        next.setDisable(false);
         pass.setDisable(true);
         fail.setDisable(true);
-        next.setDisable(false);
         Card card = queue.poll();
         if (queue.isEmpty()) {
             next.setDisable(true);
             stop.setDisable(true);
-            pass.setDisable(true);
-            fail.setDisable(true);
             start.setDisable(false);
             questionAnswer.clear();
             drillOver.setVisible(true);
@@ -95,10 +94,8 @@ public class ControllerDrills {
         pass.setDisable(true);
         fail.setDisable(true);
         next.setDisable(false);
-        if (!queue.isEmpty()) {
-            Card card = queue.poll();
-            queue.add(card);
-        }
+        Card card = queue.poll();
+        queue.add(card);
     }
 
     public void decksClick() {
@@ -124,13 +121,13 @@ public class ControllerDrills {
 
         next.setOnAction(event -> {
             next.setDisable(true);
-            pass.setDisable(false);
-            fail.setDisable(false);
             if (queue.peek() != null) {
                 Card card = queue.peek();
                 front = card.getFront();
                 back = card.getBack();
                 questionAnswer.setText(front);
+                pass.setDisable(false);
+                fail.setDisable(false);
             }
         });
     }
