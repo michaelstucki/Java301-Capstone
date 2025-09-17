@@ -54,13 +54,6 @@ public class ControllerDrills {
     private void setupQueue() {
         queue.clear();
 
-        // Demo cards
-        Card c1 = new Card("q1", "a1");
-        Card c2 = new Card("q2", "a2");
-        Card c3 = new Card("q3", "a3");
-        deck.addCard(c1);
-        deck.addCard(c2);
-        deck.addCard(c3);
         // Demo today date
         LocalDate today = LocalDate.of(2025, 9, 20);
 

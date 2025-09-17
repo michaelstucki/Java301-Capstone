@@ -2,6 +2,7 @@ package com.michaelstucki.java301capstone.controller;
 
 import com.michaelstucki.java301capstone.dao.Dao;
 import com.michaelstucki.java301capstone.dao.DaoSQLite;
+import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.collections.FXCollections;
@@ -85,6 +86,15 @@ public class ControllerDecks {
             String selectedItem = decksView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 Deck deck = dao.getDeck(selectedItem);
+
+                // Demo cards
+                Card c1 = new Card("q1", "a1");
+                Card c2 = new Card("q2", "a2");
+                Card c3 = new Card("q3", "a3");
+                deck.addCard(c1);
+                deck.addCard(c2);
+                deck.addCard(c3);
+
                 sceneManager.setSharedDeck(deck);
                 sceneManager.showView("/fxml/drills.fxml");
             }
