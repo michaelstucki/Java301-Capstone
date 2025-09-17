@@ -39,7 +39,6 @@ public class ControllerHome {
 //        } else if (!password.getText().equals(pw)) {
 //            userMessage.setText("invalid password!");
 //        } else {
-//            clearInputs();
 //            sceneManager.showView("/fxml/decks.fxml");
 //        }
     }

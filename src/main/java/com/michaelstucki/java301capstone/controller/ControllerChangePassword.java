@@ -28,8 +28,6 @@ public class ControllerChangePassword {
     @FXML
     private PasswordField passwordRetype;
     @FXML
-    private TextField securityAnswer;
-    @FXML
     private ImageView eyeIcon;
     @FXML
     private Label userMessage;
@@ -40,22 +38,24 @@ public class ControllerChangePassword {
     public void changePasswordClick() {
         System.out.println("changePasswordClick clicked");
 
-        String user = "xxx";
+        String user = "x";
+        String demoOldPw = "?";
 
         if (username.getText().isEmpty()) {
             userMessage.setText("username not entered!");
-        } else if (username.getText().equals(user)) {
-            userMessage.setText("username is taken!");
+        } else if (!username.getText().equals(user)) {
+            userMessage.setText("unrecognized username!");
+        } else if (oldPassword.getText().isEmpty()) {
+            userMessage.setText("old password not entered!");
+        } else if (!oldPassword.getText().equals(demoOldPw)) {
+            userMessage.setText("invalid old password!");
         } else if (password.getText().isEmpty()) {
-            userMessage.setText("password not entered!");
+            userMessage.setText("new password not entered!");
         } else if (!passwordRetype.getText().equals(password.getText())) {
-            userMessage.setText("passwords do not match!");
-        } else if (securityAnswer.getText().isEmpty()) {
-            userMessage.setText("security question not answered!");
+            userMessage.setText("new passwords do not match!");
         } else {
             userMessage.setTextFill(Color.GREEN);
-            userMessage.setText("account created!");
-            clearInputs();
+            userMessage.setText("password changed!");
         }
     }
 
@@ -102,7 +102,6 @@ public class ControllerChangePassword {
         username.setText("");
         password.setText("");
         passwordRetype.setText("");
-        securityAnswer.setText("");
         userMessage.setText("");
         userMessage.setTextFill(Color.RED);
     }
@@ -138,10 +137,6 @@ public class ControllerChangePassword {
         });
 
         passwordRetype.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            userMessage.setText("");
-        });
-
-        securityAnswer.focusedProperty().addListener((observable, oldValue, newValue) -> {
             userMessage.setText("");
         });
     }
