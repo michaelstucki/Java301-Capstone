@@ -62,11 +62,11 @@ public class ControllerDrills {
         deck.addCard(c2);
         deck.addCard(c3);
         // Demo today date
-        LocalDate today = LocalDate.of(2025, 9, 10);
+        LocalDate today = LocalDate.of(2025, 9, 20);
 
         // Get only cards due today into a mutable list
         List<Card> valueList = deck.getCards().values().stream()
-                .filter(entry -> !entry.getDueDate().isAfter(today))
+                .filter(card -> !card.getDueDate().isAfter(today))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         // Shuffle the list of cards

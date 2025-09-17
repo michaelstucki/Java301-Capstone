@@ -147,14 +147,5 @@ public class ControllerCards {
                 cardsView.getItems().remove(selectedItem);
             }
         });
-
-//        deckTitle.focusedProperty().addListener((observable, oldValue, newValue) -> {
-//            userMessage.setText("");
-//        });
-//
-//        decksView.focusedProperty().addListener((observable, oldValue, newValue) -> {
-//            userMessage.setText("");
-//        });
-//
     }
 }
