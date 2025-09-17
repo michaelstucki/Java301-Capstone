@@ -8,7 +8,8 @@ public final class Constants {
     public static final String usersTable = "users";
     public static final String[] fonts = {"HerculanumLTProRoman.TTF", "EBGaramond-Regular.ttf",
             "EBGaramond-Italic.ttf", "EBGaramond-Bold.ttf"};
-    public static final String[] fxmls = {"drills", "cards", "decks", "forgot_password", "create_account", "home"};
+    public static final String[] fxmls = {"drills", "cards", "decks", "change_password",
+            "forgot_password", "create_account", "home"};
     public static final String cardToken = "::";
     private Constants() {}
 }
