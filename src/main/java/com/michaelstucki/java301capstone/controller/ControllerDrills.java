@@ -8,9 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
-
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -39,8 +36,10 @@ public class ControllerDrills {
     private String front;
     private String back;
     private Queue<Card> queue;
+    private LocalDate today;
 
     public void init(Deck sharedDeck) {
+        today = LocalDate.now();
         deck = sharedDeck;
         deckName.setText(deck.getName());
         drillOver.setVisible(false);
@@ -54,15 +53,12 @@ public class ControllerDrills {
     private void setupQueue() {
         queue.clear();
 
-        // Demo today date
-        LocalDate today = LocalDate.of(2025, 9, 20);
-
-        // Get only cards due today into a mutable list
+        // Put only the cards due today into a mutable list
         List<Card> valueList = deck.getCards().values().stream()
                 .filter(card -> !card.getDueDate().isAfter(today))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        // Shuffle the list of cards
+        // Shuffle the list of cards (needs a mutable list)
         Collections.shuffle(valueList);
 
         // Add the list of cards to the queue
@@ -98,11 +94,32 @@ public class ControllerDrills {
         fail.setDisable(true);
     }
 
+    private void updateCard(Card card, String passFail) {
+        System.out.println("updating card...");
+        card.setNumberOfReviews(card.getNumberOfReviews() + 1);
+        card.setReviewedDate(today);
+        switch (passFail) {
+            case "pass":
+                card.setNumberOfPasses(card.getNumberOfPasses() + 1);
+                int leitnerBox = card.getLeitnerBox();
+                leitnerBox++;
+                card.setLeitnerBox(leitnerBox);
+                long daysToAdd = (long) Math.pow(2.0, (double) leitnerBox);
+                card.setDueDate(today.plusDays(daysToAdd));
+                break;
+            case "fail":
+                card.setLeitnerBox(0);
+                card.setDueDate(today.plusDays(1));
+                break;
+        }
+    }
+
     public void passClick(ActionEvent event) {
         next.setDisable(false);
         pass.setDisable(true);
         fail.setDisable(true);
         Card card = queue.poll();
+        updateCard(card, "pass");
         if (queue.isEmpty()) {
             next.setDisable(true);
             stop.setDisable(true);
@@ -118,6 +135,7 @@ public class ControllerDrills {
         next.setDisable(false);
         Card card = queue.poll();
         queue.add(card);
+        updateCard(card, "fail");
     }
 
     public void decksClick() {
