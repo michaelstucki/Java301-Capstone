@@ -8,8 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import java.util.ArrayDeque;
-import java.util.Queue;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
+
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ControllerDrills {
     @FXML
@@ -48,23 +52,48 @@ public class ControllerDrills {
     }
 
     private void setupQueue() {
-        // Demo
         queue.clear();
-        queue.add(new Card("1 + 1", "2"));
-        queue.add(new Card("1 + 2", "3"));
-        queue.add(new Card("1 + 3", "4"));
+
+        // Demo cards
+        Card c1 = new Card("q1", "a1");
+        Card c2 = new Card("q2", "a2");
+        Card c3 = new Card("q3", "a3");
+        deck.addCard(c1);
+        deck.addCard(c2);
+        deck.addCard(c3);
+        // Demo today date
+        LocalDate today = LocalDate.of(2025, 9, 10);
+
+        // Get only cards due today into a mutable list
+        List<Card> valueList = deck.getCards().values().stream()
+                .filter(entry -> !entry.getDueDate().isAfter(today))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Shuffle the list of cards
+        Collections.shuffle(valueList);
+
+        // Add the list of cards to the queue
+        queue.addAll(valueList);
     }
 
     public void startClick(ActionEvent event) {//        init(deck);
         drillOver.setVisible(false);
+        drillOver.setText("Excellent work!");
         isFront = true;
         questionAnswer.clear();
-        start.setDisable(true);
-        stop.setDisable(false);
-        next.setDisable(false);
-        pass.setDisable(true);
-        fail.setDisable(true);
+
         setupQueue();
+        if (queue.isEmpty()) {
+            drillOver.setText("No cards are due!");
+            drillOver.setVisible(true);
+            start.setDisable(true);
+        } else {
+            start.setDisable(true);
+            stop.setDisable(false);
+            next.setDisable(false);
+            pass.setDisable(true);
+            fail.setDisable(true);
+        }
     }
 
     public void stopClick(ActionEvent event) {

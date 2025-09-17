@@ -22,6 +22,7 @@ public final class SceneManager {
     private SceneManager() {}
     public static SceneManager getScreenManager() { return SCENE_MANAGER; }
     public void setStage(Stage stage) { this.stage = stage; }
+    public Stage getStage() { return stage; }
     public void setSharedDeck(Deck sharedDeck) { this.sharedDeck = sharedDeck; }
 
     public void showView(String fxmlPath) {

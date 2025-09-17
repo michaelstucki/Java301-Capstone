@@ -18,6 +18,7 @@ public class Card {
         this.front = front;
         this.back = back;
         creationDate = LocalDate.now();
+        dueDate = creationDate;
     }
 
     public Card(int id, String front, String back, LocalDate creationDate, LocalDate reviewedDate,
