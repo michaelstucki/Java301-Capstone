@@ -37,8 +37,8 @@ public class ControllerChangePassword {
     private boolean oldPasswordVisible = false;
     private SceneManager sceneManager;
 
-    public void createAccountClick() {
-        System.out.println("createAccountClick clicked");
+    public void changePasswordClick() {
+        System.out.println("changePasswordClick clicked");
 
         String user = "xxx";
 
@@ -144,8 +144,5 @@ public class ControllerChangePassword {
         securityAnswer.focusedProperty().addListener((observable, oldValue, newValue) -> {
             userMessage.setText("");
         });
-    }
-
-    public void changePasswordClick(ActionEvent event) {
     }
 }

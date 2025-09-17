@@ -30,8 +30,6 @@ public class ControllerCreateAccount {
     private SceneManager sceneManager;
 
     public void createAccountClick() {
-        System.out.println("createAccountClick clicked");
-
         String user = "xxx";
 
         if (username.getText().isEmpty()) {
