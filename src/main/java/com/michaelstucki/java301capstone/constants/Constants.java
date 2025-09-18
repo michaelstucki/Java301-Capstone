@@ -11,5 +11,6 @@ public final class Constants {
     public static final String cardToken = "::";
     public static final String databasePath = "src/main/resources/database/flashcards.db";
     public static final String usersTable = "users";
+    public static final String decksTable = "decks";
     private Constants() {}
 }

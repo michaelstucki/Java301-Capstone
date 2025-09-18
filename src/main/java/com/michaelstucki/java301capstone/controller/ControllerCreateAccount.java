@@ -35,7 +35,11 @@ public class ControllerCreateAccount {
 
     public void createAccountClick() {
         dao.addUser("mstucki", "5xGollum", "blue");
-        dao.getUser("mstucki");
+        User user = dao.getUser("mstucki");
+        dao.changeUserPassword("mstucki", "xxx");
+        user = dao.getUser("mstucki");
+        dao.deleteUser("mstucki");
+        user = dao.getUser("mstucki");
 
 //
 //
