@@ -112,11 +112,12 @@ public class ControllerDecks {
             String newName = event.getNewValue();
             if (newName != null && !newName.trim().isEmpty() && !containsIgnoreCase(newName)) {
                 decksView.getItems().set(index, newName);
-                Deck oldDeck = dao.getDecks().get(oldName);
-                Deck newDeck = new Deck(newName);
-                newDeck.setCards(oldDeck.getCards());
-                dao.deleteDeck(oldName);
-                dao.addDeck(newDeck);
+                dao.changeDeckName(oldName, newName);
+//                Deck oldDeck = dao.getDecks().get(oldName);
+//                Deck newDeck = new Deck(newName);
+//                newDeck.setCards(oldDeck.getCards());
+//                dao.deleteDeck(oldName);
+//                dao.addDeck(newDeck);
             }
         });
 

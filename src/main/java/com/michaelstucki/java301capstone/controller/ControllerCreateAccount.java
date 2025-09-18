@@ -2,6 +2,7 @@ package com.michaelstucki.java301capstone.controller;
 
 import com.michaelstucki.java301capstone.dao.Dao;
 import com.michaelstucki.java301capstone.dao.DaoSQLite;
+import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.dto.User;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class ControllerCreateAccount {
@@ -36,11 +38,19 @@ public class ControllerCreateAccount {
     public void createAccountClick() {
         dao.addUser("mstucki", "5xGollum", "blue");
         User user = dao.getUser("mstucki");
-        dao.changeUserPassword("mstucki", "xxx");
-        user = dao.getUser("mstucki");
-        dao.deleteUser("mstucki");
-        user = dao.getUser("mstucki");
+//        dao.changeUserPassword("mstucki", "xxx");
+//        user = dao.getUser("mstucki");
+//        dao.deleteUser("mstucki");
+//        user = dao.getUser("mstucki");
 
+        Deck d1 = new Deck("Greek");
+        Deck d2 = new Deck("Latin");
+        dao.addDeck(d1);
+        dao.addDeck(d2);
+        Map<String, Deck> demoDecks = dao.getDecks();
+        dao.changeDeckName("Greek", "Math");
+        demoDecks = dao.getDecks();
+        dao.deleteDeck("Latin");
 //
 //
 //

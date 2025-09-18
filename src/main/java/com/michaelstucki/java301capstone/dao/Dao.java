@@ -6,16 +6,15 @@ import com.michaelstucki.java301capstone.dto.User;
 import java.util.Map;
 
 public interface Dao {
-    public User getUser(String userName);
     public void addUser(String userName, String password, String securityAnswer);
+    public User getUser(String userName);
     public void changeUserPassword(String userName, String password);
     public void deleteUser(String userName);
 
-    void addDeck(Deck deck);
-    void deleteDeck(String deckName);
-    Deck getDeck(String deckName);
-    Map<String, Deck> getDecks();
+    public void addDeck(Deck deck);
+    public Deck getDeck(String deckName);
+    public Map<String, Deck> getDecks();
+    public void changeDeckName(String oldName, String newName);
+    public void deleteDeck(String deckName);
 
-//    public void addUser(String userName, String password, String email);
-//    public void getUser(String userName);
 }
