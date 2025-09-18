@@ -57,7 +57,7 @@ public class ControllerDecks {
 
     @FXML
     public void initialize() {
-        dao = new DaoSQLite();
+        dao = DaoSQLite.getDao();
         sceneManager = SceneManager.getScreenManager();
         decksView.setItems(FXCollections.observableArrayList());
         decksView.setContextMenu(itemContextMenu);

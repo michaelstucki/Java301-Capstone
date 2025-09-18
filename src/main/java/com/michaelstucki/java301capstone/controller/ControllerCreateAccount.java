@@ -1,5 +1,8 @@
 package com.michaelstucki.java301capstone.controller;
 
+import com.michaelstucki.java301capstone.dao.Dao;
+import com.michaelstucki.java301capstone.dao.DaoSQLite;
+import com.michaelstucki.java301capstone.dto.User;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -28,25 +31,37 @@ public class ControllerCreateAccount {
     private TextField securityAnswer;
     private boolean passwordVisible = false;
     private SceneManager sceneManager;
+    private Dao dao;
 
     public void createAccountClick() {
-        String user = "xxx";
+        dao.addUser("mstucki", "5xGollum", "blue");
+        dao.getUser("mstucki");
 
-        if (username.getText().isEmpty()) {
-            userMessage.setText("username not entered!");
-        } else if (username.getText().equals(user)) {
-            userMessage.setText("username is taken!");
-        } else if (password.getText().isEmpty()) {
-            userMessage.setText("password not entered!");
-        } else if (!passwordRetype.getText().equals(password.getText())) {
-            userMessage.setText("passwords do not match!");
-        } else if (securityAnswer.getText().isEmpty()) {
-            userMessage.setText("security question not answered!");
-        } else {
-            userMessage.setTextFill(Color.GREEN);
-            userMessage.setText("account created!");
-            clearInputs();
-        }
+//
+//
+//
+//        User user = null;
+//        if (username.getText().isEmpty()) {
+//            userMessage.setText("username not entered!");
+//        } else {
+//            user = dao.getUser(username.getText());
+//        }
+//
+//        if (user != null) { // username already taken
+//            userMessage.setText("username is taken!");
+//        } else if (password.getText().isEmpty()) {
+//            userMessage.setText("password not entered!");
+//        } else if (!passwordRetype.getText().equals(password.getText())) {
+//            userMessage.setText("passwords do not match!");
+//        } else if (securityAnswer.getText().isEmpty()) {
+//            userMessage.setText("security question not answered!");
+//        } else {
+//            // entries are all valid, so add user to database
+//            dao.addUser(username.getText(), password.getText(), securityAnswer.getText());
+//            userMessage.setTextFill(Color.GREEN);
+//            userMessage.setText("account created!");
+//            clearInputs();
+//        }
     }
 
     public void togglePasswordVisibility() {
@@ -86,6 +101,8 @@ public class ControllerCreateAccount {
 
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
+        dao = DaoSQLite.getDao();
+
         password.textProperty().bindBidirectional(passwordField.textProperty());
         username.focusedProperty().addListener((observable, oldValue, newValue) -> {
             userMessage.setText("");

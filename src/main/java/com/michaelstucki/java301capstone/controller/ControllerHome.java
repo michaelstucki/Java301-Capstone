@@ -1,5 +1,8 @@
 package com.michaelstucki.java301capstone.controller;
 
+import com.michaelstucki.java301capstone.dao.Dao;
+import com.michaelstucki.java301capstone.dao.DaoSQLite;
+import com.michaelstucki.java301capstone.dto.User;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,18 +30,26 @@ public class ControllerHome {
     private Label userMessage;
     private boolean passwordVisible = false;
     private SceneManager sceneManager;
+    private Dao dao;
 
     public void signInClick() {
-        sceneManager.showView("/fxml/decks.fxml");
+//        dao.getUser("mstucki");
+
+
+
+//        User user = null;
+//        if (username.getText().isEmpty()) {
+//            userMessage.setText("username not entered!");
+//        } else {
+//            user = dao.getUser(username.getText());
+//        }
 //
-//        String user = "ccc";
-//        String pw = "111";
-//
-//        if (!username.getText().equals(user)) {
+//        if (user == null) {
 //            userMessage.setText("unrecognized username!");
-//        } else if (!password.getText().equals(pw)) {
+//        } else if (!password.getText().equals(user.getPassword())) {
 //            userMessage.setText("invalid password!");
 //        } else {
+//            System.out.println("successful login!");
 //            sceneManager.showView("/fxml/decks.fxml");
 //        }
     }
@@ -86,6 +97,8 @@ public class ControllerHome {
 
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
+        dao = DaoSQLite.getDao();
+
         password.textProperty().bindBidirectional(passwordField.textProperty());
         username.focusedProperty().addListener((observable, oldValue, newValue) -> {
             userMessage.setText("");
