@@ -20,4 +20,5 @@ public interface Dao {
 
     public Card addCard(String front, String back, Deck deck);
     public void updateCard(Card card);
+    public void deleteCard(int cardId);
 }

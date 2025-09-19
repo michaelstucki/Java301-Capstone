@@ -320,4 +320,17 @@ public class DaoSQLite implements Dao {
             System.out.println("Database error: " + e.getMessage());
         }
     }
+
+    @Override
+    public void deleteCard(int cardId) {
+        String command = "DELETE FROM cards WHERE card_id = '" + cardId + "';";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
+            try (PreparedStatement stmt = connection.prepareStatement(command)) {
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+    }
 }

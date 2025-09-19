@@ -7,10 +7,8 @@ import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import static com.michaelstucki.java301capstone.constants.Constants.cardToken;
 
 public class ControllerCards {
@@ -50,6 +48,10 @@ public class ControllerCards {
     }
 
     public void saveClick() {
+        front.setEditable(false);
+        back.setEditable(false);
+        save.setDisable(true);
+        cancel.setDisable(true);
         if (!front.getText().trim().isEmpty() && !back.getText().trim().isEmpty()) {
             Card card;
             switch (saveMode) {
@@ -61,14 +63,11 @@ public class ControllerCards {
                     card = deck.getCard(selectedCardId);
                     card.setFront(front.getText());
                     card.setBack(back.getText());
+                    dao.updateCard(card);
                     init(deck);
                     break;
             }
         }
-        front.setEditable(false);
-        back.setEditable(false);
-        save.setDisable(true);
-        cancel.setDisable(true);
     }
 
     public void cancelClick() {
@@ -149,6 +148,7 @@ public class ControllerCards {
             if (selectedItem != null) {
                 String[] tokens = selectedItem.split(cardToken);
                 int id = Integer.parseInt((tokens[0]));
+                dao.deleteCard(id);
                 deck.deleteCard(id);
                 cardsView.getItems().remove(selectedItem);
             }
