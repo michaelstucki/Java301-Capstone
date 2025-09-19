@@ -40,7 +40,7 @@ public class ControllerDrills {
     private String back;
     private Queue<Card> queue;
     private LocalDate today;
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private Dao dao;
 
 

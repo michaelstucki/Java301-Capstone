@@ -3,7 +3,6 @@ package com.michaelstucki.java301capstone.dao;
 import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.dto.User;
-
 import java.util.Map;
 
 public interface Dao {
@@ -20,5 +19,4 @@ public interface Dao {
 
     public Card addCard(String front, String back, Deck deck);
     public void updateCard(Card card);
-
 }
