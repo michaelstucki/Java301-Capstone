@@ -94,6 +94,9 @@ public class DaoSQLite implements Dao {
     }
 
     @Override
+    public User getCurrentUser() { return user; }
+
+    @Override
     public void changeUserPassword(String userName, String password) {
         String command = "UPDATE " + usersTable + " SET password = " + "'" + password + "'" +
                          " WHERE username = '" + userName + "';";

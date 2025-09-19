@@ -40,7 +40,8 @@ public class ControllerHome {
             } else if (!password.getText().equals(user.getPassword())) {
                 userMessage.setText("invalid password!");
             } else {
-                sceneManager.showView("/fxml/decks.fxml");
+                clearInputs();
+                sceneManager.showView("/fxml/welcome.fxml");
             }
         }
     }
@@ -67,11 +68,6 @@ public class ControllerHome {
         sceneManager.showView("/fxml/create_account.fxml");
     }
 
-    public void changePasswordClick() {
-        clearInputs();
-        sceneManager.showView("/fxml/change_password.fxml");
-    }
-
     public void forgotPasswordClick() {
         clearInputs();
         sceneManager.showView("/fxml/forgot_password.fxml");
@@ -80,6 +76,7 @@ public class ControllerHome {
     private void clearInputs() {
         username.setText("");
         password.setText("");
+        userMessage.setText("");
     }
 
     public void exitClick() {

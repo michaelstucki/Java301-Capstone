@@ -34,5 +34,9 @@
     </HBox>
 
     <Label fx:id="userMessage"/>
-    <Hyperlink text="exit" onAction="#exitClick"/>
+    <VBox alignment="CENTER" spacing="5">
+        <Hyperlink text="welcome" onAction="#welcomeClick"/>
+        <Hyperlink text="logout" onAction="#logoutClick"/>
+        <Hyperlink text="exit" onAction="#exitClick"/>
+    </VBox>
 </VBox>

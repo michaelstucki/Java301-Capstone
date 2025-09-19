@@ -5,6 +5,7 @@ import com.michaelstucki.java301capstone.dao.DaoSQLite;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
@@ -58,6 +59,8 @@ public class ControllerDecks {
                 item.equalsIgnoreCase(searchString));
     }
 
+    public void welcomeClick(ActionEvent event) { sceneManager.showView("/fxml/welcome.fxml"); }
+    public void logoutClick() { sceneManager.showView("/fxml/home.fxml"); }
     public void exitClick() {
         sceneManager.exit();
     }

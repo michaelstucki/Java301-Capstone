@@ -8,6 +8,7 @@ import java.util.Map;
 public interface Dao {
     public void addUser(String userName, String password, String securityAnswer);
     public User getUser(String userName);
+    public User getCurrentUser();
     public void changeUserPassword(String userName, String password);
     public void deleteUser(String userName);
 

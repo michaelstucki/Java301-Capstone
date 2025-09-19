@@ -12,25 +12,15 @@
 <?import javafx.scene.control.Hyperlink?>
 
 <VBox stylesheets="@../css/styles.css" alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.michaelstucki.java301capstone.controller.ControllerChangePassword">
+      fx:controller="com.michaelstucki.java301capstone.controller.ControllerDeleteAccount">
     <padding>
         <Insets top="30.0" right="20.0" bottom="100.0" left="20.0" />
     </padding>
 
-    <Label fx:id="pageTitle" text="change password"/>
-    <TextField fx:id="username" promptText="Username" focusTraversable="false"/>
+    <Label fx:id="pageTitle" text="delete account"/>
 
     <StackPane>
-        <PasswordField fx:id="oldPasswordField" promptText="Old Password" focusTraversable="false"/>
-        <TextField fx:id="oldPassword" visible="false" />
-        <ImageView fx:id="oldEyeIcon" fitHeight="25" fitWidth="25" StackPane.alignment="CENTER_RIGHT"
-                   onMouseClicked="#OldTogglePasswordVisibility">
-            <Image url="@../images/eye_closed.jpg" />
-        </ImageView>
-    </StackPane>
-
-    <StackPane>
-        <PasswordField fx:id="passwordField" promptText="New Password" focusTraversable="false"/>
+        <PasswordField fx:id="passwordField" promptText="Password" focusTraversable="false"/>
         <TextField fx:id="password" visible="false" />
         <ImageView fx:id="eyeIcon" fitHeight="25" fitWidth="25" StackPane.alignment="CENTER_RIGHT"
                    onMouseClicked="#togglePasswordVisibility">
@@ -38,8 +28,8 @@
         </ImageView>
     </StackPane>
 
-    <PasswordField fx:id="passwordRetype" promptText="Retype New Password" focusTraversable="false"/>
-    <Button text="Change Password" onAction="#changePasswordClick"/>
+    <PasswordField fx:id="passwordRetype" promptText="Retype Password" focusTraversable="false"/>
+    <Button text="Delete Account" onAction="#deleteAccountClick"/>
 
     <VBox alignment="CENTER" spacing="5">
         <Hyperlink text="welcome" onAction="#welcomeClick"/>

@@ -12,9 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+
 import java.util.Objects;
 
-public class ControllerChangePassword {
+public class ControllerDeleteAccount {
     @FXML
     private TextField username;
     @FXML
@@ -34,50 +35,26 @@ public class ControllerChangePassword {
     @FXML
     private Label userMessage;
     private boolean passwordVisible = false;
-    private boolean oldPasswordVisible = false;
     private SceneManager sceneManager;
     private Dao dao;
 
-    public void changePasswordClick() {
-        if (username.getText().isEmpty()) {
-            userMessage.setText("username not entered!");
+    public void deleteAccountClick() {
+        User user = dao.getCurrentUser();
+        if (password.getText().isEmpty()) {
+            userMessage.setText("password not entered!");
+        } else if (!password.getText().equals(user.getPassword())) {
+            userMessage.setText("invalid password!");
+        } else if (passwordRetype.getText().isEmpty()) {
+            userMessage.setText("password not entered!");
+        } else if (!passwordRetype.getText().equals(password.getText())) {
+            userMessage.setText("passwords do not match!");
         } else {
-            User user = dao.getUser(username.getText());
-            if (user == null) {
-                userMessage.setText("unrecognized username!");
-            } else if (oldPassword.getText().isEmpty()) {
-                userMessage.setText("old password not entered!");
-            } else if (!oldPassword.getText().equals(user.getPassword())) {
-                userMessage.setText("invalid old password!");
-            } else if (password.getText().isEmpty()) {
-                userMessage.setText("new password not entered!");
-            } else if (!passwordRetype.getText().equals(password.getText())) {
-                userMessage.setText("new passwords do not match!");
-            } else {
-                dao.changeUserPassword(user.getUsername(), password.getText());
-                userMessage.setTextFill(Color.GREEN);
-                userMessage.setText("password changed!");
-                clearInputs();
-                sceneManager.showView("/fxml/welcome.fxml");
-            }
+            dao.deleteUser(user.getUsername());
+            userMessage.setTextFill(Color.GREEN);
+            userMessage.setText("password changed!");
+            clearInputs();
+            sceneManager.showView("/fxml/home.fxml");
         }
-    }
-
-    public void OldTogglePasswordVisibility() {
-        if (oldPasswordVisible) {
-            oldPasswordField.setText(oldPassword.getText()); // Sync text
-            oldPasswordField.setVisible(true);
-            oldPassword.setVisible(false);
-            eyeIcon.setImage(new Image(Objects.requireNonNull(getClass().
-                    getResourceAsStream("/images/eye_closed.jpg"))));
-        } else {
-            oldPassword.setText(oldPasswordField.getText()); // Sync text
-            oldPasswordField.setVisible(false);
-            oldPassword.setVisible(true);
-            oldEyeIcon.setImage(new Image(Objects.requireNonNull(getClass().
-                    getResourceAsStream("/images/eye_open.jpg"))));
-        }
-        oldPasswordVisible = !oldPasswordVisible;
     }
 
     public void togglePasswordVisibility() {
@@ -97,18 +74,16 @@ public class ControllerChangePassword {
         passwordVisible = !passwordVisible;
     }
 
-    public void welcomeClick() {
-        clearInputs();
-        sceneManager.showView("/fxml/welcome.fxml");
-    }
-
     private void clearInputs() {
-        username.setText("");
-        oldPassword.setText("");
         password.setText("");
         passwordRetype.setText("");
         userMessage.setText("");
         userMessage.setTextFill(Color.RED);
+    }
+
+    public void welcomeClick() {
+        clearInputs();
+        sceneManager.showView("/fxml/welcome.fxml");
     }
 
     public void exitClick() {
@@ -118,20 +93,6 @@ public class ControllerChangePassword {
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
         dao = DaoSQLite.getDao();
-
-        username.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            userMessage.setText("");
-        });
-
-        oldPassword.textProperty().bindBidirectional(oldPasswordField.textProperty());
-
-        oldPassword.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            userMessage.setText("");
-        });
-
-        oldPasswordField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            userMessage.setText("");
-        });
 
         password.textProperty().bindBidirectional(passwordField.textProperty());
 

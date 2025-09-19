@@ -1,6 +1,5 @@
 package com.michaelstucki.java301capstone.controller;
 
-import static com.michaelstucki.java301capstone.constants.Constants.*;
 import com.michaelstucki.java301capstone.dao.Dao;
 import com.michaelstucki.java301capstone.dao.DaoSQLite;
 import com.michaelstucki.java301capstone.dto.Card;
@@ -8,9 +7,10 @@ import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import static com.michaelstucki.java301capstone.constants.Constants.cardToken;
 
 public class ControllerCards {
     @FXML
@@ -70,7 +70,7 @@ public class ControllerCards {
         cancel.setDisable(true);
     }
 
-    public void cancelClick(ActionEvent event) {
+    public void cancelClick() {
         front.clear();
         back.clear();
         front.setEditable(false);

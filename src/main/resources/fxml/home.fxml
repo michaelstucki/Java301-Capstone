@@ -32,7 +32,6 @@
     <VBox alignment="CENTER" spacing="5">
         <Hyperlink text="create account" onAction="#createAccountClick"/>
         <Hyperlink text="forgot password" onAction="#forgotPasswordClick"/>
-        <Hyperlink text="change password" onAction="#changePasswordClick"/>
         <Hyperlink text="exit" onAction="#exitClick" fx:id="exit"/>
     </VBox>
 

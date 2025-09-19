@@ -5,11 +5,11 @@ import com.michaelstucki.java301capstone.dao.DaoSQLite;
 import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -71,7 +71,7 @@ public class ControllerDrills {
         queue.addAll(valueList);
     }
 
-    public void startClick(ActionEvent event) {//        init(deck);
+    public void startClick() {
         drillOver.setVisible(false);
         drillOver.setText("Excellent work!");
         isFront = true;
@@ -91,7 +91,7 @@ public class ControllerDrills {
         }
     }
 
-    public void stopClick(ActionEvent event) {
+    public void stopClick() {
         questionAnswer.clear();
         start.setDisable(false);
         stop.setDisable(true);
@@ -120,7 +120,7 @@ public class ControllerDrills {
         dao.updateCard(card);
     }
 
-    public void passClick(ActionEvent event) {
+    public void passClick() {
         next.setDisable(false);
         pass.setDisable(true);
         fail.setDisable(true);
@@ -135,7 +135,7 @@ public class ControllerDrills {
         }
     }
 
-    public void failClick(ActionEvent event) {
+    public void failClick() {
         pass.setDisable(true);
         fail.setDisable(true);
         next.setDisable(false);

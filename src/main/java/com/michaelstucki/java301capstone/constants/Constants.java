@@ -6,7 +6,7 @@ public final class Constants {
     public static final double width = height * ASPECT_RATIO;
     public static final String[] fonts = {"HerculanumLTProRoman.TTF", "EBGaramond-Regular.ttf",
             "EBGaramond-Italic.ttf", "EBGaramond-Bold.ttf"};
-    public static final String[] fxmls = {"drills", "cards", "decks", "change_password",
+    public static final String[] fxmls = {"delete_account", "welcome", "drills", "cards", "decks", "change_password",
             "forgot_password", "create_account", "home"};
     public static final String cardToken = "::";
     public static final String databasePath = "src/main/resources/database/flashcards.db";
