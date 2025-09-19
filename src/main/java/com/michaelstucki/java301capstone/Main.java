@@ -14,6 +14,7 @@ public class Main extends Application {
         SceneManager screenManager = SceneManager.getScreenManager();
         screenManager.setStage(stage);
         for (String fxml: Constants.fxmls) screenManager.showView("/fxml/" + fxml + ".fxml");
+        screenManager.showView("/fxml/home.fxml");
         stage.setResizable(false);
         stage.show();
 

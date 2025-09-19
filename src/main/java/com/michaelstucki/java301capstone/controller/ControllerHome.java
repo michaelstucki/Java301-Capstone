@@ -2,6 +2,7 @@ package com.michaelstucki.java301capstone.controller;
 
 import com.michaelstucki.java301capstone.dao.Dao;
 import com.michaelstucki.java301capstone.dao.DaoSQLite;
+import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.dto.User;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class ControllerHome {
@@ -42,7 +44,6 @@ public class ControllerHome {
             } else if (!password.getText().equals(user.getPassword())) {
                 userMessage.setText("invalid password!");
             } else {
-                userMessage.setText("successful login!");
                 sceneManager.showView("/fxml/decks.fxml");
             }
         }

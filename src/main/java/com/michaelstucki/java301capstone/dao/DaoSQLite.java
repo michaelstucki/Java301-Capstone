@@ -59,6 +59,7 @@ public class DaoSQLite implements Dao {
 
     @Override
     public void addUser(String userName, String password, String securityAnswer) {
+        user = new User(userName, password, securityAnswer);
         String command = "INSERT INTO " + usersTable + " (userName, password, securityAnswer) VALUES ('" +
                           userName + "', '" + password + "', '" + securityAnswer + "');";
 
@@ -214,7 +215,7 @@ public class DaoSQLite implements Dao {
     }
 
     @Override
-    public void addCard(String front, String back, Deck deck) {
+    public Card addCard(String front, String back, Deck deck) {
         String today = LocalDate.now().toString();
         int card_id = -1;
         String userName = user.getUsername();
@@ -239,6 +240,7 @@ public class DaoSQLite implements Dao {
 
         command = "SELECT * FROM cards WHERE card_id = '" + card_id + "';";
 
+        Card card = null;
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
             try (PreparedStatement stmt = connection.prepareStatement(command)) {
                 ResultSet rs = stmt.executeQuery();
@@ -252,7 +254,7 @@ public class DaoSQLite implements Dao {
                     String dueDate = rs.getString("due_date");
                     int numberOfReviews = rs.getInt("number_reviews");
                     int numberOfPasses = rs.getInt("number_passes");
-                    Card card = new Card(cardId, front, back, creationDate, reviewedDate, dueDate, leitnerBox,
+                    card = new Card(cardId, front, back, creationDate, reviewedDate, dueDate, leitnerBox,
                             numberOfReviews, numberOfPasses);
                     deck.addCard(cardId, card);
                     System.out.println("card: " + card.toString());
@@ -262,5 +264,6 @@ public class DaoSQLite implements Dao {
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
+        return card;
     }
 }

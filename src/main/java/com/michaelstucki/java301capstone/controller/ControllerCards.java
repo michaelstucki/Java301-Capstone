@@ -54,10 +54,8 @@ public class ControllerCards {
             Card card;
             switch (saveMode) {
                 case "add":
-//                    card = new Card(front.getText(), back.getText());
-//                    deck.addCard(card);
-//                    cardsView.getItems().add(card.toString());
-                    dao.addCard(front.getText(), back.getText(), deck);
+                    card = dao.addCard(front.getText(), back.getText(), deck);
+                    cardsView.getItems().add(card.toString());
                     break;
                 case "edit":
                     card = deck.getCard(selectedCardId);

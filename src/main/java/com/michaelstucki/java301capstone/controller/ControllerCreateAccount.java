@@ -35,24 +35,6 @@ public class ControllerCreateAccount {
     private Dao dao;
 
     public void createAccountClick() {
-//        dao.addUser("mstucki", "5xGollum", "blue");
-//        User user = dao.getUser("mstucki");
-////        dao.changeUserPassword("mstucki", "xxx");
-////        user = dao.getUser("mstucki");
-////        dao.deleteUser("mstucki");
-////        user = dao.getUser("mstucki");
-//
-//        Deck d1 = new Deck("Greek");
-//        Deck d2 = new Deck("Latin");
-//        dao.addDeck(d1);
-//        dao.addDeck(d2);
-//        Map<String, Deck> demoDecks = dao.getDecks();
-//        dao.changeDeckName("Greek", "Math");
-//        demoDecks = dao.getDecks();
-//        dao.deleteDeck("Latin");
-//
-//
-//
         if (username.getText().isEmpty()) {
             userMessage.setText("username not entered!");
         } else {
@@ -70,7 +52,6 @@ public class ControllerCreateAccount {
                 dao.addUser(username.getText(), password.getText(), securityAnswer.getText());
                 userMessage.setTextFill(Color.GREEN);
                 userMessage.setText("account created!");
-                clearInputs();
                 sceneManager.showView("/fxml/decks.fxml");
             }
         }

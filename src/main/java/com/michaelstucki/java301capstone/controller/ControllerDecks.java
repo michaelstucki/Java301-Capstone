@@ -30,6 +30,12 @@ public class ControllerDecks {
     private SceneManager sceneManager;
     private Dao dao;
 
+    public void init() {
+         // Populate decksView with user's decks in database
+         Map<String, Deck> decks = dao.getDecks();
+         decks.keySet().forEach(name -> decksView.getItems().add(name));
+    }
+
     public void addDeck() {
         if (deckName.getText().trim().isEmpty()) {
             userMessage.setTextFill(Color.RED);
@@ -62,10 +68,10 @@ public class ControllerDecks {
         sceneManager = SceneManager.getScreenManager();
         decksView.setItems(FXCollections.observableArrayList());
         decksView.setContextMenu(itemContextMenu);
-        // Populate decksView with existing decks
-        // Get decks from database
-        Map<String, Deck> decks = dao.getDecks();
-        decks.keySet().forEach(name -> decksView.getItems().add(name));
+//        // Populate decksView with existing decks
+//        // Get decks from database
+//        Map<String, Deck> decks = dao.getDecks();
+//        decks.keySet().forEach(name -> decksView.getItems().add(name));
 
         // Open deck
         open.setOnAction(event -> {
