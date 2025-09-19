@@ -41,6 +41,10 @@ public class ControllerCards {
     public void init(Deck sharedDeck) {
         deck = sharedDeck;
         deckName.setText(deck.getName());
+        resetListView();
+    }
+
+    private void resetListView() {
         front.clear();
         back.clear();
         cardsView.getItems().clear();
@@ -64,7 +68,7 @@ public class ControllerCards {
                     card.setFront(front.getText());
                     card.setBack(back.getText());
                     dao.updateCard(card);
-                    init(deck);
+                    resetListView();
                     break;
             }
         }
@@ -78,6 +82,7 @@ public class ControllerCards {
         save.setDisable(true);
         cancel.setDisable(true);
         cardsView.requestFocus();
+        resetListView();
     }
 
     public void decksClick() {
