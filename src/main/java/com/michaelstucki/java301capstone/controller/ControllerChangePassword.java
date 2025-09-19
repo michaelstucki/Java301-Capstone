@@ -1,5 +1,8 @@
 package com.michaelstucki.java301capstone.controller;
 
+import com.michaelstucki.java301capstone.dao.Dao;
+import com.michaelstucki.java301capstone.dao.DaoSQLite;
+import com.michaelstucki.java301capstone.dto.User;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,28 +37,29 @@ public class ControllerChangePassword {
     private boolean passwordVisible = false;
     private boolean oldPasswordVisible = false;
     private SceneManager sceneManager;
+    private Dao dao;
 
     public void changePasswordClick() {
-        System.out.println("changePasswordClick clicked");
-
-        String user = "x";
-        String demoOldPw = "?";
-
         if (username.getText().isEmpty()) {
             userMessage.setText("username not entered!");
-        } else if (!username.getText().equals(user)) {
-            userMessage.setText("unrecognized username!");
-        } else if (oldPassword.getText().isEmpty()) {
-            userMessage.setText("old password not entered!");
-        } else if (!oldPassword.getText().equals(demoOldPw)) {
-            userMessage.setText("invalid old password!");
-        } else if (password.getText().isEmpty()) {
-            userMessage.setText("new password not entered!");
-        } else if (!passwordRetype.getText().equals(password.getText())) {
-            userMessage.setText("new passwords do not match!");
         } else {
-            userMessage.setTextFill(Color.GREEN);
-            userMessage.setText("password changed!");
+            User user = dao.getUser(username.getText());
+            if (user == null) {
+                userMessage.setText("unrecognized username!");
+            } else if (oldPassword.getText().isEmpty()) {
+                userMessage.setText("old password not entered!");
+            } else if (!oldPassword.getText().equals(user.getPassword())) {
+                userMessage.setText("invalid old password!");
+            } else if (password.getText().isEmpty()) {
+                userMessage.setText("new password not entered!");
+            } else if (!passwordRetype.getText().equals(password.getText())) {
+                userMessage.setText("new passwords do not match!");
+            } else {
+                dao.changeUserPassword(user.getUsername(), password.getText());
+                userMessage.setTextFill(Color.GREEN);
+                userMessage.setText("password changed!");
+                sceneManager.showView("/fxml/decks.fxml");
+            }
         }
     }
 
@@ -112,6 +116,8 @@ public class ControllerChangePassword {
 
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
+        dao = DaoSQLite.getDao();
+
         username.focusedProperty().addListener((observable, oldValue, newValue) -> {
             userMessage.setText("");
         });

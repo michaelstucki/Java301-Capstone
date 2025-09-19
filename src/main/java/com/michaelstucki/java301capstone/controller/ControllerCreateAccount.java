@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-
 import java.util.Map;
 import java.util.Objects;
 
@@ -36,46 +35,45 @@ public class ControllerCreateAccount {
     private Dao dao;
 
     public void createAccountClick() {
-        dao.addUser("mstucki", "5xGollum", "blue");
-        User user = dao.getUser("mstucki");
-//        dao.changeUserPassword("mstucki", "xxx");
-//        user = dao.getUser("mstucki");
-//        dao.deleteUser("mstucki");
-//        user = dao.getUser("mstucki");
-
-        Deck d1 = new Deck("Greek");
-        Deck d2 = new Deck("Latin");
-        dao.addDeck(d1);
-        dao.addDeck(d2);
-        Map<String, Deck> demoDecks = dao.getDecks();
-        dao.changeDeckName("Greek", "Math");
-        demoDecks = dao.getDecks();
-        dao.deleteDeck("Latin");
+//        dao.addUser("mstucki", "5xGollum", "blue");
+//        User user = dao.getUser("mstucki");
+////        dao.changeUserPassword("mstucki", "xxx");
+////        user = dao.getUser("mstucki");
+////        dao.deleteUser("mstucki");
+////        user = dao.getUser("mstucki");
+//
+//        Deck d1 = new Deck("Greek");
+//        Deck d2 = new Deck("Latin");
+//        dao.addDeck(d1);
+//        dao.addDeck(d2);
+//        Map<String, Deck> demoDecks = dao.getDecks();
+//        dao.changeDeckName("Greek", "Math");
+//        demoDecks = dao.getDecks();
+//        dao.deleteDeck("Latin");
 //
 //
 //
-//        User user = null;
-//        if (username.getText().isEmpty()) {
-//            userMessage.setText("username not entered!");
-//        } else {
-//            user = dao.getUser(username.getText());
-//        }
-//
-//        if (user != null) { // username already taken
-//            userMessage.setText("username is taken!");
-//        } else if (password.getText().isEmpty()) {
-//            userMessage.setText("password not entered!");
-//        } else if (!passwordRetype.getText().equals(password.getText())) {
-//            userMessage.setText("passwords do not match!");
-//        } else if (securityAnswer.getText().isEmpty()) {
-//            userMessage.setText("security question not answered!");
-//        } else {
-//            // entries are all valid, so add user to database
-//            dao.addUser(username.getText(), password.getText(), securityAnswer.getText());
-//            userMessage.setTextFill(Color.GREEN);
-//            userMessage.setText("account created!");
-//            clearInputs();
-//        }
+        if (username.getText().isEmpty()) {
+            userMessage.setText("username not entered!");
+        } else {
+            User user = dao.getUser(username.getText());
+            if (user != null) { // username already taken
+                userMessage.setText("username is taken!");
+            } else if (password.getText().isEmpty()) {
+                userMessage.setText("password not entered!");
+            } else if (!passwordRetype.getText().equals(password.getText())) {
+                userMessage.setText("passwords do not match!");
+            } else if (securityAnswer.getText().isEmpty()) {
+                userMessage.setText("security question not answered!");
+            } else {
+                // entries are all valid, so add user to database
+                dao.addUser(username.getText(), password.getText(), securityAnswer.getText());
+                userMessage.setTextFill(Color.GREEN);
+                userMessage.setText("account created!");
+                clearInputs();
+                sceneManager.showView("/fxml/decks.fxml");
+            }
+        }
     }
 
     public void togglePasswordVisibility() {

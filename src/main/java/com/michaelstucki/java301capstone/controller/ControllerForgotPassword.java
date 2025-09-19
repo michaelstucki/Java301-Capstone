@@ -1,5 +1,8 @@
 package com.michaelstucki.java301capstone.controller;
 
+import com.michaelstucki.java301capstone.dao.Dao;
+import com.michaelstucki.java301capstone.dao.DaoSQLite;
+import com.michaelstucki.java301capstone.dto.User;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,26 +17,23 @@ public class ControllerForgotPassword {
     @FXML
     private TextField securityAnswer;
     private SceneManager sceneManager;
+    private Dao dao;
 
     public void recoverPasswordClick() {
-        System.out.println("createAccountClick clicked");
-
-        String user = "xxx";
-        String answer = "blue";
-        String pw = "5xGollum";
-
         if (username.getText().isEmpty()) {
             userMessage.setText("username not entered!");
-        } else if (!username.getText().equals(user)) {
-            userMessage.setText("username does not exist!");
-        } else if (securityAnswer.getText().isEmpty()) {
-            userMessage.setText("security answer not entered!");
-        } else if (!securityAnswer.getText().equals(answer)) {
-            userMessage.setText("security answer is incorrect!");
         } else {
-            userMessage.setTextFill(Color.GREEN);
-            userMessage.setText("password: " + pw);
-            clearInputs();
+            User user = dao.getUser(username.getText());
+            if (user == null) {
+                userMessage.setText("unrecognized username!");
+            } else if (securityAnswer.getText().isEmpty()) {
+                userMessage.setText("security answer not entered!");
+            } else if (!securityAnswer.getText().equals(user.getSecurityAnswer())) {
+                userMessage.setText("security answer is incorrect!");
+            } else {
+                userMessage.setTextFill(Color.GREEN);
+                userMessage.setText("password: " + user.getPassword());
+            }
         }
     }
 
@@ -55,6 +55,8 @@ public class ControllerForgotPassword {
 
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
+        dao = DaoSQLite.getDao();
+
         username.focusedProperty().addListener((observable, oldValue, newValue) -> {
             userMessage.setText("");
         });

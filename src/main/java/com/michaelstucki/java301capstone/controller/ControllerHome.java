@@ -33,25 +33,19 @@ public class ControllerHome {
     private Dao dao;
 
     public void signInClick() {
-//        dao.getUser("mstucki");
-
-
-
-//        User user = null;
-//        if (username.getText().isEmpty()) {
-//            userMessage.setText("username not entered!");
-//        } else {
-//            user = dao.getUser(username.getText());
-//        }
-//
-//        if (user == null) {
-//            userMessage.setText("unrecognized username!");
-//        } else if (!password.getText().equals(user.getPassword())) {
-//            userMessage.setText("invalid password!");
-//        } else {
-//            System.out.println("successful login!");
-//            sceneManager.showView("/fxml/decks.fxml");
-//        }
+        if (username.getText().isEmpty()) {
+            userMessage.setText("username not entered!");
+        } else {
+            User user = dao.getUser(username.getText());
+            if (user == null) {
+                userMessage.setText("unrecognized username!");
+            } else if (!password.getText().equals(user.getPassword())) {
+                userMessage.setText("invalid password!");
+            } else {
+                System.out.println("successful login!");
+                sceneManager.showView("/fxml/decks.fxml");
+            }
+        }
     }
 
     public void togglePasswordVisibility() {
