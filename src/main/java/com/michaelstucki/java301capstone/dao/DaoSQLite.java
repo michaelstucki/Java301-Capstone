@@ -287,4 +287,34 @@ public class DaoSQLite implements Dao {
         }
         return card;
     }
+
+    @Override
+    public void updateCard(Card card) {
+        int card_id = card.getId();
+        String front = card.getFront();
+        String back = card.getBack();
+        int leitner_box = card.getLeitnerBox();
+        String reviewed_date = card.getReviewedDate();
+        String due_date = card.getDueDate();
+        int number_reviews = card.getNumberOfReviews();
+        int number_passes = card.getNumberOfPasses();
+
+        String command = "UPDATE cards SET " +
+                         "front = " + "'" + front + "', " +
+                         "back = " + "'" + back + "', " +
+                         "leitner_box = " + "'" + leitner_box + "', " +
+                         "reviewed_date = " + "'" + reviewed_date + "', " +
+                         "due_date = " + "'" + due_date + "', " +
+                         "number_reviews = " + "'" + number_reviews + "', " +
+                         "number_passes = " + "'" + number_passes + "' " +
+                         "WHERE card_id = '" + card_id + "';";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
+            try (PreparedStatement stmt = connection.prepareStatement(command)) {
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+    }
 }

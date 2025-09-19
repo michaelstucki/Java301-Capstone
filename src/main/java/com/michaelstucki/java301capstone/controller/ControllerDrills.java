@@ -1,5 +1,7 @@
 package com.michaelstucki.java301capstone.controller;
 
+import com.michaelstucki.java301capstone.dao.Dao;
+import com.michaelstucki.java301capstone.dao.DaoSQLite;
 import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
@@ -39,6 +41,7 @@ public class ControllerDrills {
     private Queue<Card> queue;
     private LocalDate today;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private Dao dao;
 
 
     public void init(Deck sharedDeck) {
@@ -114,6 +117,7 @@ public class ControllerDrills {
                 card.setDueDate(today.plusDays(1).toString());
                 break;
         }
+        dao.updateCard(card);
     }
 
     public void passClick(ActionEvent event) {
@@ -151,6 +155,8 @@ public class ControllerDrills {
     @FXML
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
+        dao = DaoSQLite.getDao();
+
         questionAnswer.setEditable(false);
         drillOver.setVisible(false);
         queue = new ArrayDeque<>();

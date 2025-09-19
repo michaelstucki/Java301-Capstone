@@ -1,7 +1,6 @@
 package com.michaelstucki.java301capstone.controller;
 
 import static com.michaelstucki.java301capstone.constants.Constants.*;
-
 import com.michaelstucki.java301capstone.dao.Dao;
 import com.michaelstucki.java301capstone.dao.DaoSQLite;
 import com.michaelstucki.java301capstone.dto.Card;

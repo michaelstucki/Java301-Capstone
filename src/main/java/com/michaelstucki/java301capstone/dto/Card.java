@@ -3,10 +3,10 @@ package com.michaelstucki.java301capstone.dto;
 import static com.michaelstucki.java301capstone.constants.Constants.cardToken;
 
 public class Card {
-    private int cardId;
+    private final int cardId;
     private String front;
     private String back;
-    private String creationDate;
+    private final String creationDate;
     private String reviewedDate;
     private String dueDate;
     private int leitnerBox;
@@ -15,21 +15,20 @@ public class Card {
 
     public Card(int cardId, String front, String back, String creationDate, String reviewedDate,
                 String dueDate, int leitnerBox, int numberOfReviews, int numberOfPasses) {
+        this.cardId = cardId;
         this.front = front;
         this.back = back;
-        setId(cardId);
-        setCreationDate(creationDate);
-        setReviewedDate(reviewedDate);
-        setDueDate(dueDate);
-        setLeitnerBox(leitnerBox);
-        setNumberOfReviews(numberOfReviews);
-        setNumberOfPasses(numberOfPasses);
+        this.creationDate = creationDate;
+        this.reviewedDate = reviewedDate;
+        this.dueDate = dueDate;
+        this.leitnerBox = leitnerBox;
+        this.numberOfReviews = numberOfReviews;
+        this.numberOfPasses = numberOfPasses;
     }
 
     public int getId() {
         return cardId;
     }
-    public void setId(int cardId) { this.cardId = cardId; }
 
     public String getFront() {
         return front;
@@ -45,16 +44,7 @@ public class Card {
         this.back = back;
     }
 
-    public String getCreationDate() {
-        return creationDate;
-    }
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getReviewedDate() {
-        return reviewedDate;
-    }
+    public String getReviewedDate() { return reviewedDate; }
     public void setReviewedDate(String reviewedDate) {
         this.reviewedDate = reviewedDate;
     }
