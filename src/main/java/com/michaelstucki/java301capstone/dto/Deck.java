@@ -6,17 +6,14 @@ import java.util.Map;
 public class Deck {
     private String name;
     private Map<Integer, Card> cards;
-    private int numberOfCards;
 
     public Deck(String title) {
         this.name = title;
         cards = new HashMap<>();
     }
 
-    public void addCard(Card card) {
-        numberOfCards++;
-        card.setId(numberOfCards);
-        cards.put(numberOfCards, card);
+    public void addCard(int cardId, Card card) {
+        cards.put(cardId, card);
     }
 
     public Card getCard(int id) { return cards.get(id); }

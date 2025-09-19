@@ -1,6 +1,9 @@
 package com.michaelstucki.java301capstone.controller;
 
 import static com.michaelstucki.java301capstone.constants.Constants.*;
+
+import com.michaelstucki.java301capstone.dao.Dao;
+import com.michaelstucki.java301capstone.dao.DaoSQLite;
 import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
@@ -35,6 +38,7 @@ public class ControllerCards {
     private Deck deck;
     private String saveMode;
     private int selectedCardId;
+    private Dao dao;
 
     public void init(Deck sharedDeck) {
         deck = sharedDeck;
@@ -50,9 +54,10 @@ public class ControllerCards {
             Card card;
             switch (saveMode) {
                 case "add":
-                    card = new Card(front.getText(), back.getText());
-                    deck.addCard(card);
-                    cardsView.getItems().add(card.toString());
+//                    card = new Card(front.getText(), back.getText());
+//                    deck.addCard(card);
+//                    cardsView.getItems().add(card.toString());
+                    dao.addCard(front.getText(), back.getText(), deck);
                     break;
                 case "edit":
                     card = deck.getCard(selectedCardId);
@@ -94,6 +99,7 @@ public class ControllerCards {
         back.setEditable(false);
         save.setDisable(true);
         cancel.setDisable(true);
+        dao = DaoSQLite.getDao();
 
         // Select card
         cardsView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {

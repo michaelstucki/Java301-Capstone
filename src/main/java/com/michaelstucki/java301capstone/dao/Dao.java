@@ -17,4 +17,6 @@ public interface Dao {
     public void changeDeckName(String oldName, String newName);
     public void deleteDeck(String deckName);
 
+    public void addCard(String front, String back, Deck deck);
+
 }

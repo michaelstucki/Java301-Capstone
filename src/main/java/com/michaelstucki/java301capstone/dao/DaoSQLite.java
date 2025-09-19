@@ -1,8 +1,10 @@
 package com.michaelstucki.java301capstone.dao;
 
+import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.dto.User;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import static com.michaelstucki.java301capstone.constants.Constants.*;
@@ -45,7 +47,8 @@ public class DaoSQLite implements Dao {
             stmt.execute("CREATE TABLE IF NOT EXISTS " + cardsTable +
                          " (card_id INTEGER PRIMARY KEY, " +
                          "front TEXT, back TEXT, leitner_box INTEGER, " +
-                         "creation_date DATE, reviewed_date DATE, due_date DATE, deck_id INTEGER, " +
+                         "creation_date TEXT, reviewed_date TEXT, " +
+                         "due_date TEXT, deck_id INTEGER, " +
                          "number_reviews INTEGER, number_passes INTEGER, " +
                          "FOREIGN KEY (deck_id) REFERENCES " + decksTable + " (deck_id) " +
                          "ON DELETE CASCADE);");
@@ -204,6 +207,57 @@ public class DaoSQLite implements Dao {
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
             try (PreparedStatement stmt = connection.prepareStatement(command)) {
                 stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void addCard(String front, String back, Deck deck) {
+        String today = LocalDate.now().toString();
+        int card_id = -1;
+        String userName = user.getUsername();
+        String deckName = deck.getName();
+        String command = "INSERT INTO cards (front, back, leitner_box, creation_date, reviewed_date, due_date, " +
+                         "deck_id, number_reviews, number_passes) " +
+                         "VALUES ('" + front + "', '" + back + "', 0, '" + today + "', '" + today + "', '" + today + "'," +
+                         "(SELECT deck_id FROM decks d JOIN users u ON d.user_id = u.user_id " +
+                         "WHERE u.username = '" + userName + "' AND d.name = '" + deckName + "'), " +
+                         "0, 0);";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
+            try (PreparedStatement stmt = connection.prepareStatement(command, Statement.RETURN_GENERATED_KEYS)) {
+                stmt.executeUpdate();
+                ResultSet generatedKeys = stmt.getGeneratedKeys();
+                card_id = generatedKeys.getInt(1);
+                System.out.println("card_id: " + card_id);
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+
+        command = "SELECT * FROM cards WHERE card_id = '" + card_id + "';";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
+            try (PreparedStatement stmt = connection.prepareStatement(command)) {
+                ResultSet rs = stmt.executeQuery();
+                while(rs.next()) {
+                    int cardId = rs.getInt("card_id");
+                    front = rs.getString("front");
+                    back = rs.getString("back");
+                    int leitnerBox = rs.getInt("leitner_box");
+                    String creationDate = rs.getString("creation_date");
+                    String reviewedDate = rs.getString("reviewed_date");
+                    String dueDate = rs.getString("due_date");
+                    int numberOfReviews = rs.getInt("number_reviews");
+                    int numberOfPasses = rs.getInt("number_passes");
+                    Card card = new Card(cardId, front, back, creationDate, reviewedDate, dueDate, leitnerBox,
+                            numberOfReviews, numberOfPasses);
+                    deck.addCard(cardId, card);
+                    System.out.println("card: " + card.toString());
+                }
+                System.out.println();
             }
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());

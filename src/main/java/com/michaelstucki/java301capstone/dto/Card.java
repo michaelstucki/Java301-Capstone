@@ -1,31 +1,23 @@
 package com.michaelstucki.java301capstone.dto;
 
-import static com.michaelstucki.java301capstone.constants.Constants.*;
-import java.time.LocalDate;
+import static com.michaelstucki.java301capstone.constants.Constants.cardToken;
 
 public class Card {
-    private int id;
+    private int cardId;
     private String front;
     private String back;
-    private LocalDate creationDate;
-    private LocalDate reviewedDate;
-    private LocalDate dueDate;
+    private String creationDate;
+    private String reviewedDate;
+    private String dueDate;
     private int leitnerBox;
     private int numberOfReviews;
     private int numberOfPasses;
 
-    public Card(String front, String back) {
+    public Card(int cardId, String front, String back, String creationDate, String reviewedDate,
+                String dueDate, int leitnerBox, int numberOfReviews, int numberOfPasses) {
         this.front = front;
         this.back = back;
-        creationDate = LocalDate.now();
-        dueDate = creationDate;
-    }
-
-    public Card(int id, String front, String back, LocalDate creationDate, LocalDate reviewedDate,
-                LocalDate dueDate, int leitnerBox, int numberOfReviews, int numberOfPasses) {
-        this.front = front;
-        this.back = back;
-        setId(id);
+        setId(cardId);
         setCreationDate(creationDate);
         setReviewedDate(reviewedDate);
         setDueDate(dueDate);
@@ -35,9 +27,9 @@ public class Card {
     }
 
     public int getId() {
-        return id;
+        return cardId;
     }
-    public void setId(int id) { this.id = id; }
+    public void setId(int cardId) { this.cardId = cardId; }
 
     public String getFront() {
         return front;
@@ -53,24 +45,24 @@ public class Card {
         this.back = back;
     }
 
-    public LocalDate getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    public LocalDate getReviewedDate() {
+    public String getReviewedDate() {
         return reviewedDate;
     }
-    public void setReviewedDate(LocalDate reviewedDate) {
+    public void setReviewedDate(String reviewedDate) {
         this.reviewedDate = reviewedDate;
     }
 
-    public LocalDate getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -96,5 +88,5 @@ public class Card {
     }
 
     @Override
-    public String toString() { return id + cardToken + front + cardToken + back; }
+    public String toString() { return cardId + cardToken + front + cardToken + back; }
 }

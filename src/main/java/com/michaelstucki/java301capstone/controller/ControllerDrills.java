@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,8 @@ public class ControllerDrills {
     private String back;
     private Queue<Card> queue;
     private LocalDate today;
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 
     public void init(Deck sharedDeck) {
         today = LocalDate.now();
@@ -55,7 +58,7 @@ public class ControllerDrills {
 
         // Put only the cards due today into a mutable list
         List<Card> valueList = deck.getCards().values().stream()
-                .filter(card -> !card.getDueDate().isAfter(today))
+                .filter(card -> !LocalDate.parse(card.getDueDate(), dateTimeFormatter).isAfter(today))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         // Shuffle the list of cards (needs a mutable list)
@@ -96,7 +99,7 @@ public class ControllerDrills {
 
     private void updateCard(Card card, String passFail) {
         card.setNumberOfReviews(card.getNumberOfReviews() + 1);
-        card.setReviewedDate(today);
+        card.setReviewedDate(today.toString());
         switch (passFail) {
             case "pass":
                 card.setNumberOfPasses(card.getNumberOfPasses() + 1);
@@ -104,11 +107,11 @@ public class ControllerDrills {
                 leitnerBox++;
                 card.setLeitnerBox(leitnerBox);
                 long daysToAdd = (long) Math.pow(2.0, (double) leitnerBox);
-                card.setDueDate(today.plusDays(daysToAdd));
+                card.setDueDate(today.plusDays(daysToAdd).toString());
                 break;
             case "fail":
                 card.setLeitnerBox(0);
-                card.setDueDate(today.plusDays(1));
+                card.setDueDate(today.plusDays(1).toString());
                 break;
         }
     }
