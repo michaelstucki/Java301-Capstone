@@ -95,7 +95,6 @@ public class ControllerDrills {
     }
 
     private void updateCard(Card card, String passFail) {
-        System.out.println("updating card...");
         card.setNumberOfReviews(card.getNumberOfReviews() + 1);
         card.setReviewedDate(today);
         switch (passFail) {

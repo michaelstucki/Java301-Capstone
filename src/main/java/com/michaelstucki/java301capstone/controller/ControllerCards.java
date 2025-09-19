@@ -39,6 +39,8 @@ public class ControllerCards {
     public void init(Deck sharedDeck) {
         deck = sharedDeck;
         deckName.setText(deck.getName());
+        front.clear();
+        back.clear();
         cardsView.getItems().clear();
         deck.getCards().forEach((key, value) -> cardsView.getItems().add(value.toString()));
     }

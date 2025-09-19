@@ -56,7 +56,6 @@ public class DaoSQLite implements Dao {
 
     @Override
     public void addUser(String userName, String password, String securityAnswer) {
-        System.out.println("addUser");
         String command = "INSERT INTO " + usersTable + " (userName, password, securityAnswer) VALUES ('" +
                           userName + "', '" + password + "', '" + securityAnswer + "');";
 
@@ -72,7 +71,6 @@ public class DaoSQLite implements Dao {
     @Override
     public User getUser(String userName) {
         user = null;
-        System.out.println("getUser");
         String command = "SELECT * FROM " + usersTable + " WHERE userName = '" + userName + "';";
 
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
@@ -83,10 +81,6 @@ public class DaoSQLite implements Dao {
                         String password = rs.getString("password");
                         String securityAnswer = rs.getString("securityAnswer");
                         user = new User(userName, password, securityAnswer);
-
-                        System.out.println("username: " + userName);
-                        System.out.println("password: " + password);
-                        System.out.println("securityAnswer :" + securityAnswer);
                     }
             }
         } catch (SQLException e) {
@@ -97,7 +91,6 @@ public class DaoSQLite implements Dao {
 
     @Override
     public void changeUserPassword(String userName, String password) {
-        System.out.println("changeUserPassword");
         String command = "UPDATE " + usersTable + " SET password = " + "'" + password + "'" +
                          " WHERE username = '" + userName + "';";
 
@@ -112,7 +105,6 @@ public class DaoSQLite implements Dao {
 
     @Override
     public void deleteUser(String userName) {
-        System.out.println("deleteUser");
         String command = "DELETE FROM " + usersTable + " WHERE username = " + "'" + userName + "';";
 
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
@@ -126,7 +118,6 @@ public class DaoSQLite implements Dao {
 
     @Override
     public void addDeck(Deck deck) {
-        System.out.println("addDeck");
         // Update model
         String deckName = deck.getName();
         decks.put(deckName, deck);
@@ -146,7 +137,6 @@ public class DaoSQLite implements Dao {
 
     @Override
     public Map<String, Deck> getDecks() {
-        System.out.println("getDecks");
         // Get all user's decks from database
         String userName = user.getUsername();
         String command = "SELECT * FROM decks d " +
@@ -169,12 +159,17 @@ public class DaoSQLite implements Dao {
         return decks;
     }
 
+    private void getCards() {
+//        String command = "SELECT * FROM card c JOIN decks d ON c.deck_id = d.deck_id " +
+//                  "JOIN users u ON d.user_id = u.user_id WHERE username = '" + userName + "';";
+
+    }
+
     @Override
     public Deck getDeck(String deckName) { return decks.get(deckName); }
 
     @Override
     public void changeDeckName(String oldName, String newName) {
-        System.out.println("changeDeckName");
         // Update model
         // decks is a map, its key is the deck's title
         // so, to change the deck's title, the deck must be replaced
@@ -199,7 +194,6 @@ public class DaoSQLite implements Dao {
 
     @Override
     public void deleteDeck(String deckName) {
-        System.out.println("addDeck");
         // Update model
         decks.remove(deckName);
         // Update database
@@ -215,7 +209,4 @@ public class DaoSQLite implements Dao {
             System.out.println("Database error: " + e.getMessage());
         }
     }
-
-
-
 }

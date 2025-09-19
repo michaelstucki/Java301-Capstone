@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.paint.Color;
 
+import java.util.Map;
+
 public class ControllerDecks {
     @FXML
     private MenuItem drill;
@@ -61,6 +63,10 @@ public class ControllerDecks {
         sceneManager = SceneManager.getScreenManager();
         decksView.setItems(FXCollections.observableArrayList());
         decksView.setContextMenu(itemContextMenu);
+        // Populate decksView with existing decks
+        // Get decks from database
+        Map<String, Deck> decks = dao.getDecks();
+        decks.keySet().forEach(name -> decksView.getItems().add(name));
 
         // Open deck
         open.setOnAction(event -> {

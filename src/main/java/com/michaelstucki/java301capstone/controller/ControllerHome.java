@@ -42,7 +42,7 @@ public class ControllerHome {
             } else if (!password.getText().equals(user.getPassword())) {
                 userMessage.setText("invalid password!");
             } else {
-                System.out.println("successful login!");
+                userMessage.setText("successful login!");
                 sceneManager.showView("/fxml/decks.fxml");
             }
         }
