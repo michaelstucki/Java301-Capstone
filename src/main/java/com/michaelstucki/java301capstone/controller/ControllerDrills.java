@@ -146,7 +146,7 @@ public class ControllerDrills {
     public void decksClick() {
         sceneManager.showView("/fxml/decks.fxml");
     }
-
+    public void welcomeClick() { sceneManager.showView("/fxml/welcome.fxml"); }
     public void exitClick() {
         sceneManager.exit();
     }

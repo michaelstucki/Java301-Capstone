@@ -35,6 +35,10 @@
         </HBox>
     </VBox>
 
-    <Hyperlink text="decks" onAction="#decksClick"/>
-    <Hyperlink text="exit" onAction="#exitClick"/>
+
+    <VBox alignment="CENTER" spacing="5">
+        <Hyperlink text="welcome" onAction="#welcomeClick"/>
+        <Hyperlink text="decks" onAction="#decksClick"/>
+        <Hyperlink text="exit" onAction="#exitClick"/>
+    </VBox>
 </VBox>

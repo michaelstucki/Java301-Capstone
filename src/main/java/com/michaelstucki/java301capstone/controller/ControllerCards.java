@@ -7,6 +7,7 @@ import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -83,7 +84,7 @@ public class ControllerCards {
     public void decksClick() {
         sceneManager.showView("/fxml/decks.fxml");
     }
-
+    public void welcomeClick() { sceneManager.showView("/fxml/welcome.fxml"); }
     public void exitClick() {
         sceneManager.exit();
     }
