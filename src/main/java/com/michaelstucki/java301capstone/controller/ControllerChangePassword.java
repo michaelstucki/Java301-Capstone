@@ -4,7 +4,6 @@ import com.michaelstucki.java301capstone.dao.Dao;
 import com.michaelstucki.java301capstone.dao.DaoSQLite;
 import com.michaelstucki.java301capstone.dto.User;
 import com.michaelstucki.java301capstone.util.SceneManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
