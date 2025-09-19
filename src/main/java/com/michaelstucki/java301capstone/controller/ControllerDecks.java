@@ -33,6 +33,7 @@ public class ControllerDecks {
     public void init() {
          // Populate decksView with user's decks in database
          Map<String, Deck> decks = dao.getDecks();
+         decksView.getItems().clear();
          decks.keySet().forEach(name -> decksView.getItems().add(name));
     }
 
@@ -68,10 +69,6 @@ public class ControllerDecks {
         sceneManager = SceneManager.getScreenManager();
         decksView.setItems(FXCollections.observableArrayList());
         decksView.setContextMenu(itemContextMenu);
-//        // Populate decksView with existing decks
-//        // Get decks from database
-//        Map<String, Deck> decks = dao.getDecks();
-//        decks.keySet().forEach(name -> decksView.getItems().add(name));
 
         // Open deck
         open.setOnAction(event -> {

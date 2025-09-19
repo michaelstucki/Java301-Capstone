@@ -160,13 +160,37 @@ public class DaoSQLite implements Dao {
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
+
+        // Get all cards for each user's deck
+        for (Deck deck : decks.values()) {
+            command = "SELECT * FROM cards c " +
+                      "JOIN decks d ON d.deck_id = c.deck_id " +
+                      "JOIN users u ON u.user_id = d.user_id " +
+                      "WHERE u.username = '" + userName + "' AND d.name = '" + deck.getName() + "';";
+
+            try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
+                try (PreparedStatement stmt = connection.prepareStatement(command)) {
+                    ResultSet rs = stmt.executeQuery();
+                    while(rs.next()) {
+                        int cardId = rs.getInt("card_id");
+                        String front = rs.getString("front");
+                        String back = rs.getString("back");
+                        int leitnerBox = rs.getInt("leitner_box");
+                        String creationDate = rs.getString("creation_date");
+                        String reviewedDate = rs.getString("reviewed_date");
+                        String dueDate = rs.getString("due_date");
+                        int numberOfReviews = rs.getInt("number_reviews");
+                        int numberOfPasses = rs.getInt("number_passes");
+                        Card card = new Card(cardId, front, back, creationDate, reviewedDate, dueDate, leitnerBox,
+                                numberOfReviews, numberOfPasses);
+                        deck.addCard(cardId, card);
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println("Database error: " + e.getMessage());
+            }
+        }
         return decks;
-    }
-
-    private void getCards() {
-//        String command = "SELECT * FROM card c JOIN decks d ON c.deck_id = d.deck_id " +
-//                  "JOIN users u ON d.user_id = u.user_id WHERE username = '" + userName + "';";
-
     }
 
     @Override
@@ -232,7 +256,6 @@ public class DaoSQLite implements Dao {
                 stmt.executeUpdate();
                 ResultSet generatedKeys = stmt.getGeneratedKeys();
                 card_id = generatedKeys.getInt(1);
-                System.out.println("card_id: " + card_id);
             }
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
@@ -257,9 +280,7 @@ public class DaoSQLite implements Dao {
                     card = new Card(cardId, front, back, creationDate, reviewedDate, dueDate, leitnerBox,
                             numberOfReviews, numberOfPasses);
                     deck.addCard(cardId, card);
-                    System.out.println("card: " + card.toString());
                 }
-                System.out.println();
             }
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
