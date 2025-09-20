@@ -30,6 +30,10 @@ public class ControllerHome {
     private SceneManager sceneManager;
     private Dao dao;
 
+    public void init() {
+        dao.copyDatabase();
+    }
+
     public void signInClick() {
         if (username.getText().isEmpty()) {
             userMessage.setText("username not entered!");

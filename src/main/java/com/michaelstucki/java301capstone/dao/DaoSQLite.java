@@ -3,20 +3,41 @@ package com.michaelstucki.java301capstone.dao;
 import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.dto.User;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+
 import static com.michaelstucki.java301capstone.constants.Constants.*;
 
 public class DaoSQLite implements Dao {
     private static DaoSQLite DAO;
     private final Map<String, Deck> decks;
     private User user;
+    private String databasePath;
 
     private DaoSQLite() {
         decks = new HashMap<>();
+        // Creates database and its tables within resources database
+        databasePath = databasePathJAR;
         createTables();
+    }
+
+    public void copyDatabase() {
+        // Copies database to user's directory outside JAR so it's read-write
+        Path source = Paths.get(databasePathJAR);
+        Path destination = Paths.get(databasePathExternal);
+        try {
+            Files.copy(source, destination);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        databasePath = databasePathExternal;
     }
 
     public static synchronized DaoSQLite getDao() {

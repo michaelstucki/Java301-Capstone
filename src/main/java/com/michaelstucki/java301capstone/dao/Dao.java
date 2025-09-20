@@ -6,6 +6,8 @@ import com.michaelstucki.java301capstone.dto.User;
 import java.util.Map;
 
 public interface Dao {
+    public void copyDatabase();
+
     public void addUser(String userName, String password, String securityAnswer);
     public User getUser(String userName);
     public User getCurrentUser();

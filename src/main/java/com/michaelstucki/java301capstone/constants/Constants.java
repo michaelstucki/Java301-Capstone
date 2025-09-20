@@ -9,7 +9,8 @@ public final class Constants {
     public static final String[] fxmls = {"delete_account", "welcome", "drills", "cards", "decks", "change_password",
             "forgot_password", "create_account", "home"};
     public static final String cardToken = "::";
-    public static final String databasePath = "src/main/resources/database/flashcards.db";
+    public static final String databasePathExternal = "/Users/michaelstucki/.flashcards.db";
+    public static final String databasePathJAR = "src/main/resources/database/flashcards.db";
     public static final String usersTable = "users";
     public static final String decksTable = "decks";
     public static final String cardsTable = "cards";

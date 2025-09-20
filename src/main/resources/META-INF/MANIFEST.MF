@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: com.michaelstucki.java301capstone.App
+
