@@ -4,10 +4,13 @@ import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.dto.User;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -29,15 +32,22 @@ public class DaoSQLite implements Dao {
     }
 
     public void copyDatabase() {
-        // Copies database to user's directory outside JAR so it's read-write
-        Path source = Paths.get(databasePathJAR);
-        Path destination = Paths.get(databasePathExternal);
         try {
+            // Get specific user's name (macOS only)
+            ProcessBuilder processBuilder = new ProcessBuilder("whoami");
+            Process process = processBuilder.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String userName = reader.readLine();
+
+            // Copies database to user's directory outside JAR so it's read-write
+            Path source = Paths.get(databasePathJAR);
+            // Change name of JAR-external database name in place with user-specific name
+            Path destination = Paths.get(databasePathExternal.replace("userName", userName));
             Files.copy(source, destination);
+            databasePath = destination.toString();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        databasePath = databasePathExternal;
     }
 
     public static synchronized DaoSQLite getDao() {
