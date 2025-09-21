@@ -6,21 +6,24 @@ import com.michaelstucki.java301capstone.dto.User;
 import java.util.Map;
 
 public interface Dao {
-    public void copyDatabase();
+    void copyDatabase();
 
-    public void addUser(String userName, String password, String securityAnswer);
-    public User getUser(String userName);
-    public User getCurrentUser();
-    public void changeUserPassword(String userName, String password);
-    public void deleteUser(String userName);
+    void addUser(String userName, String password, String securityAnswer);
+    User getUser(String userName);
+    User getCurrentUser();
+    void changeUserPassword(String userName, String password);
+    void deleteUser(String userName);
 
-    public void addDeck(Deck deck);
-    public Deck getDeck(String deckName);
-    public Map<String, Deck> getDecks();
-    public void changeDeckName(String oldName, String newName);
-    public void deleteDeck(String deckName);
+    void addDeck(Deck deck);
+    Deck getDeck(String deckName);
+    Map<String, Deck> getDecks();
+    void changeDeckName(String oldName, String newName);
+    void deleteDeck(String deckName);
 
-    public Card addCard(String front, String back, Deck deck);
-    public void updateCard(Card card);
-    public void deleteCard(int cardId);
+    Card addCard(String front, String back, Deck deck);
+    void updateCard(Card card);
+    void deleteCard(int cardId);
+
+    void clearDecks();
 }
+

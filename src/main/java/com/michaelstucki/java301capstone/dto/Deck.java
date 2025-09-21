@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Deck {
-    private String name;
+    private final String name;
     private Map<Integer, Card> cards;
 
     public Deck(String title) {

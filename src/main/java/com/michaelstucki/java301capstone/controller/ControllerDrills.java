@@ -108,7 +108,7 @@ public class ControllerDrills {
                 int leitnerBox = card.getLeitnerBox();
                 leitnerBox++;
                 card.setLeitnerBox(leitnerBox);
-                long daysToAdd = (long) Math.pow(2.0, (double) leitnerBox);
+                long daysToAdd = (long) Math.pow(2.0, leitnerBox);
                 card.setDueDate(today.plusDays(daysToAdd).toString());
                 break;
             case "fail":

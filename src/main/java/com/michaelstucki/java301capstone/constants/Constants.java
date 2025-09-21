@@ -10,7 +10,8 @@ public final class Constants {
             "forgot_password", "create_account", "home"};
     public static final String cardToken = "::";
     public static final String databasePathExternal = "/Users/userName/.flashcards.db";
-    public static final String databasePathJAR = "src/main/resources/database/flashcards.db";
+    public static final String databasePathInternal = "src/main/resources/database/flashcards.db";
+    public static final String databasePathJAR = "/database/flashcards.db";
     public static final String usersTable = "users";
     public static final String decksTable = "decks";
     public static final String cardsTable = "cards";

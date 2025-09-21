@@ -1,9 +1,9 @@
 package com.michaelstucki.java301capstone.dto;
 
 public class User {
-    private String username;
-    private String password;
-    private String securityAnswer;
+    private final String username;
+    private final String password;
+    private final String securityAnswer;
 
     public User(String username, String password, String securityAnswer) {
         this.username = username;

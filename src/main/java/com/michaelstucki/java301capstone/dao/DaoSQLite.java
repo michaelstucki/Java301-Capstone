@@ -4,13 +4,12 @@ import com.michaelstucki.java301capstone.dto.Card;
 import com.michaelstucki.java301capstone.dto.Deck;
 import com.michaelstucki.java301capstone.dto.User;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.security.CodeSource;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -22,32 +21,32 @@ public class DaoSQLite implements Dao {
     private static DaoSQLite DAO;
     private final Map<String, Deck> decks;
     private User user;
-    private String databasePath;
+    private String url;
 
     private DaoSQLite() {
         decks = new HashMap<>();
-        // Creates database and its tables within resources database
-        databasePath = databasePathJAR;
-        createTables();
+
+        if (!isRunningInJar()) {
+            url = "jdbc:sqlite:" + databasePathInternal + "?foreign_keys=true";
+            createTables();
+        } else {
+            String userName = getUsersName();
+            url = "jdbc:sqlite:" + databasePathExternal.replace("userName", userName) + "?foreign_keys=true";
+        }
     }
 
-    public void copyDatabase() {
+    private boolean isRunningInJar() {
+        boolean result = false;
         try {
-            // Get specific user's name (macOS only)
-            ProcessBuilder processBuilder = new ProcessBuilder("whoami");
-            Process process = processBuilder.start();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String userName = reader.readLine();
-
-            // Copies database to user's directory outside JAR so it's read-write
-            Path source = Paths.get(databasePathJAR);
-            // Change name of JAR-external database name in place with user-specific name
-            Path destination = Paths.get(databasePathExternal.replace("userName", userName));
-            Files.copy(source, destination);
-            databasePath = destination.toString();
-        } catch (IOException e) {
+            CodeSource codeSource = getClass().getProtectionDomain().getCodeSource();
+            if (codeSource != null) {
+                URL location = codeSource.getLocation();
+                result = location.toExternalForm().contains(".jar");
+            }
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return result;
     }
 
     public static synchronized DaoSQLite getDao() {
@@ -55,26 +54,66 @@ public class DaoSQLite implements Dao {
         return DAO;
     }
 
+    @Override
+    public void clearDecks() {
+        decks.clear();
+    }
+
+    public void copyDatabase() {
+        if (isRunningInJar()) {
+            String userName = getUsersName();
+            Path destination = Paths.get(databasePathExternal.replace("userName", userName));
+            if (!Files.exists(destination)) {
+                try (InputStream inputStream = getClass().getResourceAsStream(databasePathJAR);
+                     FileOutputStream outputStream = new FileOutputStream(destination.toString())) {
+
+//                     FileOutputStream outputStream = new FileOutputStream(databasePathExternal.
+//                             replaceFirst("userName", userName))) {
+
+                    byte[] buffer = new byte[4096]; // Or a suitable buffer size
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                } catch (IOException | NullPointerException e) {
+                    throw new RuntimeException(e);
+                }
+                url = "jdbc:sqlite:" + destination.toString() + "?foreign_keys=true";
+            }
+        }
+    }
+
+    private String getUsersName() {
+        String userName = null;
+        try {
+            // Get specific user's name (macOS only)
+            ProcessBuilder processBuilder = new ProcessBuilder("whoami");
+            Process process = processBuilder.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            userName = reader.readLine();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return userName;
+    }
+
     private void createTables() {
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
-             Statement stmt = connection.createStatement()) {
-                // Enable foreign key support
-                stmt.execute("PRAGMA foreign_keys= ON;");
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            // Create users table
+            stmt.execute("CREATE TABLE IF NOT EXISTS " + usersTable +
+                         " (user_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                         "userName VARCHAR(20) UNIQUE, password VARCHAR(20), " +
+                         " securityAnswer VARCHAR(20));");
 
-                // Create users table
-                stmt.execute("CREATE TABLE IF NOT EXISTS " + usersTable +
-                             " (user_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                             "userName VARCHAR(20) UNIQUE, password VARCHAR(20), " +
-                             " securityAnswer VARCHAR(20));");
+            // Create decks table
+            stmt.execute("CREATE TABLE IF NOT EXISTS " + decksTable +
+                         " (deck_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                         "name VARCHAR(40), user_id INTEGER, " +
+                         "FOREIGN KEY (user_id) REFERENCES " + usersTable + " (user_id) " +
+                         "ON DELETE CASCADE);");
 
-                // Create decks table
-                stmt.execute("CREATE TABLE IF NOT EXISTS " + decksTable +
-                             " (deck_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                             "name VARCHAR(40), user_id INTEGER, " +
-                             "FOREIGN KEY (user_id) REFERENCES " + usersTable + " (user_id) " +
-                             "ON DELETE CASCADE);");
-
-                // Create cards table
+            // Create cards table
             stmt.execute("CREATE TABLE IF NOT EXISTS " + cardsTable +
                          " (card_id INTEGER PRIMARY KEY, " +
                          "front TEXT, back TEXT, leitner_box INTEGER, " +
@@ -94,10 +133,9 @@ public class DaoSQLite implements Dao {
         String command = "INSERT INTO " + usersTable + " (userName, password, securityAnswer) VALUES ('" +
                           userName + "', '" + password + "', '" + securityAnswer + "');";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                stmt.executeUpdate();
-            }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(command);
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
@@ -108,15 +146,14 @@ public class DaoSQLite implements Dao {
         user = null;
         String command = "SELECT * FROM " + usersTable + " WHERE userName = '" + userName + "';";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-               ResultSet rs = stmt.executeQuery();
-                    while (rs.next()) {
-                        userName = rs.getString("username");
-                        String password = rs.getString("password");
-                        String securityAnswer = rs.getString("securityAnswer");
-                        user = new User(userName, password, securityAnswer);
-                    }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(command);
+            while (rs.next()) {
+                userName = rs.getString("username");
+                String password = rs.getString("password");
+                String securityAnswer = rs.getString("securityAnswer");
+                user = new User(userName, password, securityAnswer);
             }
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
@@ -132,10 +169,9 @@ public class DaoSQLite implements Dao {
         String command = "UPDATE " + usersTable + " SET password = " + "'" + password + "'" +
                          " WHERE username = '" + userName + "';";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                stmt.executeUpdate();
-            }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(command);
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
@@ -145,10 +181,9 @@ public class DaoSQLite implements Dao {
     public void deleteUser(String userName) {
         String command = "DELETE FROM " + usersTable + " WHERE username = " + "'" + userName + "';";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                stmt.executeUpdate();
-            }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(command);
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
@@ -164,10 +199,9 @@ public class DaoSQLite implements Dao {
         String command =  "INSERT INTO decks (name, user_id) VALUES (" + "'" + deckName + "'," +
                           "(SELECT user_id FROM users WHERE username = " +  "'" + userName + "'));";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                stmt.executeUpdate();
-            }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(command);
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
@@ -181,16 +215,15 @@ public class DaoSQLite implements Dao {
                          "JOIN users u on d.user_id = u.user_id " +
                          "WHERE username = '" + userName + "';";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                ResultSet rs = stmt.executeQuery();
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+                ResultSet rs = stmt.executeQuery(command);
                 // Instantiate a deck for each database deck
                 while (rs.next()) {
                     String deckName = rs.getString("name");
                     Deck deck = new Deck(deckName);
                     decks.put(deckName, deck);
                 }
-            }
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
@@ -202,9 +235,9 @@ public class DaoSQLite implements Dao {
                       "JOIN users u ON u.user_id = d.user_id " +
                       "WHERE u.username = '" + userName + "' AND d.name = '" + deck.getName() + "';";
 
-            try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-                try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                    ResultSet rs = stmt.executeQuery();
+            try (Connection connection = DriverManager.getConnection(url);
+                 Statement stmt = connection.createStatement()) {
+                    ResultSet rs = stmt.executeQuery(command);
                     while(rs.next()) {
                         int cardId = rs.getInt("card_id");
                         String front = rs.getString("front");
@@ -219,7 +252,6 @@ public class DaoSQLite implements Dao {
                                 numberOfReviews, numberOfPasses);
                         deck.addCard(cardId, card);
                     }
-                }
             } catch (SQLException e) {
                 System.out.println("Database error: " + e.getMessage());
             }
@@ -245,10 +277,9 @@ public class DaoSQLite implements Dao {
                          "WHERE user_id = (SELECT user_id FROM users WHERE username = '" + userName +
                          "') AND name = '" + oldName + "';";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                stmt.executeUpdate();
-            }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(command);
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
@@ -263,10 +294,9 @@ public class DaoSQLite implements Dao {
         String command = "DELETE FROM decks WHERE user_id = (SELECT user_id from users " +
         "WHERE username = '" + userName + "') AND name = '" + deckName + "';";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                stmt.executeUpdate();
-            }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(command);
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
@@ -285,12 +315,11 @@ public class DaoSQLite implements Dao {
                          "WHERE u.username = '" + userName + "' AND d.name = '" + deckName + "'), " +
                          "0, 0);";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command, Statement.RETURN_GENERATED_KEYS)) {
-                stmt.executeUpdate();
-                ResultSet generatedKeys = stmt.getGeneratedKeys();
-                card_id = generatedKeys.getInt(1);
-            }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(command);
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            card_id = generatedKeys.getInt(1);
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
@@ -298,23 +327,22 @@ public class DaoSQLite implements Dao {
         command = "SELECT * FROM cards WHERE card_id = '" + card_id + "';";
 
         Card card = null;
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                ResultSet rs = stmt.executeQuery();
-                while(rs.next()) {
-                    int cardId = rs.getInt("card_id");
-                    front = rs.getString("front");
-                    back = rs.getString("back");
-                    int leitnerBox = rs.getInt("leitner_box");
-                    String creationDate = rs.getString("creation_date");
-                    String reviewedDate = rs.getString("reviewed_date");
-                    String dueDate = rs.getString("due_date");
-                    int numberOfReviews = rs.getInt("number_reviews");
-                    int numberOfPasses = rs.getInt("number_passes");
-                    card = new Card(cardId, front, back, creationDate, reviewedDate, dueDate, leitnerBox,
-                            numberOfReviews, numberOfPasses);
-                    deck.addCard(cardId, card);
-                }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(command);
+            while(rs.next()) {
+                int cardId = rs.getInt("card_id");
+                front = rs.getString("front");
+                back = rs.getString("back");
+                int leitnerBox = rs.getInt("leitner_box");
+                String creationDate = rs.getString("creation_date");
+                String reviewedDate = rs.getString("reviewed_date");
+                String dueDate = rs.getString("due_date");
+                int numberOfReviews = rs.getInt("number_reviews");
+                int numberOfPasses = rs.getInt("number_passes");
+                card = new Card(cardId, front, back, creationDate, reviewedDate, dueDate, leitnerBox,
+                        numberOfReviews, numberOfPasses);
+                deck.addCard(cardId, card);
             }
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
@@ -343,10 +371,9 @@ public class DaoSQLite implements Dao {
                          "number_passes = " + "'" + number_passes + "' " +
                          "WHERE card_id = '" + card_id + "';";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                stmt.executeUpdate();
-            }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(command);
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
@@ -356,10 +383,9 @@ public class DaoSQLite implements Dao {
     public void deleteCard(int cardId) {
         String command = "DELETE FROM cards WHERE card_id = '" + cardId + "';";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databasePath)) {
-            try (PreparedStatement stmt = connection.prepareStatement(command)) {
-                stmt.executeUpdate();
-            }
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(command);
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }

@@ -31,6 +31,7 @@ public class ControllerHome {
     private Dao dao;
 
     public void init() {
+        dao.clearDecks();
         dao.copyDatabase();
     }
 

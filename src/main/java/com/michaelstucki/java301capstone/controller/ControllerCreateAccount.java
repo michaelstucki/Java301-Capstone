@@ -50,6 +50,7 @@ public class ControllerCreateAccount {
                 dao.addUser(username.getText(), password.getText(), securityAnswer.getText());
                 userMessage.setTextFill(Color.GREEN);
                 userMessage.setText("account created!");
+                clearInputs();
                 sceneManager.showView("/fxml/welcome.fxml");
             }
         }
