@@ -10,7 +10,7 @@ Double-click the .dmg to install.
 
 Click installed app from Launchpad. From the landing screen, user can create an account, login, or recover their password.
 Once logged in, user can delete their account, change their password, and view, create, and rename decks.
-User can open a deck to view, add, delete, and edit cards in the deck. Finally, user can drill cards in a deck
+User can open a deck to view, add, delete, and edit cards in the deck. Finally, user can drill cards in a deck.
 
 ## Spaced Repetition
 
