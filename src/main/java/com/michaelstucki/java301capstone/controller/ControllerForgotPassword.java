@@ -9,6 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
+/**
+ * Forgot Password UI Controller
+ * @author Michael Stucki
+ * @version 1.0
+ * @since 2025-09-21
+ */
 public class ControllerForgotPassword {
     @FXML
     private TextField username;
@@ -19,7 +25,11 @@ public class ControllerForgotPassword {
     private SceneManager sceneManager;
     private Dao dao;
 
+    /**
+     * Recover Password button onAction
+     */
     public void recoverPasswordClick() {
+        // Validate user inputs
         if (username.getText().isEmpty()) {
             userMessage.setText("username not entered!");
         } else {
@@ -37,6 +47,9 @@ public class ControllerForgotPassword {
         }
     }
 
+    /**
+     * Login button onAction
+     */
     public void loginClick() {
         clearInputs();
         sceneManager.showView("/fxml/home.fxml");
@@ -49,12 +62,17 @@ public class ControllerForgotPassword {
         userMessage.setTextFill(Color.RED);
     }
 
-    public void exitClick() {
-        sceneManager.exit();
-    }
+    /**
+     * Exit app
+     */
+    public void exitClick() { sceneManager.exit(); }
 
+    /**
+     * Initialize UI widgets and event handlers
+     */
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
+        // Get reference to DaoSQLite singleton (used to update model & database)
         dao = DaoSQLite.getDao();
 
         username.focusedProperty().addListener((observable, oldValue, newValue) -> {

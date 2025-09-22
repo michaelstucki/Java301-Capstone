@@ -13,6 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import java.util.Objects;
 
+/**
+ * Delete Account UI Controller
+ * @author Michael Stucki
+ * @version 1.0
+ * @since 2025-09-21
+ */
 public class ControllerDeleteAccount {
     @FXML
     private TextField username;
@@ -36,7 +42,11 @@ public class ControllerDeleteAccount {
     private SceneManager sceneManager;
     private Dao dao;
 
+    /**
+     * Delete Account button onAction
+     */
     public void deleteAccountClick() {
+        // Validate user inputs (does not allow users to share names)
         User user = dao.getCurrentUser();
         if (password.getText().isEmpty()) {
             userMessage.setText("password not entered!");
@@ -55,6 +65,9 @@ public class ControllerDeleteAccount {
         }
     }
 
+    /**
+     * Toggle password visibility
+     */
     public void togglePasswordVisibility() {
         if (passwordVisible) {
             passwordField.setText(password.getText()); // Sync text
@@ -79,19 +92,29 @@ public class ControllerDeleteAccount {
         userMessage.setTextFill(Color.RED);
     }
 
+    /**
+     * Welcome hyperlink onAction (goes to Welcome UI)
+     */
     public void welcomeClick() {
         clearInputs();
         sceneManager.showView("/fxml/welcome.fxml");
     }
 
-    public void exitClick() {
-        sceneManager.exit();
-    }
+    /**
+     * Exit app
+     */
+    public void exitClick() { sceneManager.exit(); }
 
+    /**
+     * Initialize UI widgets and event handlers
+     */
+    @FXML
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
+        // Get reference to DaoSQLite singleton (used to update model & database)
         dao = DaoSQLite.getDao();
 
+        // Bidirectionally bind password inputs (so a change in one is reflected in the other)
         password.textProperty().bindBidirectional(passwordField.textProperty());
 
         password.focusedProperty().addListener((observable, oldValue, newValue) -> {

@@ -12,6 +12,12 @@ import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.paint.Color;
 import java.util.Map;
 
+/**
+ * Decks UI Controller
+ * @author Michael Stucki
+ * @version 1.0
+ * @since 2025-09-21
+ */
 public class ControllerDecks {
     @FXML
     private MenuItem drill;
@@ -30,14 +36,23 @@ public class ControllerDecks {
     private SceneManager sceneManager;
     private Dao dao;
 
+    /**
+     * Set controller shared resources
+     * Called by SceneManager before presenting UI
+     */
     public void init() {
          // Populate decksView with user's decks in database
          Map<String, Deck> decks = dao.getDecks();
+         // Clear & repopulate list of decks
          decksView.getItems().clear();
          decks.keySet().forEach(name -> decksView.getItems().add(name));
     }
 
+    /**
+     * Add Deck button onAction
+     */
     public void addDeck() {
+        // Validate user inputs (does not allow decks to share names)
         if (deckName.getText().trim().isEmpty()) {
             userMessage.setTextFill(Color.RED);
             userMessage.setText(deckName.getText() + " deck name not entered!");
@@ -45,6 +60,7 @@ public class ControllerDecks {
             userMessage.setTextFill(Color.RED);
             userMessage.setText(deckName.getText() + " already exists!");
         } else {
+            // Update data model, database, and UI
             Deck deck = new Deck(deckName.getText());
             dao.addDeck(deck);
             userMessage.setTextFill(Color.GREEN);
@@ -59,16 +75,30 @@ public class ControllerDecks {
                 item.equalsIgnoreCase(searchString));
     }
 
+    /**
+     * Welcome hyperlink onAction (goes to Welcome UI)
+     * @param event
+     */
     public void welcomeClick(ActionEvent event) { sceneManager.showView("/fxml/welcome.fxml"); }
-    public void logoutClick() { sceneManager.showView("/fxml/home.fxml"); }
-    public void exitClick() {
-        sceneManager.exit();
-    }
 
+    /**
+     * Logout hyperlink onAction (goes to Home/Login UI)
+     */
+    public void logoutClick() { sceneManager.showView("/fxml/home.fxml"); }
+
+    /**
+     * Exit app
+     */
+    public void exitClick() { sceneManager.exit(); }
+
+    /**
+     * Initialize UI widgets and event handlers
+     */
     @FXML
     public void initialize() {
-        dao = DaoSQLite.getDao();
         sceneManager = SceneManager.getScreenManager();
+        // Get reference to DaoSQLite singleton (used to update model & database)
+        dao = DaoSQLite.getDao();
         decksView.setItems(FXCollections.observableArrayList());
         decksView.setContextMenu(itemContextMenu);
 

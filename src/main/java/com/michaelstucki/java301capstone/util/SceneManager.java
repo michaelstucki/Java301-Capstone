@@ -14,18 +14,51 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * SceneManager Singleton to create scenes and present them
+ * It runs FXMLLoader once for each UI and caches their associated scenes and
+ * FXMLLoader references for select UIs to give access to their controller references.
+ * @author Michael Stucki
+ * @version 1.0
+ * @since 2025-09-21
+ */
+// Marked final to prevent extension
 public final class SceneManager {
     private Stage stage;
+
+    // Cache of UI scenes
     private final Map<String, Scene> sceneCache = new HashMap<>();
+    // Cache of UI FXMLLoaders
     private final Map<String, FXMLLoader> loaderCache = new HashMap<>();
     private final static SceneManager SCENE_MANAGER = new SceneManager();
+    // The deck of interest selected in Decks UI and shared with Cards UI (and elsewhere as needed)
     private Deck sharedDeck = new Deck("");
 
+    // Set to private to prevent instancing from outside this singleton class
     private SceneManager() {}
+
+    /**
+     * Get single reference to this class
+     * @return @{SceneManager} singleton instance
+     */
     public static SceneManager getScreenManager() { return SCENE_MANAGER; }
+
+    /**
+     * Set the JavaFX stage
+     * @param stage {@Stage} instance
+     */
     public void setStage(Stage stage) { this.stage = stage; }
+
+    /**
+     * Set shared deck reference
+     * @param sharedDeck {@Deck} instance shared by select UI controllers
+     */
     public void setSharedDeck(Deck sharedDeck) { this.sharedDeck = sharedDeck; }
 
+    /**
+     * Create, cache, and present UI scenes and FXMLLoaders (to make app responsive to scene changes)
+     * @param fxmlPath full path to .fxml files defined in @{Constants} class and passed in here by main
+     */
     public void showView(String fxmlPath) {
         try {
             if (sceneCache.containsKey(fxmlPath)) {

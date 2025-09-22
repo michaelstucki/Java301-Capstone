@@ -11,6 +11,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import static com.michaelstucki.java301capstone.constants.Constants.cardToken;
 
+/**
+ * Card UI Controller
+ * @author Michael Stucki
+ * @version 1.0
+ * @since 2025-09-21
+ */
 public class ControllerCards {
     @FXML
     private Button cancel;
@@ -38,9 +44,16 @@ public class ControllerCards {
     private int selectedCardId;
     private Dao dao;
 
+    /**
+     * Set controller shared resources
+     * Called by SceneManager before presenting UI
+     * @param sharedDeck Deck set in SceneManger singleton
+     */
     public void init(Deck sharedDeck) {
+        // Get access to deck selected on Deck's UI
         deck = sharedDeck;
         deckName.setText(deck.getName());
+        // Clear UI
         resetListView();
     }
 
@@ -51,11 +64,15 @@ public class ControllerCards {
         deck.getCards().forEach((key, value) -> cardsView.getItems().add(value.toString()));
     }
 
+    /**
+     * Save button onAction
+     */
     public void saveClick() {
         front.setEditable(false);
         back.setEditable(false);
         save.setDisable(true);
         cancel.setDisable(true);
+        // Only acts if card's front and back have content
         if (!front.getText().trim().isEmpty() && !back.getText().trim().isEmpty()) {
             Card card;
             switch (saveMode) {
@@ -74,6 +91,9 @@ public class ControllerCards {
         }
     }
 
+    /**
+     * Cancel button onAction
+     */
     public void cancelClick() {
         front.clear();
         back.clear();
@@ -85,14 +105,24 @@ public class ControllerCards {
         resetListView();
     }
 
+    /**
+     * Decks hyperlink onAction (goes to Decks UI)
+     */
     public void decksClick() {
         sceneManager.showView("/fxml/decks.fxml");
     }
+
+    /**
+     * Welcome hyperlink onAction (goes to Welcome UI)
+     */
     public void welcomeClick() { sceneManager.showView("/fxml/welcome.fxml"); }
     public void exitClick() {
         sceneManager.exit();
     }
 
+    /**
+     * Initialize UI widgets and event handlers
+     */
     @FXML
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();

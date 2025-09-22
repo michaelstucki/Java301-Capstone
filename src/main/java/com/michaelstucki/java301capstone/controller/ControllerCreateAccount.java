@@ -13,6 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import java.util.Objects;
 
+/**
+ * Create Account UI Controller
+ * @author Michael Stucki
+ * @version 1.0
+ * @since 2025-09-21
+ */
 public class ControllerCreateAccount {
     @FXML
     private TextField username;
@@ -32,7 +38,11 @@ public class ControllerCreateAccount {
     private SceneManager sceneManager;
     private Dao dao;
 
+    /**
+     * Create Account button onAction
+     */
     public void createAccountClick() {
+        // Validate user inputs
         if (username.getText().isEmpty()) {
             userMessage.setText("username not entered!");
         } else {
@@ -56,6 +66,9 @@ public class ControllerCreateAccount {
         }
     }
 
+    /**
+     * Toggle old password visibility
+     */
     public void togglePasswordVisibility() {
         if (passwordVisible) {
             passwordField.setText(password.getText()); // Sync text
@@ -73,6 +86,9 @@ public class ControllerCreateAccount {
         passwordVisible = !passwordVisible;
     }
 
+    /**
+     * Home hyperlink onAction
+     */
     public void homeClick() {
         clearInputs();
         sceneManager.showView("/fxml/home.fxml");
@@ -87,10 +103,17 @@ public class ControllerCreateAccount {
         userMessage.setTextFill(Color.RED);
     }
 
+    /**
+     * Exit app
+     */
     public void exitClick() {
         sceneManager.exit();
     }
 
+    /**
+     * Initialize UI widgets and event handlers
+     */
+    @FXML
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
         dao = DaoSQLite.getDao();

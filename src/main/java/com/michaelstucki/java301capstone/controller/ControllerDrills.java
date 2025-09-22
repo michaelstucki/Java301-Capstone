@@ -14,6 +14,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Drills UI Controller
+ * @author Michael Stucki
+ * @version 1.0
+ * @since 2025-09-21
+ */
 public class ControllerDrills {
     @FXML
     private Label drillOver;
@@ -43,8 +49,14 @@ public class ControllerDrills {
     private Dao dao;
 
 
+    /**
+     * Set controller shared resources
+     * Called by SceneManager before presenting UI
+     * @param sharedDeck Deck set in SceneManger singleton
+     */
     public void init(Deck sharedDeck) {
         today = LocalDate.now();
+        // Get access to deck selected on Deck's UI
         deck = sharedDeck;
         deckName.setText(deck.getName());
         drillOver.setVisible(false);
@@ -70,6 +82,9 @@ public class ControllerDrills {
         queue.addAll(valueList);
     }
 
+    /**
+     * Start button onAction
+     */
     public void startClick() {
         drillOver.setVisible(false);
         drillOver.setText("Excellent work!");
@@ -90,6 +105,9 @@ public class ControllerDrills {
         }
     }
 
+    /**
+     * Stop button onAction
+     */
     public void stopClick() {
         questionAnswer.clear();
         start.setDisable(false);
@@ -99,6 +117,8 @@ public class ControllerDrills {
         fail.setDisable(true);
     }
 
+    // Implements Leitner box spaced-repetition
+    // Each box in the series doubles the duration between reviews (1, 2, 4, 8,... days)
     private void updateCard(Card card, String passFail) {
         card.setNumberOfReviews(card.getNumberOfReviews() + 1);
         card.setReviewedDate(today.toString());
@@ -119,6 +139,9 @@ public class ControllerDrills {
         dao.updateCard(card);
     }
 
+    /**
+     * Pass button onAction: advances card to next Leitner box & assigns its due date
+     */
     public void passClick() {
         next.setDisable(false);
         pass.setDisable(true);
@@ -134,6 +157,9 @@ public class ControllerDrills {
         }
     }
 
+    /**
+     * Fail button onAction: card goes back to 1st Leitner box
+     */
     public void failClick() {
         pass.setDisable(true);
         fail.setDisable(true);
@@ -143,17 +169,30 @@ public class ControllerDrills {
         updateCard(card, "fail");
     }
 
+    /**
+     * Deck hyperlink onAction (goes to Decks UI)
+     */
     public void decksClick() {
         sceneManager.showView("/fxml/decks.fxml");
     }
-    public void welcomeClick() { sceneManager.showView("/fxml/welcome.fxml"); }
-    public void exitClick() {
-        sceneManager.exit();
-    }
 
+    /**
+     * Welcome hyperlink onAction (goes to Welcome UI)
+     */
+    public void welcomeClick() { sceneManager.showView("/fxml/welcome.fxml"); }
+
+    /**
+     * Exit app
+     */
+    public void exitClick() { sceneManager.exit(); }
+
+    /**
+     * Initialize UI widgets and event handlers
+     */
     @FXML
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
+        // Get reference to DaoSQLite singleton (used to update model & database)
         dao = DaoSQLite.getDao();
 
         questionAnswer.setEditable(false);
@@ -166,6 +205,7 @@ public class ControllerDrills {
             isFront = !isFront;
         });
 
+        // Next button onAction advances iteration through card queue (event-driven logic)
         next.setOnAction(event -> {
             next.setDisable(true);
             if (queue.peek() != null) {

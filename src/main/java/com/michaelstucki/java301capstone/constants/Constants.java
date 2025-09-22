@@ -1,5 +1,12 @@
 package com.michaelstucki.java301capstone.constants;
 
+/**
+ * Defines constants used throughout application
+ * @author Michael Stucki
+ * @version 1.0
+ * @since 2025-09-21
+ */
+
 public final class Constants {
     private static final double ASPECT_RATIO = 1.1;
     public static final double height = 750;

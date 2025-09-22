@@ -13,6 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import java.util.Objects;
 
+/**
+ * Change Password UI Controller
+ * @author Michael Stucki
+ * @version 1.0
+ * @since 2025-09-21
+ */
 public class ControllerChangePassword {
     @FXML
     private TextField username;
@@ -37,7 +43,11 @@ public class ControllerChangePassword {
     private SceneManager sceneManager;
     private Dao dao;
 
+    /**
+     * Change Password Button's onAction
+     */
     public void changePasswordClick() {
+        // Validate user inputs
         if (username.getText().isEmpty()) {
             userMessage.setText("username not entered!");
         } else {
@@ -62,6 +72,9 @@ public class ControllerChangePassword {
         }
     }
 
+    /**
+     * Toggle old password visibility
+     */
     public void OldTogglePasswordVisibility() {
         if (oldPasswordVisible) {
             oldPasswordField.setText(oldPassword.getText()); // Sync text
@@ -79,6 +92,9 @@ public class ControllerChangePassword {
         oldPasswordVisible = !oldPasswordVisible;
     }
 
+    /**
+     * Toggle new password visibility
+     */
     public void togglePasswordVisibility() {
         if (passwordVisible) {
             passwordField.setText(password.getText()); // Sync text
@@ -96,6 +112,9 @@ public class ControllerChangePassword {
         passwordVisible = !passwordVisible;
     }
 
+    /**
+     * Welcome hyperlink onAction (goes to Welcome UI)
+     */
     public void welcomeClick() {
         clearInputs();
         sceneManager.showView("/fxml/welcome.fxml");
@@ -110,10 +129,17 @@ public class ControllerChangePassword {
         userMessage.setTextFill(Color.RED);
     }
 
+    /**
+     * Exit app
+     */
     public void exitClick() {
         sceneManager.exit();
     }
 
+    /**
+     * Initialize UI widgets and event handlers
+     */
+    @FXML
     public void initialize() {
         sceneManager = SceneManager.getScreenManager();
         dao = DaoSQLite.getDao();
@@ -122,6 +148,7 @@ public class ControllerChangePassword {
             userMessage.setText("");
         });
 
+        // Bidirectionally bind old password inputs (so a change in one is reflected in the other)
         oldPassword.textProperty().bindBidirectional(oldPasswordField.textProperty());
 
         oldPassword.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -132,6 +159,7 @@ public class ControllerChangePassword {
             userMessage.setText("");
         });
 
+        // Bidirectionally bind new password inputs (so a change in one is reflected in the other)
         password.textProperty().bindBidirectional(passwordField.textProperty());
 
         password.focusedProperty().addListener((observable, oldValue, newValue) -> {
