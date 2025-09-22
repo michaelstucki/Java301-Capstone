@@ -16,7 +16,7 @@ User can also open a deck to view cards in the deck and add, delete, and edit ca
 
 While drilling cards in a deck, user is presented with the front side of a card. When the card is clicked, its back side is shown. User decides whether they got it correct and then presses either *Pass* or *Fail* accordingly. Failed cards are shown again. Passed cards are not shown again. A passed card advances to the next Leitner box and its due date is set based on the box in which it resides. A failed card returns to the first box.
 
-The Leitner boxes are 0-indexed (i.e., the first box has an index of 0, the second an index of 1) and the cards in a box have due dates set according to a $2^n$ progression, where *n* represents the Leitner box index. So, cards in box 0 are reviewed 1 ($2^0$) day after arriving in box 0; cards in box 1 are reviewed 2 ($2^1$) days after arriving in box 1, and so on.
+The Leitner boxes are 0-indexed (i.e., the first box has an index of 0, the second an index of 1) and the cards in a box have due dates set according to a $2^n$ progression, where *n* represents the Leitner box index. So, cards in box 0 are reviewed $2^0$ (1) day after arriving in box 0; cards in box 1 are reviewed $2^1$ (2) days after arriving in box 1, and so on.
 
 
 
