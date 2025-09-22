@@ -34,7 +34,7 @@ public class Deck {
     /**
      * Get card from deck
      * @param id card ID
-     * @return {@Card} instance
+     * @return Card instance
      */
     public Card getCard(int id) { return cards.get(id); }
 

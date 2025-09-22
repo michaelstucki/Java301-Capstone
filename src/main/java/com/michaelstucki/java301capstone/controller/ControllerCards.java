@@ -116,6 +116,10 @@ public class ControllerCards {
      * Welcome hyperlink onAction (goes to Welcome UI)
      */
     public void welcomeClick() { sceneManager.showView("/fxml/welcome.fxml"); }
+
+    /**
+     * Exit app
+     */
     public void exitClick() {
         sceneManager.exit();
     }

@@ -28,13 +28,13 @@ public interface Dao {
     /**
      * Get user
      * @param userName user name
-     * @return {@User} instance
+     * @return User instance
      */
     User getUser(String userName);
 
     /**
      * Get current user instance
-     * @return {@User} instance
+     * @return User instance
      */
     User getCurrentUser();
 
@@ -53,20 +53,20 @@ public interface Dao {
 
     /**
      * Add deck
-     * @param deck {@Deck} instance
+     * @param deck Deck instance
      */
     void addDeck(Deck deck);
 
     /**
      * Get deck
      * @param deckName deck name
-     * @return {@Deck} instance
+     * @return Deck instance
      */
     Deck getDeck(String deckName);
 
     /**
      * Get all user's decks
-     * @return {Map<String, Deck>}
+     * @return map of decks
      */
     Map<String, Deck> getDecks();
 
@@ -88,7 +88,7 @@ public interface Dao {
      * @param front front text
      * @param back back text
      * @param deck associated deck
-     * @return {@Card} instance
+     * @return Card instance
      */
     Card addCard(String front, String back, Deck deck);
 

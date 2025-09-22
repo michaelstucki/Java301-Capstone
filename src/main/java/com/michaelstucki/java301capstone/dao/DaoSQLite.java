@@ -59,7 +59,7 @@ public class DaoSQLite implements Dao {
 
     /**
      * Get single instance of DaoSQLite class
-     * @return {@DaoSQLite} instance
+     * @return DaoSQLite instance
      */
     public static synchronized DaoSQLite getDao() {
         if (DAO == null) DAO = new DaoSQLite();
@@ -166,7 +166,7 @@ public class DaoSQLite implements Dao {
     /**
      * Get user
      * @param userName user name
-     * @return {@User} instance
+     * @return User instance
      */
     @Override
     public User getUser(String userName) {
@@ -190,7 +190,7 @@ public class DaoSQLite implements Dao {
 
     /**
      * Get current user instance
-     * @return {@User} instance
+     * @return User instance
      */
     @Override
     public User getCurrentUser() { return user; }
@@ -231,7 +231,7 @@ public class DaoSQLite implements Dao {
 
     /**
      * Add deck
-     * @param deck {@Deck} instance
+     * @param deck Deck instance
      */
     @Override
     public void addDeck(Deck deck) {
@@ -253,7 +253,7 @@ public class DaoSQLite implements Dao {
 
     /**
      * Get all user's decks
-     * @return {Map<String, Deck>}
+     * @return map of decks
      */
     @Override
     public Map<String, Deck> getDecks() {
@@ -310,7 +310,7 @@ public class DaoSQLite implements Dao {
     /**
      * Get deck
      * @param deckName deck name
-     * @return {@Deck} instance
+     * @return Deck instance
      */
     @Override
     public Deck getDeck(String deckName) { return decks.get(deckName); }
@@ -369,7 +369,7 @@ public class DaoSQLite implements Dao {
      * @param front front text
      * @param back back text
      * @param deck associated deck
-     * @return {@Card} instance
+     * @return Card instance
      */
     @Override
     public Card addCard(String front, String back, Deck deck) {

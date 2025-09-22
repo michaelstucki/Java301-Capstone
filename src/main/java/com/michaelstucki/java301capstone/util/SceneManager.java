@@ -45,13 +45,13 @@ public final class SceneManager {
 
     /**
      * Set the JavaFX stage
-     * @param stage {@Stage} instance
+     * @param stage Stage instance
      */
     public void setStage(Stage stage) { this.stage = stage; }
 
     /**
      * Set shared deck reference
-     * @param sharedDeck {@Deck} instance shared by select UI controllers
+     * @param sharedDeck Deck instance shared by select UI controllers
      */
     public void setSharedDeck(Deck sharedDeck) { this.sharedDeck = sharedDeck; }
 
@@ -89,5 +89,9 @@ public final class SceneManager {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Exit app
+     */
     public void exit() { stage.close(); }
 }

@@ -140,7 +140,7 @@ public class ControllerDrills {
     }
 
     /**
-     * Pass button onAction: advances card to next Leitner box & assigns its due date
+     * Pass button onAction: advances card to next Leitner box and assigns its due date
      */
     public void passClick() {
         next.setDisable(false);

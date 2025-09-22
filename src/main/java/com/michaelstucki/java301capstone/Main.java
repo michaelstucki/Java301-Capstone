@@ -14,12 +14,6 @@ import java.io.IOException;
  * @since 2025-09-21
  */
 public class Main extends Application {
-    /**
-     * JavaFX starting point
-     * @param stage the primary stage for this application, onto which
-     * the application scene can be set.
-     * @throws IOException
-     */
     @Override
     public void start(Stage stage) throws IOException {
         // Enable use of fonts

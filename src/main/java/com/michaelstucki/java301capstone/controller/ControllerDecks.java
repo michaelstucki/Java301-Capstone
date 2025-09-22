@@ -77,9 +77,8 @@ public class ControllerDecks {
 
     /**
      * Welcome hyperlink onAction (goes to Welcome UI)
-     * @param event
      */
-    public void welcomeClick(ActionEvent event) { sceneManager.showView("/fxml/welcome.fxml"); }
+    public void welcomeClick() { sceneManager.showView("/fxml/welcome.fxml"); }
 
     /**
      * Logout hyperlink onAction (goes to Home/Login UI)

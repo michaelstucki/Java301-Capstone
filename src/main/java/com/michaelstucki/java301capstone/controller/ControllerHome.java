@@ -21,7 +21,7 @@ import java.util.Objects;
  */
 public class ControllerHome {
     @FXML
-    public Hyperlink exit;
+    private Hyperlink exit;
     @FXML
     private TextField username;
     @FXML
