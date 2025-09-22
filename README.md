@@ -8,7 +8,7 @@ Double-click the .dmg to install.
 
 ## Usage
 
-Double-click installed app from Launchpad. From the landing screen, user can create an account, login, or recover their password.
+Click installed app from Launchpad. From the landing screen, user can create an account, login, or recover their password.
 Once logged in, user can delete their account, change their password, view their decks, create and rename decks.
 User can also open a deck to view cards in the deck and add, delete, and edit cards in the deck. Finally, user can drill cards in a deck.
 
