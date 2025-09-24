@@ -5,13 +5,12 @@ import com.michaelstucki.java301capstone.dao.DaoSQLite;
 import com.michaelstucki.java301capstone.dto.User;
 import com.michaelstucki.java301capstone.util.SceneManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Delete Account UI Controller
@@ -57,11 +56,23 @@ public class ControllerDeleteAccount {
         } else if (!passwordRetype.getText().equals(password.getText())) {
             userMessage.setText("passwords do not match!");
         } else {
-            dao.deleteUser(user.getUsername());
-            userMessage.setTextFill(Color.GREEN);
-            userMessage.setText("password changed!");
-            clearInputs();
-            sceneManager.showView("/fxml/home.fxml");
+            // Warn user
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(
+                    "/images/icons8-exclamation-mark-64.png")));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(48);
+            imageView.setFitWidth(48);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Do you really want to delete your account?");
+            alert.setGraphic(imageView);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                dao.deleteUser(user.getUsername());
+                clearInputs();
+                sceneManager.showView("/fxml/home.fxml");
+            } else {
+                clearInputs();
+            }
         }
     }
 

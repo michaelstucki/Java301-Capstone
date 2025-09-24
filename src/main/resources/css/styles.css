@@ -78,6 +78,13 @@
 
 .text-area {
     -fx-prev-height: 500px;
+    -fx-font-family: 'EB Garamond';
+    -fx-font-size: 17px;
+}
+
+#cardsView {
+    -fx-font-family: 'EB Garamond';
+    -fx-font-size: 14px;
 }
 
 #drillOver {
