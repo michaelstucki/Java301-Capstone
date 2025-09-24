@@ -20,5 +20,3 @@ The Leitner boxes are 0-indexed (i.e., the first box has an index of 0, the seco
 
 
 
-
-
