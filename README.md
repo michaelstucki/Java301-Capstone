@@ -20,5 +20,6 @@ During a drill session, user is presented with the front side of a card. When th
 
 The Leitner boxes are 0-indexed (i.e., the first box has an index of 0, the second an index of 1, etc.) and the cards in a box have due dates set according to a $2^n$ progression, where *n* represents the Leitner box index. So, cards in box 0 are reviewed $2^0$ (1) day after arriving in box 0; cards in box 1 are reviewed $2^1$ (2) days after arriving in box 1, and so on.
 
+![landing](https://github.com/user-attachments/assets/ee7084ca-a6f2-4587-871b-2077c0fac8af)
 
 
