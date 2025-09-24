@@ -23,8 +23,3 @@ The Leitner boxes are 0-indexed (i.e., the first box has an index of 0, the seco
 ## Home Page
 
 ![landing](https://github.com/user-attachments/assets/ee7084ca-a6f2-4587-871b-2077c0fac8af)
-
-## Development Notes
-
-[java301-capstone-notes_2025-09-23.pdf](https://github.com/user-attachments/files/22522811/java301-capstone-notes_2025-09-23.pdf)
-
