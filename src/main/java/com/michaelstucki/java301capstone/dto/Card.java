@@ -16,6 +16,7 @@ public class Card {
     private String reviewedDate;
     private String dueDate;
     private int leitnerBox;
+    private int leitnerTarget;
     private int numberOfReviews;
     private int numberOfPasses;
 
@@ -28,11 +29,12 @@ public class Card {
      * @param reviewedDate last reviewed date
      * @param dueDate next review due dater
      * @param leitnerBox Leitner box
+     * @param leitnerTarget Target Leitner box
      * @param numberOfReviews number of times it's been reviewed
      * @param numberOfPasses number of times it's been passed
      */
     public Card(int cardId, String front, String back, String creationDate, String reviewedDate,
-                String dueDate, int leitnerBox, int numberOfReviews, int numberOfPasses) {
+                String dueDate, int leitnerBox, int leitnerTarget, int numberOfReviews, int numberOfPasses) {
         this.cardId = cardId;
         this.front = front;
         this.back = back;
@@ -40,6 +42,7 @@ public class Card {
         this.reviewedDate = reviewedDate;
         this.dueDate = dueDate;
         this.leitnerBox = leitnerBox;
+        this.leitnerTarget = leitnerTarget;
         this.numberOfReviews = numberOfReviews;
         this.numberOfPasses = numberOfPasses;
     }
@@ -124,10 +127,26 @@ public class Card {
 
     /**
      * Set Leitner box
-     * @param leitnerBox leitner box
+     * @param leitnerBox Leitner box
      */
     public void setLeitnerBox(int leitnerBox) {
         this.leitnerBox = leitnerBox;
+    }
+
+    /**
+     * Get Leitner Target box
+     * @return Leitner Target box
+     */
+    public int getLeitnerTarget() {
+        return leitnerTarget;
+    }
+
+    /**
+     * Set Leitner Target box
+     * @param leitnerTarget Leitner Target box
+     */
+    public void setLeitnerTarget(int leitnerTarget) {
+        this.leitnerTarget = leitnerTarget;
     }
 
     /**

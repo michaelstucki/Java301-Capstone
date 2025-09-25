@@ -132,7 +132,7 @@ public class DaoSQLite implements Dao {
             // Create cards table
             stmt.execute("CREATE TABLE IF NOT EXISTS " + cardsTable +
                          " (card_id INTEGER PRIMARY KEY, " +
-                         "front TEXT, back TEXT, leitner_box INTEGER, " +
+                         "front TEXT, back TEXT, leitner_box INTEGER, leitner_target INTEGER, " +
                          "creation_date TEXT, reviewed_date TEXT, " +
                          "due_date TEXT, deck_id INTEGER, " +
                          "number_reviews INTEGER, number_passes INTEGER, " +
@@ -291,13 +291,14 @@ public class DaoSQLite implements Dao {
                         String front = rs.getString("front");
                         String back = rs.getString("back");
                         int leitnerBox = rs.getInt("leitner_box");
+                        int leitnerTarget = rs.getInt("leitner_target");
                         String creationDate = rs.getString("creation_date");
                         String reviewedDate = rs.getString("reviewed_date");
                         String dueDate = rs.getString("due_date");
                         int numberOfReviews = rs.getInt("number_reviews");
                         int numberOfPasses = rs.getInt("number_passes");
                         Card card = new Card(cardId, front, back, creationDate, reviewedDate, dueDate, leitnerBox,
-                                numberOfReviews, numberOfPasses);
+                                leitnerTarget, numberOfReviews, numberOfPasses);
                         deck.addCard(cardId, card);
                     }
             } catch (SQLException e) {
@@ -377,9 +378,9 @@ public class DaoSQLite implements Dao {
         int card_id = -1;
         String userName = user.getUsername();
         String deckName = deck.getName();
-        String command = "INSERT INTO cards (front, back, leitner_box, creation_date, reviewed_date, due_date, " +
+        String command = "INSERT INTO cards (front, back, leitner_box, leitner_target, creation_date, reviewed_date, due_date, " +
                          "deck_id, number_reviews, number_passes) " +
-                         "VALUES ('" + front + "', '" + back + "', 0, '" + today + "', '" + today + "', '" + today + "'," +
+                         "VALUES ('" + front + "', '" + back + "', 0, 0, '" + today + "', '" + today + "', '" + today + "'," +
                          "(SELECT deck_id FROM decks d JOIN users u ON d.user_id = u.user_id " +
                          "WHERE u.username = '" + userName + "' AND d.name = '" + deckName + "'), " +
                          "0, 0);";
@@ -405,13 +406,14 @@ public class DaoSQLite implements Dao {
                 front = rs.getString("front");
                 back = rs.getString("back");
                 int leitnerBox = rs.getInt("leitner_box");
+                int leitnerTarget = rs.getInt("leitner_target");
                 String creationDate = rs.getString("creation_date");
                 String reviewedDate = rs.getString("reviewed_date");
                 String dueDate = rs.getString("due_date");
                 int numberOfReviews = rs.getInt("number_reviews");
                 int numberOfPasses = rs.getInt("number_passes");
                 card = new Card(cardId, front, back, creationDate, reviewedDate, dueDate, leitnerBox,
-                        numberOfReviews, numberOfPasses);
+                        leitnerTarget, numberOfReviews, numberOfPasses);
                 deck.addCard(cardId, card);
             }
         } catch (SQLException e) {
@@ -430,6 +432,7 @@ public class DaoSQLite implements Dao {
         String front = card.getFront();
         String back = card.getBack();
         int leitner_box = card.getLeitnerBox();
+        int leitner_target = card.getLeitnerTarget();
         String reviewed_date = card.getReviewedDate();
         String due_date = card.getDueDate();
         int number_reviews = card.getNumberOfReviews();
@@ -439,6 +442,7 @@ public class DaoSQLite implements Dao {
                          "front = " + "'" + front + "', " +
                          "back = " + "'" + back + "', " +
                          "leitner_box = " + "'" + leitner_box + "', " +
+                         "leitner_target = " + "'" + leitner_target + "', " +
                          "reviewed_date = " + "'" + reviewed_date + "', " +
                          "due_date = " + "'" + due_date + "', " +
                          "number_reviews = " + "'" + number_reviews + "', " +

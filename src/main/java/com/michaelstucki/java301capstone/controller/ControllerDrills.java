@@ -127,12 +127,22 @@ public class ControllerDrills {
                 card.setNumberOfPasses(card.getNumberOfPasses() + 1);
                 int leitnerBox = card.getLeitnerBox();
                 leitnerBox++;
-                card.setLeitnerBox(leitnerBox);
+                int leitnerTarget = card.getLeitnerTarget();
+                // Recapitulate lower boxes up to the current target before advancing the target
+                if (leitnerBox > leitnerTarget) {
+                    leitnerTarget = leitnerBox;
+                    leitnerBox = 0;
+                    card.setLeitnerBox(leitnerBox);
+                    card.setLeitnerTarget(leitnerTarget);
+                } else {
+                    card.setLeitnerBox(leitnerBox);
+                }
                 long daysToAdd = (long) Math.pow(2.0, leitnerBox);
                 card.setDueDate(today.plusDays(daysToAdd).toString());
                 break;
             case "fail":
                 card.setLeitnerBox(0);
+                card.setLeitnerTarget(0);
                 card.setDueDate(today.plusDays(1).toString());
                 break;
         }
