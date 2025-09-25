@@ -26,7 +26,7 @@ The Leitner boxes are 0-indexed (i.e., the first box has an index of 0, the seco
 
 ## Demo
 
-https://github.com/user-attachments/assets/0ab0824c-a115-440d-9eb2-5ee6ace07a13
+https://github.com/user-attachments/assets/d9d4639c-3d14-46a5-98cb-22c348ede57c
 
 ## Development Notes
 
