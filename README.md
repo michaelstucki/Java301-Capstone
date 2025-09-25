@@ -1,6 +1,6 @@
 # FlashcardApp
 
-FlashcardApp is a spaced repetition application that enables a user to create an account and within the account to create and manage decks of flashcards and to drill them. Multiple users can use the app on the same computer, each user having their own account.
+FlashcardApp is a spaced repetition *desktop* application that enables a user to create an account and within the account to create and manage decks of flashcards and to drill them. Multiple users can use the app on the same computer, each user having their own account.
 
 ## Installation (MacOS Only)
 
