@@ -30,5 +30,5 @@ https://github.com/user-attachments/assets/d9d4639c-3d14-46a5-98cb-22c348ede57c
 
 ## Development Notes
 
-https://www.slideshare.net/slideshow/leitner-box-spaced-repetition-desktop-flashcard-application-in-javafx-sqlite-development-log/283405802
+https://www.slideshare.net/slideshow/leitner-box-spaced-repetition-desktop-flashcard-application-in-javafx-sqlite-development-log-1e6e/283453220
 
