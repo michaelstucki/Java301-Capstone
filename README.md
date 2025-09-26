@@ -14,7 +14,7 @@ User can open a deck to view, add, delete, or edit cards in the deck. Finally, u
 
 ## Flashcard Drills
 
-During a drill session, user is presented with the front side of a card. When the card is clicked, its back side is shown. User decides whether they got it correct and then presses either *Pass* or *Fail* accordingly. Failed cards are shown again in the session while passed cards are not. A passed card advances to the next Leitner box and its due date is set based on the box in which it resides. A failed card returns to the first box.
+During a drill session, user is presented with the front side of a card. When the card is clicked, its back side is revealed. User decides whether they got it correct and then presses either *Pass* or *Fail* accordingly. Failed cards are shown again in the session; passed cards are not. A passed card advances to the next Leitner box and its due date is set based on the box in which it resides. A failed card returns to the first box.
 
 ## Spaced Repetition
 
